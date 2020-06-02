@@ -1,3 +1,10 @@
+/***************************************************************
+ * @purpose  : Define registration css  
+ * @file     : registration.css              
+ * @overview : Styling To User Registrtaion 
+ * @author   : priti shinde
+ * @since    : 1/6/2020
+***************************************************************/
 
 .register-header{
     font-size: 28px;
@@ -5,11 +12,13 @@
     border-radius: 24px;
     padding: 2% 3%;
     background-color:#303f9f1f;
+    
 }
 .container{
     display: flex;
     flex-direction: row;
     justify-content: center;
+
 }
 
 .registerCard{
@@ -19,9 +28,9 @@
     align-items: center;
     width: 30%;
     padding: 2%;
-    min-height: 420px;
-    margin-top: 6%;
-    
+    min-height: 530px;
+    margin-top: 2%;
+        
 }
 .input-container{
     display: flex;
