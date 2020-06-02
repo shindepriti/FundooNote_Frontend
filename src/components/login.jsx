@@ -1,15 +1,14 @@
 import React from 'react'
 import "../css/loginstyle.css"
 
-
 import Button from '@material-ui/core/Button';
-
 import Link from '@material-ui/core/Link';
 import { Card, TextField } from '@material-ui/core';
 import { Divider } from '@material-ui/core';
+
 class Login extends React.Component{
-    constructor(props){
-        super(props)
+    constructor(){
+        super()
             this.state={
                 email:'',
                 password:''
@@ -18,10 +17,6 @@ class Login extends React.Component{
     
     handleChange=(event)=>{
         this.setState({[event.target.name]: event.target.value});
-    }
-
-    handleSubmit(event) {
-        const { email, password } = this.state;
     }
 
     render(){
@@ -33,8 +28,8 @@ class Login extends React.Component{
                     </div>
                     <div className="input-container">
                         
-                        <TextField name="email" type="text"  label="Email" value={this.state.email} variant="outlined" onChange={this.handleChange} required />
-                        <TextField name="password" type="password" label="Password" value={this.state.password} variant="outlined" onChange={this.handleChange} required />
+                        <TextField name="email" type="text"  label="Email" value={this.state.email} onChange={this.handleChange} required />
+                        <TextField name="password" type="password" label="Password" value={this.state.password} onChange={this.handleChange} required />
                     </div>
                     <div className="flex-container-row full-width">
                         <div className="div-display">
