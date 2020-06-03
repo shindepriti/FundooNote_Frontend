@@ -42,7 +42,7 @@ class Registration extends React.Component{
             email:this.state.email,
             password:this.state.password  
         }
-        console.log(user)
+        console.log("componet",user)
         register(user)
             .then((response)=>{
                 console.log(response)

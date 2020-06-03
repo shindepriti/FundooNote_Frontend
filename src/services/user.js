@@ -10,23 +10,11 @@ import axios from 'axios';
 
 export function login(user){
     
-    axios.post('http://fundoonotes.incubation.bridgelabz.com/explorer/',user)
-    .then(res=>{
-        console.log(res)
-        console.log(res.user)
-    })
-    .catch(error=>{
-        console.log(error)
-
-    }) 
+   return axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/login",user)
+   
 }
 
 export function register(user){
-    axios.post("http://fundoonotes.incubation.bridgelabz.com/explorer/",user)
-        .then(res=>{
-            console.log(res)
-        })
-        .catch(error=>{
-            console.log(error)
-        })
+   return axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp",user)
+   
 }
