@@ -9,6 +9,7 @@
 import React from 'react'
 import "../css/registration.css"
 
+import {register} from '../services/user'
 import Button from '@material-ui/core/Button';
 import { Card, TextField } from '@material-ui/core';
 
@@ -22,14 +23,37 @@ class Registration extends React.Component{
                 role:'',
                 service:'',
                 email:'',
-                password:'',
-                confirmepassword:''
+                password:''
             }
+                        
     }
     
     handleChange=(event)=>{
         this.setState({[event.target.name]: event.target.value});
     }
+
+    handleClick=(event)=>{
+        var user={
+            firstName:this.state.firstName,
+            lastName:this.state.lastName,
+            phoneNumber:this.state.phoneNumber,
+            role:this.state.role,
+            service:this.state.service,
+            email:this.state.email,
+            password:this.state.password  
+        }
+        console.log(user)
+        register(user)
+            .then((response)=>{
+                console.log(response)
+               
+            })
+            .catch(error=>{
+                console.log(error)
+        
+            }) 
+    }
+    
 
     render(){
         return (
@@ -50,7 +74,7 @@ class Registration extends React.Component{
                     </div>
         
                     <div>
-                        <Button variant="outlined" size="small" variant="outlined" color="primary">Register</Button>
+                        <Button variant="outlined" size="small" variant="outlined" color="primary" onClick={this.handleClick}>Register</Button>
                     </div>
 
                 </Card> 

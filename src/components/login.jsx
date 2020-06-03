@@ -29,13 +29,11 @@ class Login extends React.Component{
     }
 
     handleClick = (event)=>{
-
         var user={
-        email:this.state.email,
-        password:this.state.password
-           
+            email:this.state.email,
+            password:this.state.password  
         }
-
+        console.log(user)
         login(user)
             .then((response)=>{
                 console.log(response)
