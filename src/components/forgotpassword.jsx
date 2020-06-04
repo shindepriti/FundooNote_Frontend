@@ -1,7 +1,7 @@
 /***************************************************************
  * @purpose  : Define forgot password file 
  * @file     : forgotpassword.jsx             
- * @overview : componet To Handel When User Use Forgot Password  
+ * @overview : Componet To Handel When User Forgot Password  
  * @author   : priti shinde
  * @since    : 3/6/2020
 ***************************************************************/
@@ -49,7 +49,7 @@ class Forgotpassword extends  React.Component{
             <div className="container">            
                 <Card className="forgotCard">
                     <div className="forgot-header">
-                      Fundoo ForgotPassword      
+                       Forgot Password      
                     </div>
                     <div className="input-container">
                         <TextField name="email" type="text" variant="outlined" label="Email" value={this.state.email} onChange={this.handleChange} />

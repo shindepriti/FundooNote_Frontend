@@ -10,8 +10,9 @@
     align-items: center;
     width: 30%;
     padding: 2%;
-    min-height: 300px;
-    margin-top: 7%;
+    min-height: 200px;
+    margin-top: 10%;
+    border-radius: 10px !important;
     
 }
 
@@ -21,5 +22,6 @@
     border-radius: 24px;
     padding: 2% 3%;
     background-color: yellow;
+    
 }
 

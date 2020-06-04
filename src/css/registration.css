@@ -11,7 +11,7 @@
     font-weight: 300;
     border-radius: 24px;
     padding: 2% 3%;
-    background-color:#303f9f1f;
+    background-color:yellow;
     
 }
 .container{
@@ -30,7 +30,8 @@
     padding: 2%;
     min-height: 530px;
     margin-top: 2%;
-        
+    border-radius: 10px !important;
+      
 }
 .input-container{
     display: flex;
