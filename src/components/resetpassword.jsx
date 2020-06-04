@@ -15,7 +15,8 @@ class Resetpassword extends React.Component{
     constructor(){
         super()
             this.state={
-                newPassword:""
+                newPassword:"",
+                confirmPassword:""
             }
     }
 
@@ -25,7 +26,8 @@ class Resetpassword extends React.Component{
 
     handleSubmit=(event)=>{
         var user ={
-            newPassword:this.state.newPassword
+            newPassword:this.state.newPassword,
+            confirmPassword:this.state.confirmPassword
         }
 
         var token = this.props.match.params.token
@@ -48,7 +50,8 @@ class Resetpassword extends React.Component{
                         Reset Password
                     </div>
                     <div className="input-container">
-                        <TextField name="newPassword" type="text" label="New Password" variant="outlined" value={this.state.newPassword} onChange={this.handleChange}></TextField>
+                        <TextField name="newPassword" type="text" label="Password" variant="outlined" value={this.state.newPassword} onChange={this.handleChange} required></TextField>
+                        <TextField name="confirmPassword" type="text" label="Confirm Password" variant="outlined" value={this.state.confirmPassword} onChange={this.handleChange} required></TextField>
                     </div>
                     <div>
                         <Button variant="outlined" color="primary" onClick={this.handleSubmit}>submit</Button>
