@@ -48,6 +48,10 @@ class Login extends React.Component{
     handleRegister=()=>{
         this.props.history.push('/register')
     }
+
+    handleForgotPassword=()=>{
+        this.props.history.push('/forgotpassword')
+    }
     
     render(){
         return (
@@ -58,12 +62,12 @@ class Login extends React.Component{
                     </div>
                     <div className="input-container">
                         
-                        <TextField name="email" type="text"  label="Email" value={this.state.email} onChange={this.handleChange} />
-                        <TextField name="password" tye="password" label="Password" value={this.state.password} onChange={this.handleChange} />
+                        <TextField name="email" type="text" label="Email" value={this.state.email} onChange={this.handleChange} />
+                        <TextField name="password" type="password" label="Password" value={this.state.password} onChange={this.handleChange} />
                     </div>
                     <div className="flex-container-row full-width">
                         <div className="div-display">
-                            <Link component="button" variant="body2"> Forgot password ?</Link>
+                            <Link component="button" variant="body2" onClick={this.handleForgotPassword}> Forgot password ?</Link>
                         </div>
                         <div className="div-display">                        
                             <Button variant="outlined" color="primary" onClick={this.handleClick}>Login</Button>
@@ -71,7 +75,7 @@ class Login extends React.Component{
                     </div >                    
                     <Divider className="divider-margin full-width"  variant="middle" />
                     <div>
-                        <Button variant="outlined" size="small" color="secondary" onClick={this.handleRegister} >Create New User</Button>
+                        <Button variant="outlined" size="small" color="secondary" onClick={this.handleRegister} >Create New Account</Button>
                     </div>
 
                 </Card> 

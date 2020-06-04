@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.forgotCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 30%;
+    padding: 2%;
+    min-height: 300px;
+    margin-top: 7%;
+    
+}
+
+.forgot-header{
+    font-size: 28px;
+    font-weight: 300;
+    border-radius: 24px;
+    padding: 2% 3%;
+    background-color: yellow;
+}
+

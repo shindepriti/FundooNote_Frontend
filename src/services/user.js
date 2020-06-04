@@ -18,3 +18,7 @@ export function register(user){
    return axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp",user)
    
 }
+
+export function forgotPassword(user){
+   return axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/reset",user)
+}
