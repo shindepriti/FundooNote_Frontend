@@ -22,3 +22,7 @@ export function register(user){
 export function forgotPassword(user){
    return axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/reset",user)
 }
+
+export function resetPassword(user,token){
+   return axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password?access_token=${token}`,user)
+}

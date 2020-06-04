@@ -14,7 +14,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Registration} />
           <Route path="/forgotpassword" component={Forgotpassword} />
-          <Route path="/resetpassword" component={Resetpassword}/>
+          <Route path="/resetpassword/:token" component={Resetpassword}/>
         </div>
       </Router>
     </div>
