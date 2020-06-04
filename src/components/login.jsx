@@ -45,6 +45,9 @@ class Login extends React.Component{
             }) 
     }
 
+    handleRegister=()=>{
+        this.props.history.push('/register')
+    }
     
     render(){
         return (
@@ -56,7 +59,7 @@ class Login extends React.Component{
                     <div className="input-container">
                         
                         <TextField name="email" type="text"  label="Email" value={this.state.email} onChange={this.handleChange} />
-                        <TextField name="password" type="password" label="Password" value={this.state.password} onChange={this.handleChange} />
+                        <TextField name="password" tye="password" label="Password" value={this.state.password} onChange={this.handleChange} />
                     </div>
                     <div className="flex-container-row full-width">
                         <div className="div-display">
@@ -68,7 +71,7 @@ class Login extends React.Component{
                     </div >                    
                     <Divider className="divider-margin full-width"  variant="middle" />
                     <div>
-                        <Button variant="outlined" size="small" color="secondary" >Create New User</Button>
+                        <Button variant="outlined" size="small" color="secondary" onClick={this.handleRegister} >Create New User</Button>
                     </div>
 
                 </Card> 
