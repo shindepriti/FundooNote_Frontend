@@ -11,7 +11,7 @@ import "../css/registration.css"
 
 import {register} from '../services/user'
 import Button from '@material-ui/core/Button';
-import { Card, TextField } from '@material-ui/core';
+import { Card, TextField ,Snackbar,IconButton} from '@material-ui/core';
 
 class Registration extends React.Component{
     constructor(){
@@ -24,9 +24,16 @@ class Registration extends React.Component{
                 email:'',
                 password:''
             }
+            this.state={
+                snackbaropen:false,snackbarmsg:""
+            }
                         
     }
     
+    snackbarClose = (event)=>{
+        this.setState({snackbaropen:false})
+    }
+
     handleChange=(event)=>{
         this.setState({[event.target.name]: event.target.value});
     }
@@ -44,18 +51,32 @@ class Registration extends React.Component{
         register(user)
             .then((response)=>{
                 console.log(response)
+                this.setState({snackbaropen:true,snackbarmsg:"Registartion Successfull"})
                
             })
             .catch(error=>{
                 console.log(error)
-        
+                this.setState({snackbaropen:true,snackbarmsg:error.message})
             }) 
     }
     
 
     render(){
         return (
-            <div className="container">            
+            <div className="container"> 
+            <Snackbar
+                anchorOrigin={{vertical:'center',horizontal:'center'}}
+                open={this.state.snackbaropen}
+                autoHideDuration={4000}
+                onClose={this.snackbarClose}
+
+                message={<span id="message-id">{this.state.snackbarmsg}</span>}
+                action={[<IconButton key="close" arial-label="close" color="inherit" onClick={this.snackbarClose}>
+                    x
+                </IconButton>]}
+            />
+                
+                  
                 <Card className="registerCard">
                     <div className="register-header">
                       Registration      

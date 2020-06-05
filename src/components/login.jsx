@@ -13,15 +13,22 @@ import {login} from '../services/user'
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { Card, TextField } from '@material-ui/core';
-import { Divider } from '@material-ui/core';
+import { Divider ,Snackbar,IconButton } from '@material-ui/core';
 
 class Login extends React.Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
             this.state={
                 email:'',
                 password:''
             }
+            this.state={
+                snackbaropen:false,snackbarmsg:""
+            }
+    }
+
+    snackbarClose = (event)=>{
+        this.setState({snackbaropen:false})
     }
     
     handleChange=(event)=>{
@@ -34,14 +41,16 @@ class Login extends React.Component{
             password:this.state.password  
         }
         console.log(user)
+       
         login(user)
             .then((response)=>{
                 console.log(response)
+                this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})
                
             })
             .catch(error=>{
                 console.log(error)
-        
+                this.setState({snackbaropen:true,snackbarmsg:error.message})
             }) 
     }
 
@@ -55,7 +64,18 @@ class Login extends React.Component{
     
     render(){
         return (
-            <div className="container">            
+            <div className="container">
+                <Snackbar
+                    anchorOrigin={{vertical:'center',horizontal:'center'}}
+                    open={this.state.snackbaropen}
+                    autoHideDuration={4000}
+                    onClose={this.snackbarClose}
+
+                    message={<span id="message-id">{this.state.snackbarmsg}</span>}
+                    action={[<IconButton key="close" arial-label="close" color="inherit" onClick={this.snackbarClose}>
+                        x
+                    </IconButton>]}
+                />            
                 <Card className="loginCard">
                     <div className="login-header">
                        Fundoo Login      

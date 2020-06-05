@@ -34,3 +34,15 @@
     height: 100%;
 }
 
+.flex-container-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.div-display{
+    display: inline;
+}
+
