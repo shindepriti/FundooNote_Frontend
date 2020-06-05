@@ -74,17 +74,17 @@ class Resetpassword extends React.Component{
                             Reset Password
                         </div>
                         <div className="input-container">
-                            <TextField name="newPassword" type="password"  label="newPassword" variant="outlined" value={this.state.newPassword}  onChange={this.handleChange} required />
+                            <TextField name="newPassword" type="password"  label="new Password" variant="outlined" value={this.state.newPassword}  onChange={this.handleChange} required />
                             <TextField name="confirmPassword" type="password" label="Confirm Password" variant="outlined" value={this.state.confirmPassword} onChange={this.handleChange} required/>
                         </div >
                         <div className="flex-container-row full-width">
-                        <div className="div-display">
-                            <Button component="button" variant="outlined" color="primary" onClick={this.handleLogin}>Login</Button>
-                        </div>
-                        <div className="div-display">                        
-                            <Button variant="outlined" color="primary" onClick={this.handleClick}>Submit</Button>
-                        </div>
-                    </div > 
+                            <div className="div-display">
+                                <Button component="button" variant="outlined" color="primary" onClick={this.handleLogin}>Login</Button>
+                            </div>
+                            <div className="div-display">                        
+                                <Button variant="outlined" color="primary" onClick={this.handleClick}>Submit</Button>
+                            </div>
+                        </div > 
 
 
                     </Card>

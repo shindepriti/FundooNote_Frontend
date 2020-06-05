@@ -13,7 +13,9 @@ import {login} from '../services/user'
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { Card, TextField } from '@material-ui/core';
-import { Divider ,Snackbar,IconButton } from '@material-ui/core';
+import { Divider ,Snackbar,IconButton,InputAdornment} from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 class Login extends React.Component{
     constructor(props){
@@ -25,6 +27,10 @@ class Login extends React.Component{
             this.state={
                 snackbaropen:false,snackbarmsg:""
             }
+            this.state={
+                showPassword:false
+            }
+           
     }
 
     snackbarClose = (event)=>{
@@ -34,6 +40,14 @@ class Login extends React.Component{
     handleChange=(event)=>{
         this.setState({[event.target.name]: event.target.value});
     }
+
+    handleClickShowPassword = (event) => {
+        this.setState({[event.target.showPassword]: !event.target.value});
+      };
+    
+    handleMouseDownPassword = (event) => {
+        event.preventDefault();
+      };
 
     handleClick = (event)=>{
         var user={
@@ -45,6 +59,7 @@ class Login extends React.Component{
         login(user)
             .then((response)=>{
                 console.log(response)
+                localStorage.setItem("token",response.data.id);
                 this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})
                
             })
@@ -83,7 +98,11 @@ class Login extends React.Component{
                     <div className="input-container">
                         
                         <TextField name="email" type="text" label="Email" value={this.state.email} onChange={this.handleChange} />
-                        <TextField name="password" type="password" label="Password" value={this.state.password} onChange={this.handleChange} />
+                        <TextField name="password" type={this.state.password ? 'text' : 'password'} label="Password" value={this.state.password} onChange={this.handleChange}
+                            endAdorment={<InputAdornment position="end">
+                                <IconButton arial-label="toggle password visibility" onClick={this.handleClickShowPassword}
+                                    onMouseDown={this.handleMouseDownPassword}> {this.state.showPassword ? <Visibility/>:<VisibilityOff/>}</IconButton>/></InputAdornment>} />
+                        
                     </div>
                     <div className="flex-container-row full-width">
                         <div className="div-display">
