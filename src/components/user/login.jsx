@@ -7,9 +7,9 @@
 ***************************************************************/
 
 import React from 'react'
-import "../css/loginstyle.css"
+import "../../css/loginstyle.css"
 
-import {login} from '../services/user'
+import {login} from '../../services/user'
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { Card, TextField } from '@material-ui/core';

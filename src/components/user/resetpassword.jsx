@@ -6,8 +6,8 @@
  * @since    : 3/6/2020
 ***************************************************************/
 import React from 'react'
-import '../css/forgotstyle.css'
-import {resetPassword} from '../services/user'
+import '../../css/forgotstyle.css'
+import {resetPassword} from '../../services/user'
 
 import {Card, TextField, Button,Snackbar,IconButton} from '@material-ui/core'
 

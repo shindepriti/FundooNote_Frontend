@@ -6,8 +6,8 @@
  * @since    : 3/6/2020
 ***************************************************************/
 import React from 'react'
-import {forgotPassword} from "../services/user";
-import "../css/forgotstyle.css"
+import {forgotPassword} from "../../services/user";
+import "../../css/forgotstyle.css"
 
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';

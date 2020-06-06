@@ -7,9 +7,10 @@
 ***************************************************************/
 
 import React from 'react'
-import "../css/registration.css"
+import "../../css/registration.css"
 
-import {register} from '../services/user'
+import {emailValidate , passwordValiadate } from '../../services/validation'
+import {register} from '../../services/user'
 import Button from '@material-ui/core/Button';
 import { Card, TextField ,Snackbar,IconButton} from '@material-ui/core';
 
@@ -19,15 +20,12 @@ class Registration extends React.Component{
             this.state={
                 firstName:'',
                 lastName:'',
-                role:'',
                 service:'',
                 email:'',
-                password:''
-            }
-            this.state={
+                password:'',
+                confirmPassword:'',
                 snackbaropen:false,snackbarmsg:""
-            }
-                        
+            } 
     }
     
     snackbarClose = (event)=>{
@@ -42,10 +40,10 @@ class Registration extends React.Component{
         var user={
             firstName:this.state.firstName,
             lastName:this.state.lastName,
-            role:this.state.role,
             service:this.state.service,
             email:this.state.email,
-            password:this.state.password  
+            password:this.state.password,
+            confirmPassword:this.state.confirmPassword  
         }
         console.log("componet",user)
         register(user)
@@ -56,12 +54,20 @@ class Registration extends React.Component{
             })
             .catch(error=>{
                 console.log(error)
-                this.setState({snackbaropen:true,snackbarmsg:error.message})
+                    this.setState({snackbaropen:true,snackbarmsg:error.message})
             }) 
     }
-    
+
+    validate(){
+        if(emailValidate(this.state.email) && passwordValiadate(this.state.password)
+          && passwordValiadate(this.state.confirmPassword))
+                alert('email or password incorrect')
+           
+                    
+    }
 
     render(){
+        this.validate()
         return (
             <div className="container"> 
             <Snackbar
@@ -84,11 +90,10 @@ class Registration extends React.Component{
                     <div className="input-container">
                         <TextField name="firstName" type="text" label="First Name" value={this.state.firstName}  onChange={this.handleChange} required />
                         <TextField name="lastName" type="text"  label="Last Name" value={this.state.lastName}  onChange={this.handleChange} required />
-                        <TextField name="role" type="text"  label="role" value={this.state.role}  onChange={this.handleChange} required />
                         <TextField name="service" type="text"  label="service" value={this.state.service}  onChange={this.handleChange} required />
                         <TextField name="email" type="text"  label="Email" value={this.state.email}  onChange={this.handleChange} required />
-                        <TextField name="password" type="password"  label="password" value={this.state.password}  onChange={this.handleChange} required />
-                       
+                        <TextField name="password" type="password"  label="password" value={this.state.password} helperText="Minimum 8 character" onChange={this.handleChange} required />
+                        <TextField name="confirmPassword" type="confirmPassword"  label="confirmPassword" value={this.state.confirmPassword}  onChange={this.handleChange} required />
                     </div>
         
                     <div>
