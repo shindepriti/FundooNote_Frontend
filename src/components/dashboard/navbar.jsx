@@ -1,12 +1,14 @@
 import React from 'react'
-
+import keep from '../../images/keep_logo.png'
 import { fade} from '@material-ui/core/styles';
 import { withStyles, AppBar } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Refresh from '@material-ui/icons/Refresh'
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -25,7 +27,12 @@ const styles = theme => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    
+    logo:{
+        marginRight:"10px",
+        marginLeft:"10px",
+        width:"40px",
+
+    },
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -103,6 +110,7 @@ class Navbar extends React.Component{
                             <IconButton edge="start"  color="inherit" aria-label="open drawer">
                                 <MenuIcon />
                             </IconButton>
+                            <img className={classes.logo} src={keep} alt="Logo" /> 
                            
                             <Typography variant="h6" noWrap>
                                 FundooNote
@@ -111,28 +119,30 @@ class Navbar extends React.Component{
                                 <div className={classes.searchIcon}>
                                     <SearchIcon />
                                 </div>
-                                <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
+                                <InputBase placeholder="Search…" classes={{ root: classes.inputRoot,input: classes.inputInput,}}
                                 inputProps={{ 'aria-label': 'search' }}
                                 />
                             </div>
-                            <div className={classes.grow} />
-                                <div className={classes.sectionDesktop}>
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="account of current user"
-                                        aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                                        aria-haspopup="true"
-                                        onClick={this.handleProfileMenuOpen}
-                                        color="inherit"
-                                        >
-                                        <AccountCircle />
-                                    </IconButton>
-                                </div>
+                                <div className={classes.grow} />
+                                    <div className={classes.sectionDesktop}>
+                                        <IconButton color="inherit">
+                                           <Refresh/>
+                                        </IconButton>
+                                        <IconButton color="inherit">
+                                            <NotificationsIcon/>
+                                        </IconButton>
+
+                                        <IconButton
+                                            edge="end"
+                                            aria-label="account of current user"
+                                            aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                                            aria-haspopup="true"
+                                            onClick={this.handleProfileMenuOpen}
+                                            color="inherit"
+                                            >
+                                            <AccountCircle />
+                                        </IconButton>
+                                    </div>
                         </Toolbar>
                     </AppBar>
                     {renderMenu}
