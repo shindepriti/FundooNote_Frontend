@@ -6,8 +6,8 @@ import Login from './components/user/login';
 import Registration from './components/user/registration';
 import Forgotpassword from './components/user/forgotpassword';
 import Resetpassword from './components/user/resetpassword';
-import Dashboard from './components/dashboard/dashboard';
-import Appbar from './components/dashboard/appbar';
+
+import Home from './components/dashboard/home';
 function App() {
   return (
     <div className="App">
@@ -17,7 +17,8 @@ function App() {
           <Route path="/register" component={Registration} />
           <Route path="/forgotpassword" component={Forgotpassword} />
           <Route path="/resetpassword/:token" component={Resetpassword}/>
-          <Route path="/app" component={Appbar} />
+          <Route path="/navbar" component={Home} />
+          
         </div>
       </Router>
     </div>
