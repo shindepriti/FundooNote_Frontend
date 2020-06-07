@@ -13,6 +13,8 @@ import {emailValidate , passwordValiadate } from '../../services/validation'
 import {register} from '../../services/user'
 import Button from '@material-ui/core/Button';
 import { Card, TextField ,Snackbar,IconButton} from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 class Registration extends React.Component{
     constructor(){
@@ -24,7 +26,9 @@ class Registration extends React.Component{
                 email:'',
                 password:'',
                 confirmPassword:'',
-                snackbaropen:false,snackbarmsg:""
+                snackbaropen:false,
+                snackbarmsg:"",
+                
             } 
     }
     

@@ -9,10 +9,11 @@
 import React from 'react'
 import "../../css/loginstyle.css"
 
+import FormControl from '@material-ui/core/FormControl';
 import {login} from '../../services/user'
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import { Card, TextField } from '@material-ui/core';
+import { Card, TextField, InputLabel, Input } from '@material-ui/core';
 import { Divider ,Snackbar,IconButton,InputAdornment} from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -22,14 +23,12 @@ class Login extends React.Component{
         super(props)
             this.state={
                 email:'',
-                password:''
+                password:'',
+                snackbaropen:false,
+                snackbarmsg:"",
+
             }
-            this.state={
-                snackbaropen:false,snackbarmsg:""
-            }
-            this.state={
-                showPassword:false
-            }
+          
            
     }
 
@@ -42,7 +41,7 @@ class Login extends React.Component{
     }
 
     handleClickShowPassword = (event) => {
-        this.setState({[event.target.showPassword]: !event.target.value});
+        this.setState({showPassword:!this.state.showPassword});
       };
     
     handleMouseDownPassword = (event) => {
@@ -97,12 +96,17 @@ class Login extends React.Component{
                     </div>
                     <div className="input-container">
                         
-                        <TextField name="email" type="text" label="Email" value={this.state.email} onChange={this.handleChange} />
-                        <TextField name="password" type={this.state.password ? 'text' : 'password'} label="Password" value={this.state.password} onChange={this.handleChange}
-                            endAdorment={<InputAdornment position="end">
-                                <IconButton arial-label="toggle password visibility" onClick={this.handleClickShowPassword}
-                                    onMouseDown={this.handleMouseDownPassword}> {this.state.showPassword ? <Visibility/>:<VisibilityOff/>}</IconButton>/></InputAdornment>} />
-                        
+                        <TextField name="email" type="text" label="Email" value={this.state.email} onChange={this.handleChange} required />
+                        <FormControl>
+                            <InputLabel>Password</InputLabel>
+                            <Input name="password" type={this.state.showPassword ? 'text' : 'password'} value={this.state.password} onChange={this.handleChange} required
+                                endAdornment={ <InputAdornment position="end">
+                                    <IconButton aria-label="password visibility"  onClick={this.handleClickShowPassword} onMouseDown={this.handleMouseDownPassword}>
+                                        {this.state.showPassword ? <Visibility /> : <VisibilityOff />}</IconButton>
+                                </InputAdornment>
+                                }
+                            />
+                        </FormControl>
                     </div>
                     <div className="flex-container-row full-width">
                         <div className="div-display">
