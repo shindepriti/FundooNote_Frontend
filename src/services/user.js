@@ -8,21 +8,57 @@
 
 import axios from 'axios';
 
-export function login(user){
-    
-   return axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/login",user)
-   
+export function login(loginData){
+   return new Promise((resolve, reject) => {
+      axios.post('http://fundoonotes.incubation.bridgelabz.com/api/user/login',loginData)
+      .then((response) => {
+          resolve(response)
+      })
+      .catch((error) => {
+          reject(error)
+      })
+})
 }
-
-export function register(user){
-   return axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp",user)
    
+
+
+export function register(registerData){
+      return new Promise((resolve, reject) => {
+         axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp",registerData)
+         .then((response) => {
+             resolve(response)
+         })
+         .catch((error) => {
+             reject(error)
+         })
+   })
 }
 
 export function forgotPassword(user){
-   return axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/reset",user)
+   
+   return new Promise((resolve, reject) => {
+      axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/reset",user)
+      .then((response) => {
+          resolve(response)
+      })
+      .catch((error) => {
+          reject(error)
+      })
+})
 }
 
 export function resetPassword(user,token){
-   return axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password?access_token=${token}`,user)
+   // var response =  axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password?access_token=${token}`,user)
+   // return response
+
+   return new Promise((resolve, reject) => {
+      axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password?access_token=${token}`,user)
+      .then((response) => {
+          resolve(response)
+      })
+      .catch((error) => {
+          reject(error)
+      })
+})
+
 }

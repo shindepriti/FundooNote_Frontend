@@ -1,5 +1,5 @@
 import React from 'react'
-import keep from '../../images/keep_logo.png'
+import keep from '../../assets/keep_logo.png'
 import { fade} from '@material-ui/core/styles';
 import { withStyles, AppBar } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar';
@@ -83,7 +83,7 @@ class Navbar extends React.Component{
         this.setState({ anchorEl: null });
     };
 
-    logOut(e) {
+    logOut(event) {
     }
 
 
@@ -100,7 +100,7 @@ class Navbar extends React.Component{
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
-                <MenuItem onClick={this.logOut.bind(this)}>Logout</MenuItem>
+                <MenuItem onClick={this.logOut}>Logout</MenuItem>
             </Menu>
         );
           return(
@@ -119,9 +119,7 @@ class Navbar extends React.Component{
                                 <div className={classes.searchIcon}>
                                     <SearchIcon />
                                 </div>
-                                <InputBase placeholder="Search…" classes={{ root: classes.inputRoot,input: classes.inputInput,}}
-                                inputProps={{ 'aria-label': 'search' }}
-                                />
+                                <InputBase placeholder="Search…" classes={{ root: classes.inputRoot,input: classes.inputInput,}}/>
                             </div>
                                 <div className={classes.grow} />
                                     <div className={classes.sectionDesktop}>
@@ -134,9 +132,8 @@ class Navbar extends React.Component{
 
                                         <IconButton
                                             edge="end"
-                                            aria-label="account of current user"
+                                            aria-label="account user"
                                             aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                                            aria-haspopup="true"
                                             onClick={this.handleProfileMenuOpen}
                                             color="inherit"
                                             >

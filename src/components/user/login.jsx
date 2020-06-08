@@ -26,13 +26,11 @@ class Login extends React.Component{
                 password:'',
                 snackbaropen:false,
                 snackbarmsg:"",
-
+                showPassword:false
             }
-          
-           
     }
 
-    snackbarClose = (event)=>{
+    snackbarClose = ()=>{
         this.setState({snackbaropen:false})
     }
     
@@ -40,7 +38,7 @@ class Login extends React.Component{
         this.setState({[event.target.name]: event.target.value});
     }
 
-    handleClickShowPassword = (event) => {
+    handleClickShowPassword = () => {
         this.setState({showPassword:!this.state.showPassword});
       };
     
@@ -74,6 +72,9 @@ class Login extends React.Component{
 
     handleForgotPassword=()=>{
         this.props.history.push('/forgotpassword')
+    }
+    handelDashoard=()=>{
+        this.props.history.push("/navbar")
     }
     
     render(){
@@ -113,12 +114,13 @@ class Login extends React.Component{
                             <Link component="button" variant="body2" onClick={this.handleForgotPassword}> Forgot password ?</Link>
                         </div>
                         <div className="div-display">                        
-                            <Button variant="outlined" color="primary" onClick={this.handleClick}>Login</Button>
+                            <Button variant="outlined" color="primary" onClick={this.handelDashoard} >Login</Button>
                         </div>
                     </div >                    
                     <Divider className="divider-margin full-width"  variant="middle" />
                     <div>
-                        <Button variant="outlined" size="small" color="secondary" onClick={this.handleRegister} >Create New Account</Button>
+                       
+                        <Link component="button" variant="body2" color="secondary" onClick={this.handleRegister}>Create New Account</Link>
                     </div>
 
                 </Card> 

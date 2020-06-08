@@ -49,9 +49,12 @@
     
 }
 
-.div-display{
+.div-display
+{
     display: inline;
+    font-size:200% !important
 }
+.div-display:hover {font-size: 200% !important;}
 
 .full-width{
     width: 100%;
