@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames'
 import keep from '../../assets/keep_logo.png'
 import { fade} from '@material-ui/core/styles';
-import { withStyles, AppBar,Drawer, ListItemIcon,List,ListItem,ListItemText, CssBaseline} from '@material-ui/core'
+import { withStyles, AppBar,Drawer, ListItemIcon,List,ListItem,ListItemText, CssBaseline, Tooltip} from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Refresh from '@material-ui/icons/Refresh'
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -22,6 +21,8 @@ import Delete from '@material-ui/icons/Delete';
 import Alarm  from '@material-ui/icons/Alarm';
 import Notes from '@material-ui/icons/Notes';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import Grid from '@material-ui/icons/Apps'
+import ListIcon from '@material-ui/icons/List'
 
 const drawerWidth = 240;
 
@@ -153,49 +154,54 @@ class Navbar extends React.Component{
         this.state = {
             anchorEl: null,
             open:false,
+            view :false
         };
     }
 
-  handleDrawerOpen = () => {
+    handleDrawerOpen = () => {
     this.setState({ open: true });
-  };
+    };
 
-  handleDrawerClose = () => {
+    handleDrawerClose = () => {
     this.setState({ open: false });
-  };
+    };
 
-  handleProfileMenuOpen = event => {
+    handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
-};
+    };
 
-changeView = (event, viewType)=>{
-  event.preventDefault()
-  this.setState({typeOfNote:viewType})
-}
-
-logOut(event) {
+    changeView = (event, viewType)=>{
     event.preventDefault()
-}
-handleMenuClose = () => {
-    this.setState({ anchorEl: null });
-};
+    this.setState({typeOfNote:viewType})
+    }
 
-  render() {
-    const { classes, theme } = this.props;
-    const { anchorEl } = this.state;
-    const isMenuOpen = Boolean(anchorEl);
+    logOut(event) {
+        event.preventDefault()
+    }
+    handleMenuClose = () => {
+        this.setState({ anchorEl: null });
+    };
 
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={isMenuOpen}
-            onClose={this.handleMenuClose}
-        >
-            <MenuItem onClick={this.logOut.bind(this)}>Logout</MenuItem>
-        </Menu>
-    );
+    handleViewClick=()=> {
+        this.setState({view: !this.state.view});
+    }
+
+    render() {
+        const { classes, theme } = this.props;
+        const { anchorEl } = this.state;
+        const isMenuOpen = Boolean(anchorEl);
+
+        const renderMenu = (
+            <Menu
+                anchorEl={anchorEl}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={isMenuOpen}
+                onClose={this.handleMenuClose}
+            >
+                <MenuItem onClick={this.logOut.bind(this)}>Logout</MenuItem>
+            </Menu>
+        );
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -225,9 +231,17 @@ handleMenuClose = () => {
                     </div>
                     <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
-                            <IconButton color="inherit">
-                                <Refresh/>
-                            </IconButton>
+                            <div>
+                                <Tooltip title={this.state.view ? "Grid View" : "List View"}>
+                                    <IconButton 
+                                    color="inherit" 
+                                    onClick={this.handleViewClick} 
+                                    aria-label="List/Grid"
+                                    >
+                                    {this.state.view ? <Grid/> : <ListIcon/> }
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
                             <IconButton color="inherit">
                                 <NotificationsIcon/>
                             </IconButton>

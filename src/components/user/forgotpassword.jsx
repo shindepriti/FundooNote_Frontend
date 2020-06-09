@@ -7,7 +7,7 @@
 ***************************************************************/
 import React from 'react'
 import {forgotPassword} from "../../services/user";
-import "../../css/forgotstyle.scss"
+import "../../scss/forgotstyle.scss"
 
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';

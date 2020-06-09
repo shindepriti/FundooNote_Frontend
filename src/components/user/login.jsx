@@ -7,7 +7,7 @@
 ***************************************************************/
 
 import React from 'react'
-import "../../css/loginstyle.scss"
+import "../../scss/loginstyle.scss"
 
 import FormControl from '@material-ui/core/FormControl';
 import {login} from '../../services/user'

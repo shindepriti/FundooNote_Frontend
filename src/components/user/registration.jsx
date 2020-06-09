@@ -7,7 +7,7 @@
 ***************************************************************/
 
 import React from 'react'
-import "../../css/registration.scss"
+import "../../scss/registration.scss"
 import Link from '@material-ui/core/Link';
 import {emailValidate , passwordValiadate } from '../../services/validation'
 import {register} from '../../services/user'
