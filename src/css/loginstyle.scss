@@ -51,10 +51,10 @@
 
 .div-display
 {
-    display: inline;
-    font-size:200% !important
+    display: inherit;
+    color: #0606f8;
+    font-size:120% !important
 }
-.div-display:hover {font-size: 200% !important;}
 
 .full-width{
     width: 100%;

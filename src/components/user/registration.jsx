@@ -7,7 +7,7 @@
 ***************************************************************/
 
 import React from 'react'
-import "../../css/registration.css"
+import "../../css/registration.scss"
 import Link from '@material-ui/core/Link';
 import {emailValidate , passwordValiadate } from '../../services/validation'
 import {register} from '../../services/user'
@@ -24,7 +24,6 @@ class Registration extends React.Component{
                 lastName:'',
                 email:'',
                 password:'',
-                confirmPassword:'',
                 snackbaropen:false,
                 snackbarmsg:"",
                 showPassword:false,
@@ -57,8 +56,8 @@ class Registration extends React.Component{
             firstName:this.state.firstName,
             lastName:this.state.lastName,
             email:this.state.email,
-            password:this.state.password,
-            confirmPassword:this.state.confirmPassword  
+            password:this.state.password
+             
         }
         console.log("componet",user)
         register(user)
@@ -116,21 +115,10 @@ class Registration extends React.Component{
                                 }
                             />
                         </FormControl>
-                     
-                     <FormControl>
-                            <InputLabel>ConfirmPassword</InputLabel>
-                            <Input name="password" type={this.state.showPassword ? 'text' : 'password'} value={this.state.confirmPassword}  helperText="Minimum 8 character" onChange={this.handleChange} required
-                                endAdornment={ <InputAdornment position="end">
-                                    <IconButton aria-label="password visibility"  onClick={this.handleClickShowPassword} onMouseDown={this.handleMouseDownPassword}>
-                                        {this.state.showPassword ? <Visibility /> : <VisibilityOff />}</IconButton>
-                                </InputAdornment>
-                                }
-                            />
-                        </FormControl>
                     </div>
                     <div className="flex-container-row full-width">
                         <div className="div-display">
-                            <Link component="button" variant="body2" onClick={this.handleLogin}>Login</Link>
+                            <Link component="button" variant="body2" onClick={this.handleLogin}  className="div-display">Login</Link>
                         </div>
                         <div className="div-display">                        
                             <Button variant="outlined" color="primary" onClick={this.handleClick}>Register</Button>

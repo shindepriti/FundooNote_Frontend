@@ -6,10 +6,10 @@
  * @since    : 3/6/2020
 ***************************************************************/
 import React from 'react'
-import '../../css/forgotstyle.css'
+import '../../css/forgotstyle.scss'
 import {resetPassword} from '../../services/user'
 
-import {Card, TextField, Button,Snackbar,IconButton} from '@material-ui/core'
+import {Card, TextField, Button,Snackbar,IconButton,Link} from '@material-ui/core'
 
 class Resetpassword extends React.Component{
     constructor(){
@@ -79,7 +79,7 @@ class Resetpassword extends React.Component{
                         </div >
                         <div className="flex-container-row full-width">
                             <div className="div-display">
-                                <Button component="button" variant="outlined" color="primary" onClick={this.handleLogin}>Login</Button>
+                            <Link component="button" variant="body2" onClick={this.handleLogin} className="div-display">Login</Link>
                             </div>
                             <div className="div-display">                        
                                 <Button variant="outlined" color="primary" onClick={this.handleClick}>Submit</Button>

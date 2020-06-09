@@ -7,13 +7,13 @@
 ***************************************************************/
 
 import React from 'react'
-import "../../css/loginstyle.css"
+import "../../css/loginstyle.scss"
 
 import FormControl from '@material-ui/core/FormControl';
 import {login} from '../../services/user'
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import { Card, TextField, InputLabel, Input } from '@material-ui/core';
+import { Card, TextField, InputLabel, Input} from '@material-ui/core';
 import { Divider ,Snackbar,IconButton,InputAdornment} from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -57,12 +57,14 @@ class Login extends React.Component{
             .then((response)=>{
                 console.log(response)
                 localStorage.setItem("token",response.data.id);
-                this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})
-               
+                if(response.status === 200){
+                        //this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})
+                        this.props.history.push("/navbar")
+
+                }               
             })
             .catch(error=>{
-                console.log(error)
-                this.setState({snackbaropen:true,snackbarmsg:error.message})
+               this.setState({snackbaropen:true,snackbarmsg:error.message})
             }) 
     }
 
@@ -72,9 +74,6 @@ class Login extends React.Component{
 
     handleForgotPassword=()=>{
         this.props.history.push('/forgotpassword')
-    }
-    handelDashoard=()=>{
-        this.props.history.push("/navbar")
     }
     
     render(){
@@ -92,9 +91,10 @@ class Login extends React.Component{
                     </IconButton>]}
                 />            
                 <Card className="loginCard">
-                    <div className="login-header">
+                    <div className="login-header" >
                        Fundoo Login      
                     </div>
+                   
                     <div className="input-container">
                         
                         <TextField name="email" type="text" label="Email" value={this.state.email} onChange={this.handleChange} required />
@@ -114,7 +114,7 @@ class Login extends React.Component{
                             <Link component="button" variant="body2" onClick={this.handleForgotPassword}> Forgot password ?</Link>
                         </div>
                         <div className="div-display">                        
-                            <Button variant="outlined" color="primary" onClick={this.handelDashoard} >Login</Button>
+                            <Button variant="outlined" color="primary" onClick={this.handleClick} >Login</Button>
                         </div>
                     </div >                    
                     <Divider className="divider-margin full-width"  variant="middle" />
