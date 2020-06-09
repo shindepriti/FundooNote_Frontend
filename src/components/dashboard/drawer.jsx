@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames'
 import keep from '../../assets/keep_logo.png'
 import { fade} from '@material-ui/core/styles';
-import { withStyles, AppBar,Drawer, ListItemIcon,List,ListItem,ListItemText, CssBaseline, Tooltip} from '@material-ui/core'
+import { withStyles, AppBar,Drawer, ListItemIcon,List,ListItem,ListItemText, CssBaseline, Tooltip,Avatar} from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import Refresh from '@material-ui/icons/Refresh'
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -146,6 +146,12 @@ const styles = theme => ({
         width: theme.spacing.unit * 9 + 1,
         },
     },
+    
+    tools: {
+        marginTop: "9px",
+        marginBottom:"9px",
+        justifyContent:""
+      },
 });
 
 class Navbar extends React.Component{
@@ -184,6 +190,9 @@ class Navbar extends React.Component{
 
     handleViewClick=()=> {
         this.setState({view: !this.state.view});
+    }
+    handleRefresh=()=>{
+        window.location.reload();
     }
 
     render() {
@@ -231,7 +240,12 @@ class Navbar extends React.Component{
                     </div>
                     <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
-                            <div>
+                            <Tooltip title="Refresh" className={classes.tools}>
+                            <IconButton color="inherit" onClick={this.handleRefresh} className={classes.large}>
+                                <Refresh/>
+                            </IconButton>
+                            </Tooltip>
+                            <div className={classes.tools}>
                                 <Tooltip title={this.state.view ? "Grid View" : "List View"}>
                                     <IconButton 
                                     color="inherit" 
@@ -242,16 +256,18 @@ class Navbar extends React.Component{
                                     </IconButton>
                                 </Tooltip>
                             </div>
+                            <Tooltip title="Notification">
                             <IconButton color="inherit">
                                 <NotificationsIcon/>
                             </IconButton>
+                            </Tooltip>
                            <IconButton
-                                edge="end"
+                                
                                 aria-label="account user"
                                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                                 onClick={this.handleProfileMenuOpen}
                                 color="inherit">
-                                <AccountCircle />
+                                <Avatar alt="Remy Sharp" src={require('../../assets/jobs.jpeg')} className={classes.large} />
                             </IconButton>
                         </div>
             </Toolbar>
