@@ -7,9 +7,10 @@
 ***************************************************************/
 import React from 'react'
 import '../../scss/forgotstyle.scss'
-import {resetPassword} from '../../services/user'
-
 import {Card, TextField, Button,Snackbar,IconButton,Link} from '@material-ui/core'
+const resetPassword = require( '../../services/user')
+
+
 
 class Resetpassword extends React.Component{
     constructor(){

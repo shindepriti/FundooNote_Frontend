@@ -6,13 +6,14 @@
  * @since    : 3/6/2020
 ***************************************************************/
 import React from 'react'
-import {forgotPassword} from "../../services/user";
 import "../../scss/forgotstyle.scss"
-
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { Card, TextField,Snackbar,IconButton } from '@material-ui/core';
 
+// const  userService = require("../../services/user")
+import users from '../../services/user'
+const service = new users()
 class Forgotpassword extends  React.Component{
     constructor(){
         super()
@@ -23,6 +24,7 @@ class Forgotpassword extends  React.Component{
             snackbaropen:false,snackbarmsg:""
         }
     }
+
 
     snackbarClose = (event)=>{
         this.setState({snackbaropen:false})
@@ -41,7 +43,7 @@ class Forgotpassword extends  React.Component{
             email:this.state.email
         }
         console.log(user)
-        forgotPassword(user)
+        service.forgotPassword(user)
             .then((response)=>{
                 console.log(response)  
                 this.setState({snackbaropen:true, snackbarmsg:"Password Reset Link Send ,Check Your Email"})             

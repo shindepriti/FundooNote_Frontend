@@ -23,7 +23,8 @@ import Notes from '@material-ui/icons/Notes';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Grid from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
-
+import users from '../../services/user'
+const service = new users()
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -150,13 +151,13 @@ const styles = theme => ({
     tools: {
         marginTop: "9px",
         marginBottom:"9px",
-        justifyContent:""
+       
       },
 });
 
 class Navbar extends React.Component{
-    constructor(props){
-        super(props)
+    constructor(){
+        super()
         this.state = {
             anchorEl: null,
             open:false,
@@ -177,13 +178,21 @@ class Navbar extends React.Component{
     };
 
     changeView = (event, viewType)=>{
-    event.preventDefault()
-    this.setState({typeOfNote:viewType})
+      this.setState({typeOfNote:viewType})
     }
 
-    logOut(event) {
-        event.preventDefault()
+    handleLogOut() {
+      
+      service.logOut()
+      .then((response)=>{
+        console.log(response)
+          this.props.history.push("/")
+       })
+       .catch(error=>{
+        console.log(error)
+      }) 
     }
+
     handleMenuClose = () => {
         this.setState({ anchorEl: null });
     };
@@ -208,7 +217,7 @@ class Navbar extends React.Component{
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
-                <MenuItem onClick={this.logOut.bind(this)}>Logout</MenuItem>
+                <MenuItem onClick={this.handleLogOut}>Logout</MenuItem>
             </Menu>
         );
     return (
@@ -261,6 +270,7 @@ class Navbar extends React.Component{
                                 <NotificationsIcon/>
                             </IconButton>
                             </Tooltip>
+
                            <IconButton
                                 
                                 aria-label="account user"
