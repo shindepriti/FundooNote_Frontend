@@ -24,7 +24,9 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Grid from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
 import users from '../../services/user'
+import CardNote from '../note/createnote'
 const service = new users()
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -161,7 +163,8 @@ class Navbar extends React.Component{
         this.state = {
             anchorEl: null,
             open:false,
-            view :false
+            view :false,
+            typeOfNote:'Keep'
         };
     }
 
@@ -186,7 +189,7 @@ class Navbar extends React.Component{
       service.logOut()
       .then((response)=>{
         console.log(response)
-          this.props.history.push("/")
+          this.props.history.push("/login");
        })
        .catch(error=>{
         console.log(error)
@@ -325,6 +328,10 @@ class Navbar extends React.Component{
             </ListItem>
           </List>
         </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolar}/>
+          <CardNote view={this.state.view} typeOfNote={this.state.typeOfNote}/>
+        </main>
       </div>
     );
   }
