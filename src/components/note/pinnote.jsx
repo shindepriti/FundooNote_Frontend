@@ -1,8 +1,8 @@
 import React from 'react'
 import { Tooltip} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import pin from '../../assets/pin.svg'
-import unPin from '../../assets/unpin.svg'
+import pin from '../../assets/pin-outline.svg'
+import unPin from '../../assets/pin.svg'
 
 class Pinnote extends React.Component {
     constructor(props) {
