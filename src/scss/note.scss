@@ -1,0 +1,28 @@
+.create-note{
+    display: flex;
+    width: 600px;
+    flex-grow: 1;
+    margin:70px auto 16px auto;
+    
+}
+.input-title{
+    width: 100%;
+    margin: 10px ;
+    margin-bottom: 10px;
+    text-align: start;
+}
+
+.input-text{
+    width: 540px;
+}
+.input-note{
+    width: 100%;
+    margin: 0px 10px;
+    text-align: start;
+}
+.container{
+    display: flex;
+}
+.pin{
+    float: right;
+}

@@ -1,50 +1,39 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import {Input} from '@material-ui/core';
+import "../../scss/note.scss"
+import Pinnote from './pinnote'
 
-const styles = {
-    card: {
-        minWidth:50,
-        display: 'flex',
-        flexDirection:'column'
-    },
+class Note extends React.Component{ 
     
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-};
-const cardStyle = {
-    width:'35%',
-    margin:'5% 30%'
-}
+    handleInput = (event) => {
+        this.setState({ [event.target.name]: event.target.value})
+      }
 
-class Note extends React.Component{  
     render(){
-        const classes = styles;
             return(
-
-                <div  >
-                <Card style={cardStyle} variant="outlined">
-                    <Typography  className={classes.title} variant="h5"  component="h2" color="textSecondary" gutterBottom>
-                        Title
-                    </Typography>
-                    <CardContent>
-                        <div>
-                        <Typography component="p">
-                            Take a note...
-                        </Typography>
+                <div>
+                    <Card className="create-note" variant="outlined">
+                    <div>
+                        <div className="container">
+                            <div className="input-title">
+                                <Input name='title' className="input-text" placeholder="Title" onChange={this.handleInput} multiline={true}
+                                disableUnderline={true} ></Input>
+                            </div>
+                            <div className="pin">
+                                <Pinnote togglePin={this.togglePin} />
+                            </div>  
                         </div>
-                        
-                    </CardContent>
-                </Card>
-            </div>
+                        <div className="input-note">
+                            <Input name='description' className="input-text" placeholder="Take a note..." onChange={this.handleInput}
+                            multiline={true} disableUnderline={true} />
+                        </div>
+                    </div>
+                    </Card>
+                </div>
             )
 
 } 
 }
-export default (withStyles(styles)(Note))
+export default Note
