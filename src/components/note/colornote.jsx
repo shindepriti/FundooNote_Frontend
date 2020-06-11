@@ -6,14 +6,13 @@ class Colornote extends React.Component{
     constructor(){
         super()
         this.state={
-            background: '#fff',
+            color: '#fff',
             
         }
-
     }
 
     handleChangeComplete = (color) => {
-        this.setState({ background: color.hex });
+        this.setState({ color : color.hex});
       };
     
       render(){

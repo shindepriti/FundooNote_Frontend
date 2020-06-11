@@ -5,16 +5,17 @@ import {Input} from '@material-ui/core';
 import "../../scss/note.scss"
 import Pinnote from './pinnote'
 import Colornote from './colornote'
+import Archive from './archive'
 class Note extends React.Component{ 
-    
+
     handleInput = (event) => {
         this.setState({ [event.target.name]: event.target.value})
       }
 
     render(){
             return(
-                <div>
-                    <Card className="create-note" variant="outlined">
+                    <div>
+                        <Card className="create-note" variant="outlined">
                     <div>
                         <div className="container">
                             <div className="input-title">
@@ -29,8 +30,13 @@ class Note extends React.Component{
                             <Input name='description' className="input-text" placeholder="Take a note..." onChange={this.handleInput}
                             multiline={true} disableUnderline={true} />
                         </div>
-                        <div style={{display:"flex", margin:" 1%"}}>
-                        <Colornote/>
+                        <div style={{display:"flex"}} >
+                            <div className="icon">
+                                    <Archive/>
+                            </div>
+                            <div className="icon">
+                                <Colornote/>
+                            </div>
                         </div>
                     </div>
                     
