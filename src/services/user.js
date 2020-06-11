@@ -65,9 +65,10 @@ export default class user{
 
     }
 
-    logOut(token){
+    logOut(){
         return new Promise((resolve,reject) =>{
-            axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/logout?access_token=${token}`)
+            var AuthStr =localStorage.getItem('token');
+            axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/logout`,{ headers: { Authorization: AuthStr } })
             .then((response)=>{
                 resolve(response)
             

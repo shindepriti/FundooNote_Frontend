@@ -24,7 +24,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Grid from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
 import users from '../../services/user'
-import CardNote from '../note/createnote'
+import Addnote from '../note/addnote'
 const service = new users()
 
 const drawerWidth = 240;
@@ -330,7 +330,7 @@ class Navbar extends React.Component{
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolar}/>
-          <CardNote view={this.state.view} typeOfNote={this.state.typeOfNote}/>
+          <Addnote view={this.state.view} typeOfNote={this.state.typeOfNote}/>
         </main>
       </div>
     );
