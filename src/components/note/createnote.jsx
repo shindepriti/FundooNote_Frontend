@@ -6,6 +6,7 @@ import "../../scss/note.scss"
 import Pinnote from './pinnote'
 import Colornote from './colornote'
 import Archive from './archive'
+import Remind from './reminder'
 class Note extends React.Component{ 
 
     handleInput = (event) => {
@@ -31,6 +32,9 @@ class Note extends React.Component{
                             multiline={true} disableUnderline={true} />
                         </div>
                         <div style={{display:"flex"}} >
+                            <div className="icon">
+                                <Remind/>
+                            </div>
                             <div className="icon">
                                     <Archive/>
                             </div>
