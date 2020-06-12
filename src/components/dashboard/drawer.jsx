@@ -1,3 +1,10 @@
+/***************************************************************
+ * @purpose  : Define Side bar
+ * @file     : drawer.jsx             
+ * @overview : Componet To Handle Dashboard
+ * @author   : priti shinde
+ * @since    : 8/6/2020
+***************************************************************/
 import React from 'react'
 import PropTypes from 'prop-types';
 import classNames from 'classnames'
@@ -27,7 +34,7 @@ import users from '../../services/user'
 import Addnote from '../note/addnote'
 const service = new users()
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const styles = theme => ({
   root: {
@@ -36,8 +43,8 @@ const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      //easing: theme.transitions.easing.sharp,
+      //duration: theme.transitions.duration.leavingScreen,
     }),
   },
   appBarShift: {
@@ -144,9 +151,9 @@ const styles = theme => ({
         duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        width: theme.spacing.unit * 7 + 1,
+        width: theme.spacing.unit * 6 + 1,
         [theme.breakpoints.up('sm')]: {
-        width: theme.spacing.unit * 9 + 1,
+        width: theme.spacing.unit * 8 + 1,
         },
     },
     
@@ -158,13 +165,12 @@ const styles = theme => ({
 });
 
 class Navbar extends React.Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             anchorEl: null,
             open:false,
             view :false,
-            typeOfNote:'Keep'
         };
     }
 
@@ -185,8 +191,8 @@ class Navbar extends React.Component{
     }
 
     handleLogOut() {
-      
-      service.logOut()
+      let token =localStorage.getItem('token');
+      service.logOut(token)
       .then((response)=>{
         console.log(response)
           this.props.history.push("/login");
@@ -194,6 +200,8 @@ class Navbar extends React.Component{
        .catch(error=>{
         console.log(error)
       }) 
+     
+      
     }
 
     handleMenuClose = () => {
@@ -215,8 +223,8 @@ class Navbar extends React.Component{
         const renderMenu = (
             <Menu
                 anchorEl={anchorEl}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >

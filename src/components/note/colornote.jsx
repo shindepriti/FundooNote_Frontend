@@ -19,7 +19,7 @@ class Colornote extends React.Component{
           return(
               <div>
                 <Tooltip title="Change color">
-                    <IconButton style={{ hight:'20px'}} onClick={this.handleChangeComplete}>
+                    <IconButton  onClick={this.handleChangeComplete}>
                     <img src={ColorIcon} alt="pin"></img>
                     </IconButton>
                 </Tooltip>

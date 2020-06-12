@@ -8,9 +8,8 @@
 import React from 'react'
 import '../../scss/forgotstyle.scss'
 import {Card, TextField, Button,Snackbar,IconButton,Link} from '@material-ui/core'
-const resetPassword = require( '../../services/user')
-
-
+import users from '../../services/user'
+const service = new users()
 
 class Resetpassword extends React.Component{
     constructor(){
@@ -43,7 +42,7 @@ class Resetpassword extends React.Component{
         }
 
         var token = this.props.match.params.token
-        resetPassword(user,token)
+        service.resetPassword(user,token)
             .then((response)=>{
                 console.log(response) 
                 this.setState({snackbaropen:true,snackbarmsg:"Password Reset Successfully,Open Your Account"})              

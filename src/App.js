@@ -7,7 +7,7 @@ import Registration from './components/user/registration';
 import Forgotpassword from './components/user/forgotpassword';
 import Resetpassword from './components/user/resetpassword';
 import Home from './components/dashboard/home';
-import note from './components/note/addnote'
+import note from './components/note/displaynote'
 function App() {
   return (
     <div className="App">

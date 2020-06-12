@@ -8,11 +8,12 @@
 
 import axios from 'axios';
 
+const baseUrl = 'http://fundoonotes.incubation.bridgelabz.com/api/user'
 export default class user{
 
      login(loginData){
         return new Promise((resolve, reject) => {
-           axios.post('http://fundoonotes.incubation.bridgelabz.com/api/user/login',loginData)
+           axios.post(baseUrl+'/login',loginData)
            .then((response) => {
                resolve(response)
            })
@@ -21,12 +22,10 @@ export default class user{
            })
      })
      }
-        
-     
-     
-     register(registerData){
+
+    register(registerData){
            return new Promise((resolve, reject) => {
-              axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp",registerData)
+              axios.post(baseUrl+"/userSignUp",registerData)
               .then((response) => {
                   resolve(response)
               })
@@ -36,10 +35,10 @@ export default class user{
         })
      }
      
-     forgotPassword(user){
+    forgotPassword(user){
         
         return new Promise((resolve, reject) => {
-           axios.post("http://fundoonotes.incubation.bridgelabz.com/api/user/reset",user)
+           axios.post(baseUrl+"/reset",user)
            .then((response) => {
                resolve(response)
            })
@@ -54,7 +53,7 @@ export default class user{
         // return response
      
         return new Promise((resolve, reject) => {
-           axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password?access_token=${token}`,user)
+           axios.post(baseUrl+`/reset-password?access_token=${token}`,user)
            .then((response) => {
                resolve(response)
            })
@@ -65,19 +64,23 @@ export default class user{
 
     }
 
-    logOut(){
-        return new Promise((resolve,reject) =>{
-            var AuthStr =localStorage.getItem('token');
-            axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/logout`,{ headers: { Authorization: AuthStr } })
-            .then((response)=>{
-                resolve(response)
+    logOut(token){
+          var response =  axios.post(baseUrl+`/logout?access_token=${token}`)
+         return response
+    //     return new Promise((resolve,reject) =>{
+    //         //var AuthStr =localStorage.getItem('token');
+    //         //{headers: { token: sessionStorage.getItem("token") }
+    //         axios.post(baseUrl+`/logout?access_token=${token}`)
+    //         .then((response)=>{
+    //             resolve(response)
             
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
-    }
+    //         })
+    //         .catch((error)=>{
+    //             reject(error)
+    //         })
+    //     })
+    // }
 
 }
 
+}

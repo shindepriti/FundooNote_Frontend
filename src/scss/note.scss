@@ -1,3 +1,10 @@
+/***************************************************************
+ * @purpose  : Define scss
+ * @file     : note.scss            
+ * @overview : File To Handle Css For note  
+ * @author   : priti shinde
+ * @since    : 8/6/2020
+***************************************************************/
 .create-note{
     display: flex;
     width: 600px;
@@ -34,5 +41,14 @@
 .button-container{
     float: right;
     display: flex;
-    margin-left: 55%;
+    margin-left: 47%;
+}
+
+.root{
+    display: flex;
+   min-width: 20%;
+   width: 300px;
+    flex-grow: 1;
+    margin:90px auto 12px auto;
+    min-height: 100px;
 }

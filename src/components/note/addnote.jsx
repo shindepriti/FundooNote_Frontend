@@ -1,3 +1,10 @@
+/***************************************************************
+ * @purpose  : Define Note Add 
+ * @file     : addnote.jsx             
+ * @overview : Componet To Handel Note Add  
+ * @author   : priti shinde
+ * @since    : 9/6/2020
+***************************************************************/
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import {Input,Button,InputBase} from '@material-ui/core';
@@ -5,9 +12,11 @@ import "../../scss/note.scss"
 import Pinnote from './pinnote'
 import Colornote from './colornote'
 import Archive from './archive'
-import Remind from './reminder'
+import Remind from './remindnote'
 import notes from '../../services/note'
+import Image from './addimage'
 const service = new notes()
+
 class Addnote extends React.Component{ 
     constructor(){
         super()
@@ -26,8 +35,8 @@ class Addnote extends React.Component{
         this.onSubmit = this.onSubmit.bind(this)
     }
 
-    onChange(e){
-        this.setState({[e.target.name]:e.target.value})
+    onChange(event){
+        this.setState({[event.target.name]:event.target.value})
     }
 
     openNoteForContent=()=>{
@@ -38,10 +47,10 @@ class Addnote extends React.Component{
         this.setState({openNote:false, title:'', content:''})
     }
 
-    onSubmit(e){
+    onSubmit(event){
         if(this.state.title !== '' && this.state.content !== ''){
-            const token = localStorage.getItem('token')
-            e.preventDefault()
+            let token = localStorage.getItem('token')
+            event.preventDefault()
             const note = {
                 title:this.state.title,
                 content:this.state.content,
@@ -62,9 +71,8 @@ class Addnote extends React.Component{
                .catch(err => {
                    console.log(err);
                })
-            }  
-           
-    }
+        }  
+     }
     
 
     render(){
@@ -79,7 +87,7 @@ class Addnote extends React.Component{
                                 onChange={this.onChange}></InputBase>
                             </div>
                             <div className="pin">
-                                <Pinnote togglePin={this.togglePin} />
+                                <Pinnote/>
                             </div>  
                         </div>
                         { this.state.openNote ? true && <div>
@@ -90,6 +98,9 @@ class Addnote extends React.Component{
                         <div style={{display:"flex"}} >
                             <div className="icon">
                                 <Remind/>
+                            </div>
+                            <div className="icon">
+                                <Image/>
                             </div>
                             <div className="icon">
                                 <Archive/>
