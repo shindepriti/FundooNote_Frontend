@@ -1,67 +1,85 @@
 import React from 'react'
 import "../../scss/note.scss"
-import { Card,Input,InputBase} from '@material-ui/core'
-
-
+//import jwt_decode from 'jwt-decode'
+import { Card,Typography,Grid} from '@material-ui/core'
 import Pinnote from './pinnote'
 import Colornote from './colornote'
 import Archive from './archive'
 import Remind from './remindnote'
 import Image from './addimage'
-class Displaynote extends React.Component{
-        constructor(props){
-            super(props)
-            this.state={
-                title:" ",
-                content:"",
-                open:false,
+import Addnote from './addnote'
+import notes from '../../services/note'
+const service = new notes()
+
+const cardStyl = {
+    maxWidth:'213px',
+    display: 'block',
+    width: '30vw',
+    transitionDuration: '0.3s',
+    height: 'auto',
+    marginTop:'25px',
+    paddingTop:'25px'
+  }
+class CardNote extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+          list:[],
+          valueOf:'',
+          index:'',
+          open:false,
+          maxWidth:'xl',
+          pinnedNote:'',
+          otherNote:'',
+          viewVal:this.props.view,
+          typeOfNote:this.props.typeOfNote
             }
-           
+          
         }
 
-        render(){
-            return(
-                <div >
-                <Card className="root" variant="outlined">
-                <div style={{width:"300px"}}>
-                    <div className="container">
-                    <div>
-                        <Input value={this.state.content} name='content' placeholder="Heading" multiline={true} disableUnderline={true} />
+        componentDidUpdate=(prevProps)=>{
+            if(prevProps !== this.props){
+                this.setState({viewVal:this.props.view})
+                this.setState({typeOfNote:this.props.typeOfNote})
+
+            }
+        }
+
+          handleGetNote() {
+            // const token = localStorage.usertoken
+            // const decoded = jwt_decode(token);
+            console.log(this.props)
+            console.log(this.state.list);
+            let token =localStorage.getItem('token');
+            service.getNote(token).then(response =>{
+              if(response){
+                this.setState({
+                  list:response
+                })
+              }
+              //this.noteTypeToPrint();
+            })
+          }
+
+       
+          render(){
+              return(
+                  <div>  
+                                        
+                      {this.state.typeOfNote === 'Keep' ?
+                      <div style={{display: 'flex', justifyContent: 'center'}}>
+                      <Addnote noteTypeToPrint= {this.noteTypeToPrint} handleAddList = {this.handleAddList}/>
+                      </div> :" "}
+                      <div style={{cardStyl}}>
+                         
                     </div>
-                          
-                    <div className="pin">
-                        <Pinnote/>
-                    </div>
-                    </div>
-                    <div>
-                    <div className="input-note">
-                        <Input value={this.state.content} name='content' placeholder="content" multiline={true} disableUnderline={true} />
-                    </div>
-                    <div style={{display:"flex"}} >
-                        <div className="icon">
-                            <Remind/>
-                        </div>
-                        <div className="icon">
-                            <Archive/>
-                        </div>
-                        <div className="icon">
-                            <Colornote/>
-                        </div>
-                        <div className="icon">
-                            <Image/>
-                        </div>
                         
-                    </div>
-                    </div> 
-                    
-                </div>                    
-                </Card>
-            </div>
+                  </div>
+              )
+          }
 
-               
-                    
-            )
-        }
+
 
 }
-export default Displaynote
+export default CardNote
+
