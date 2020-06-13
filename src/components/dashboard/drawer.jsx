@@ -32,6 +32,7 @@ import Grid from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
 import users from '../../services/user'
 import Addnote from '../note/addnote'
+import  Displaynote from '../note/displaynote'
 const service = new users()
 
 const drawerWidth = 200;
@@ -170,10 +171,22 @@ class Navbar extends React.Component{
         this.state = {
             anchorEl: null,
             open:false,
-            view :false,
+            view:'213px',
+            typeOfNote:'Keep'
         };
+        this.viewValue = this.viewValue.bind(this);
     }
 
+    viewValue = () =>{
+      if(this.state.view === '213px'){
+        this.setState({view:'615px'})
+      }
+      else{
+        this.setState({view:'213px'})
+      }
+      
+    }
+    
     handleDrawerOpen = () => {
     this.setState({ open: true });
     };
@@ -201,7 +214,6 @@ class Navbar extends React.Component{
         console.log(error)
       }) 
      
-      
     }
 
     handleMenuClose = () => {
@@ -250,7 +262,7 @@ class Navbar extends React.Component{
             </IconButton>
             <img className={classes.logo} src={keep} alt="Logo" /> 
             <Typography variant="h6" color="inherit" noWrap>
-                FundooNote
+                {this.state.typeOfNote}
             </Typography>
             <div className={classes.search}>
                 <div className={classes.searchIcon}>
@@ -269,10 +281,10 @@ class Navbar extends React.Component{
                                 <Tooltip title={this.state.view ? "Grid View" : "List View"}>
                                     <IconButton 
                                     color="inherit" 
-                                    onClick={this.handleViewClick} 
+                                    onClick={this.viewValue} 
                                     aria-label="List/Grid"
                                     >
-                                    {this.state.view ? <Grid/> : <ListIcon/> }
+                                    {this.state.view==='213px' ? <Grid/> : <ListIcon/> }
                                     </IconButton>
                                 </Tooltip>
                             </div>
@@ -318,7 +330,7 @@ class Navbar extends React.Component{
             <ListItemIcon><Notes/></ListItemIcon>
             <ListItemText>Notes</ListItemText>
             </ListItem>
-            <ListItem button key='Reminder'>
+            <ListItem button key='Reminder' onClick={(event)=>{this.changeView(event, 'Reminder')}}>
             <ListItemIcon><Alarm/></ListItemIcon>
             <ListItemText>Reminder</ListItemText>
             </ListItem>
@@ -336,10 +348,12 @@ class Navbar extends React.Component{
             </ListItem>
           </List>
         </Drawer>
+       
         <main className={classes.content}>
           <div className={classes.toolar}/>
           <Addnote view={this.state.view} typeOfNote={this.state.typeOfNote}/>
-        </main>
+        </main>       
+        
       </div>
     );
   }
