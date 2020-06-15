@@ -47,6 +47,10 @@ class Addnote extends React.Component{
         this.setState({openNote:false, title:'', description:''})
     }
 
+    handleToggle = () => {
+        this.setState(state => ({ openNote: !state.openNote }));
+      };
+
     onSubmit(event){
         if(this.state.title !== '' && this.state.description !== ''){
             let token = localStorage.getItem('token')
@@ -71,7 +75,9 @@ class Addnote extends React.Component{
                    console.log(err);
                })
                
-        }  
+        }else{
+            this.handleToggle();
+        } 
      }
     
 
@@ -95,7 +101,7 @@ class Addnote extends React.Component{
                             <Input value={this.state.description} name='description' className="input-text" placeholder="Take a note..." onChange={this.onChange}
                             multiline={true} disableUnderline={true} />
                         </div>
-                        <div style={{display:"flex"}} >
+                        <div className="container" >
                             <div className="icon">
                                 <Remind/>
                             </div>
@@ -112,7 +118,7 @@ class Addnote extends React.Component{
                                 <More/>
                             </div>
                             <div className="button-container">
-                            <Button  size="small"onClick={this.closeNoteForContent} onClick={this.onSubmit}>Close</Button>
+                            <Button  size="small" onClick={this.onSubmit}>Close</Button>
                             </div>
                         </div>
                         </div> : null}

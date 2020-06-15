@@ -24,7 +24,7 @@
 }
 .input-note{
     width: 100%;
-    margin: 0px 10px;
+    margin: 2%;
     text-align: start;
 }
 .container{
@@ -41,13 +41,13 @@
 .button-container{
     float: right;
     display: flex;
-    margin-left: 47%;
+    margin-left: 35%;
 }
 
 .root{
     display: flex;
-   min-width: 20%;
-   width: 300px;
+    min-width: 20%;
+    width: 300px;
     flex-grow: 1;
     margin:90px auto 12px auto;
     min-height: 100px;
@@ -78,6 +78,11 @@
 
 .title{
     width: 100%;
+    text-align: start;
+    margin-left: 3%;
+}
+
+.content-note{
     text-align: start;
     margin-left: 3%;
 }

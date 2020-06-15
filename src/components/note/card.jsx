@@ -43,10 +43,10 @@ class Note extends Component{
                                 <Pinnote/>
                             </div>  
                         </div>
-                        <div>
+                        <div className="input-note">
                             <Typography>{this.state.description}</Typography>
                         </div>
-                        <div style={{display:"flex"}}>
+                        <div className="container">
                             <div className="note-icon">
                                 <Remind/>
                             </div>
@@ -62,8 +62,6 @@ class Note extends Component{
                             <div className="note-icon">
                                 <More/>
                             </div>
-
-
                         </div>
 
                      </div>
