@@ -21,8 +21,6 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
 import Delete from '@material-ui/icons/Delete';
 import Alarm  from '@material-ui/icons/Alarm';
@@ -34,33 +32,17 @@ import users from '../../services/user'
 import  Displaynote from '../note/displaynote'
 const service = new users()
 
-const drawerWidth = 200;
-
 const styles = theme => ({
   root: {
     display: 'flex',
+   
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      backgroundColor: "#fb0;" ,
+      
     }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
-  },
-  hide: {
-    display: 'none',
   },
   toolbar: {
     display: 'flex',
@@ -72,9 +54,9 @@ const styles = theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: fade(theme.palette.common.black, 0.15),
     '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: fade(theme.palette.common.black, 0.25),
     },
     marginRight: theme.spacing.unit * 2,
     marginLeft: 0,
@@ -82,10 +64,13 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing.unit * 3,
         width: 'auto',
+        
     },
+    color:"#000000"
     },
     avatar: {
         margin: 10,
+        
     },
     searchIcon: {
         width: theme.spacing.unit * 9,
@@ -95,6 +80,7 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        color:"#000000"
     },
     content: {
         flexGrow: 1,
@@ -134,12 +120,12 @@ const styles = theme => ({
         },
     },
     drawer: {
-        width: drawerWidth,
+        width: '200px',
         flexShrink: 0,
         whiteSpace: 'nowrap',
     },
     drawerOpen: {
-        width: drawerWidth,
+        width: '200px',
         transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -162,21 +148,38 @@ const styles = theme => ({
         marginBottom:"9px",
        
       },
-});
+    color:{
+        backgroundColor:"white"
+      },
 
+      multilineColor:{
+        color:'#000000'
+    }
+    
+});
+  
 class Navbar extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             anchorEl: null,
             open:false,
+            view: false,
             typeOfNote:'Keep'
         };
+        
     }
 
+    onSubmitView=()=>{
+      this.setState({view:!this.state.view})
+  }
     
     handleDrawerOpen = () => {
     this.setState({ open: true });
+    };
+
+    handleToggle = () => {
+      this.setState(state => ({ open: !state.open }));
     };
 
     handleDrawerClose = () => {
@@ -201,16 +204,15 @@ class Navbar extends React.Component{
        })
        .catch(error=>{
         console.log(error)
-      })     
+      })  
+     
     }
 
     handleMenuClose = () => {
         this.setState({ anchorEl: null });
     };
 
-    handleViewClick=()=> {
-        this.setState({view: !this.state.view});
-    }
+   
     handleRefresh=()=>{
         window.location.reload();
     }
@@ -236,20 +238,15 @@ class Navbar extends React.Component{
         <CssBaseline />
         <AppBar
           position="fixed"
-          className={classNames(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
-        <Toolbar disableGutters={!this.state.open}>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, {
-                [classes.hide]: this.state.open,
-              })}
-            >
+           className={classNames(classes.appBar,classes.color, {[classes.appBarShift]: this.state.open,})}>
+        <Toolbar >
+            <IconButton className={classes.multilineColor}
+             onClick={this.handleToggle}
+              aria-label="Open drawer">
             <MenuIcon />
             </IconButton>
             <img className={classes.logo} src={keep} alt="Logo" /> 
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="h6" className={classes.multilineColor}>
                 {this.state.typeOfNote}
             </Typography>
             <div className={classes.search}>
@@ -261,33 +258,32 @@ class Navbar extends React.Component{
                     <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
                             <Tooltip title="Refresh" className={classes.tools}>
-                            <IconButton color="inherit" onClick={this.handleRefresh} className={classes.large}>
+                            <IconButton onClick={this.handleRefresh} className={classes.large,classes.multilineColor}>
                                 <Refresh/>
                             </IconButton>
                             </Tooltip>
                             <div className={classes.tools}>
                                 <Tooltip title={this.state.view ? "Grid View" : "List View"}>
                                     <IconButton 
-                                    color="inherit" 
-                                    onClick={this.viewValue} 
+                                    className={classes.multilineColor}
+                                    onClick={this.onSubmitView} 
                                     aria-label="List/Grid"
                                     >
-                                    {this.state.view==='213px' ? <Grid/> : <ListIcon/> }
+                                    {this.state.view ? <Grid/> : <ListIcon/> }
                                     </IconButton>
                                 </Tooltip>
                             </div>
                             <Tooltip title="Notification">
-                            <IconButton color="inherit">
+                            <IconButton className={classes.multilineColor} >
                                 <NotificationsIcon/>
                             </IconButton>
                             </Tooltip>
 
                            <IconButton
-                                
+                                className={classes.multilineColor}
                                 aria-label="account user"
                                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                                onClick={this.handleProfileMenuOpen}
-                                color="inherit">
+                                onClick={this.handleProfileMenuOpen}>
                                 <Avatar alt="Remy Sharp" src={require('../../assets/jobs.jpeg')} className={classes.large} />
                             </IconButton>
                         </div>
@@ -306,13 +302,9 @@ class Navbar extends React.Component{
               [classes.drawerClose]: !this.state.open,
             }),
           }}
-          open={this.state.open}>
-          <div className={classes.toolbar}>
-            <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-          </div>
-          <Divider/>
+          open={this.state.open}>      
+          <div className={classes.toolbar}/>
+          <Divider />
           <List>
           <ListItem button key='Notes' onClick={(event)=>{this.changeView(event, 'Keep')}}>
             <ListItemIcon><Notes/></ListItemIcon>
@@ -323,7 +315,7 @@ class Navbar extends React.Component{
             <ListItemText>Reminder</ListItemText>
             </ListItem>
           </List>
-          <Divider />
+          <Divider/>
           <List>
             
         <ListItem button key='Archive' onClick={(event)=>{this.changeView(event, 'Archive')}}>
@@ -336,10 +328,11 @@ class Navbar extends React.Component{
             </ListItem>
           </List>
         </Drawer>
+        
        
         <main className={classes.content}>
           <div className={classes.toolar}/>
-          <Displaynote view={this.state.view} typeOfNote={this.state.typeOfNote}/>
+          <Displaynote  typeOfNote={this.state.typeOfNote}/>
         </main>       
         
       </div>
