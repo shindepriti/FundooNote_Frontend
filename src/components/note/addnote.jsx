@@ -15,6 +15,7 @@ import Archive from './archive'
 import Remind from './remindnote'
 import notes from '../../services/note'
 import Image from './addimage'
+import More from './more'
 const service = new notes()
 
 class Addnote extends React.Component{ 
@@ -43,11 +44,11 @@ class Addnote extends React.Component{
     }
 
     closeNoteForContent = ()=>{
-        this.setState({openNote:false, title:'', content:''})
+        this.setState({openNote:false, title:'', description:''})
     }
 
     onSubmit(event){
-        if(this.state.title !== '' && this.state.content !== ''){
+        if(this.state.title !== '' && this.state.description !== ''){
             let token = localStorage.getItem('token')
             event.preventDefault()
             const note = {
@@ -77,7 +78,7 @@ class Addnote extends React.Component{
     render(){
             return(
                 <div className="note">
-                    <Card style={{backgroundColor: this.state.color}} className="create-note" variant="outlined">
+                    <Card className="create-note" variant="outlined">
                     <div>
                         <div className="container">
                             <div className="input-title">
@@ -91,7 +92,7 @@ class Addnote extends React.Component{
                         </div>
                         { this.state.openNote ? true && <div>
                         <div className="input-note">
-                            <Input value={this.state.content} name='content' className="input-text" placeholder="Take a note..." onChange={this.onChange}
+                            <Input value={this.state.description} name='description' className="input-text" placeholder="Take a note..." onChange={this.onChange}
                             multiline={true} disableUnderline={true} />
                         </div>
                         <div style={{display:"flex"}} >
@@ -106,6 +107,9 @@ class Addnote extends React.Component{
                             </div>
                             <div className="icon">
                                 <Colornote/>
+                            </div>
+                            <div className="icon">
+                                <More/>
                             </div>
                             <div className="button-container">
                             <Button  size="small"onClick={this.closeNoteForContent} onClick={this.onSubmit}>Close</Button>

@@ -6,16 +6,6 @@ import Addnote from './addnote'
 import notes from '../../services/note'
 const service = new notes()
 
-const cardStyl = {
-    maxWidth:'213px',
-    display: 'block',
-    width: '30vw',
-    transitionDuration: '0.3s',
-    height: '30px',
-    marginTop:'25px',
-    paddingTop:'25px',
-    
-  }
 class CardNote extends React.Component{
     constructor(props){
         super(props)
@@ -58,21 +48,18 @@ class CardNote extends React.Component{
                       <div>
                         <Addnote noteTypeToPrint= {this.noteTypeToPrint} handleAddList = {this.handleAddList}/>
                       </div> :" "}
-                      <div style={{cardStyl}}>
+                      <div className="note">
                       
                         <Grid  container direction="row" justify="center" alignItems="center"> 
                         {this.state.list.map((value, index)=>(             
                         <div key={value.id}>
                             <div>
                             <Grid>
-                              <Note style={{display:"flex"}} value={value} index={index}  viewVal={this.state.viewVal}/>
+                              <Note value={value} index={index}/>
                             </Grid>                            
                         </div>
                         </div>
-                        ))}</Grid>
-
-
-                         
+                        ))}</Grid>    
                     </div>
                         
                   </div>

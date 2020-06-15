@@ -3,7 +3,12 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import "../../scss/note.scss"
-
+import Pinnote from './pinnote'
+import Colornote from './colornote'
+import Archive from './archive'
+import Remind from './remindnote'
+import Image from './addimage'
+import More from './more'
 class Note extends Component{
     constructor(props){
         super(props)
@@ -27,14 +32,43 @@ class Note extends Component{
        
         return(
             <div>
-                <Card>
-                    <CardContent>
-                        <div>
-                            <div><h5>{this.state.title}</h5></div>
+            <div>
+                <Card className="get-note" variant="outlined"> 
+                     <div>
+                        <div className="container">
+                            <div className="title">
+                                <h4>{this.state.title}</h4>
+                            </div>
+                            <div className="pin">
+                                <Pinnote/>
+                            </div>  
                         </div>
-                          <Typography>{this.state.description}</Typography>
-                     </CardContent>
+                        <div>
+                            <Typography>{this.state.description}</Typography>
+                        </div>
+                        <div style={{display:"flex"}}>
+                            <div className="note-icon">
+                                <Remind/>
+                            </div>
+                            <div className="note-icon">
+                                <Image/>
+                            </div>
+                            <div className="note-icon">
+                                <Archive/>
+                            </div>
+                            <div className="note-icon">
+                                <Colornote/>
+                            </div>
+                            <div className="note-icon">
+                                <More/>
+                            </div>
+
+
+                        </div>
+
+                     </div>
                   </Card>
+              </div>
               </div>
         )
     }
