@@ -7,14 +7,14 @@
 ***************************************************************/
 
 import React from 'react'
-import "../../scss/registration.scss"
+import "../scss/registration.scss"
 import Link from '@material-ui/core/Link';
-import {emailValidate , passwordValiadate } from '../../services/validation'
+import {emailValidate , passwordValiadate } from '../services/validation'
 import Button from '@material-ui/core/Button';
 import { Card, TextField ,Snackbar,IconButton ,InputAdornment,Input,FormControl,InputLabel} from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import users from '../../services/user'
+import users from '../services/user'
 const service = new users()
 
 class Registration extends React.Component{

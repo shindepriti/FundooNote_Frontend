@@ -6,9 +6,9 @@
  * @since    : 3/6/2020
 ***************************************************************/
 import React from 'react'
-import '../../scss/forgotstyle.scss'
+import '../scss/forgotstyle.scss'
 import {Card, TextField, Button,Snackbar,IconButton,Link} from '@material-ui/core'
-import users from '../../services/user'
+import users from '../services/user'
 const service = new users()
 
 class Resetpassword extends React.Component{

@@ -6,13 +6,11 @@
  * @since    : 3/6/2020
 ***************************************************************/
 import React from 'react'
-import "../../scss/forgotstyle.scss"
+import "../scss/forgotstyle.scss"
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { Card, TextField,Snackbar,IconButton } from '@material-ui/core';
-
-// const  userService = require("../../services/user")
-import users from '../../services/user'
+import users from '../services/user'
 const service = new users()
 class Forgotpassword extends  React.Component{
     constructor(){
@@ -26,7 +24,7 @@ class Forgotpassword extends  React.Component{
     }
 
 
-    snackbarClose = (event)=>{
+    snackbarClose = ()=>{
         this.setState({snackbaropen:false})
     }
 

@@ -1,5 +1,4 @@
 import React from 'react'
-// import NavBar from './navbar'
 import Drawer from './drawer'
 class Home extends React.Component{
     render(){

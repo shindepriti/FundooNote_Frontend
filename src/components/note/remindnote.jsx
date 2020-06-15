@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
+import "../../scss/note.scss"
 import { Typography ,IconButton,Tooltip} from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import remind from '../../assets/notifications.svg'
@@ -80,7 +81,7 @@ import remind from '../../assets/notifications.svg'
                     </Tooltip>
                     </div>
                     <div>
-                    <Popper anchorEl={this.state.anchorEl} open={this.state.active} transition disablePortal>
+                    <Popper className="color-icon" anchorEl={this.state.anchorEl} open={this.state.active} transition disablePortal>
                         {({ TransitionProps}) => (
                             <Grow {...TransitionProps}>
                                 <Paper>

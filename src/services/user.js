@@ -49,9 +49,6 @@ export default class user{
      }
      
     resetPassword(user,token){
-        // var response =  axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/reset-password?access_token=${token}`,user)
-        // return response
-     
         return new Promise((resolve, reject) => {
            axios.post(baseUrl+`/reset-password?access_token=${token}`,user)
            .then((response) => {
@@ -65,22 +62,19 @@ export default class user{
     }
 
     logOut(token){
-          var response =  axios.post(baseUrl+`/logout?access_token=${token}`)
-         return response
-    //     return new Promise((resolve,reject) =>{
-    //         //var AuthStr =localStorage.getItem('token');
-    //         //{headers: { token: sessionStorage.getItem("token") }
-    //         axios.post(baseUrl+`/logout?access_token=${token}`)
-    //         .then((response)=>{
-    //             resolve(response)
+         
+        return new Promise((resolve,reject) =>{
+            let token =localStorage.getItem('token');
+            axios.post(baseUrl+`/logout?access_token=${token}`)
+            .then((response)=>{
+                resolve(response)
             
-    //         })
-    //         .catch((error)=>{
-    //             reject(error)
-    //         })
-    //     })
-    // }
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+    }
 
 }
 
-}

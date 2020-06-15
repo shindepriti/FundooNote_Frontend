@@ -22,10 +22,9 @@ class Addnote extends React.Component{
         super()
         this.state = {
             title:'',
-            content:'',
+            description:'',
             color:'',
-            isPinned:false,
-            label:[],
+            isPined:false,
             noteType:'isNote',
             photo:'',
             reminder:'',
@@ -53,32 +52,32 @@ class Addnote extends React.Component{
             event.preventDefault()
             const note = {
                 title:this.state.title,
-                content:this.state.content,
+                description:this.state.description,
                 noteType: this.state.noteType,
-                isPinned:this.state.isPinned,
-                userId:token._id,
+                isPined:this.state.isPined,
+                userId:token.id,
                 color:this.state.color,
-                label:this.state.label,
                 photo:this.state.photo,
                 reminder:this.state.reminder
             }
-    
             service.addNote(note).then(res => {
                 if(res){
                     console.log("Add Note")
+                    
                 }
                })
                .catch(err => {
                    console.log(err);
                })
+               
         }  
      }
     
 
     render(){
             return(
-                <div>
-                    <Card className="create-note" variant="outlined">
+                <div className="note">
+                    <Card style={{backgroundColor: this.state.color}} className="create-note" variant="outlined">
                     <div>
                         <div className="container">
                             <div className="input-title">
@@ -109,7 +108,7 @@ class Addnote extends React.Component{
                                 <Colornote/>
                             </div>
                             <div className="button-container">
-                            <Button  size="small" onClick={this.onSubmit}>Close</Button>
+                            <Button  size="small"onClick={this.closeNoteForContent} onClick={this.onSubmit}>Close</Button>
                             </div>
                         </div>
                         </div> : null}

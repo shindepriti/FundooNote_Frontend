@@ -6,12 +6,37 @@
  * @since    : 10/6/2020
 ***************************************************************/
 import axios from 'axios';
+
 export default class note{
 
-    addNote(noteData){
+    addNote(note){
+       
+            
         return new Promise((resolve, reject) => {
-            var AuthStr =localStorage.getItem('token');
-           axios.post('http://fundoonotes.incubation.bridgelabz.com/api/notes/addNotes',noteData, { headers: { Authorization: AuthStr } })
+            var authStr =localStorage.getItem('token');
+           axios.post('http://fundoonotes.incubation.bridgelabz.com/api/notes/addNotes',
+           {
+            title: note.title,
+            description: note.description,
+            id:note.id,
+            isPined:note.isPined,
+            color:note.color,
+            label:note.label
+        }, { headers: { Authorization: authStr } })
+           .then((response) => {
+               resolve(response)
+           })
+           .catch((error) => {
+               reject(error)
+           })
+     })
+     }
+
+     
+     getNote(token){
+                   
+        return new Promise((resolve, reject) => {
+           axios.get(`http://fundoonotes.incubation.bridgelabz.com/api/notes/getNotesList?access_token=${token}`,)
            .then((response) => {
                resolve(response)
            })

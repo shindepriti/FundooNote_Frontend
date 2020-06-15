@@ -31,7 +31,6 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Grid from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
 import users from '../../services/user'
-import Addnote from '../note/addnote'
 import  Displaynote from '../note/displaynote'
 const service = new users()
 
@@ -44,8 +43,8 @@ const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
-      //easing: theme.transitions.easing.sharp,
-      //duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
     }),
   },
   appBarShift: {
@@ -171,21 +170,10 @@ class Navbar extends React.Component{
         this.state = {
             anchorEl: null,
             open:false,
-            view:'213px',
             typeOfNote:'Keep'
         };
-        this.viewValue = this.viewValue.bind(this);
     }
 
-    viewValue = () =>{
-      if(this.state.view === '213px'){
-        this.setState({view:'615px'})
-      }
-      else{
-        this.setState({view:'213px'})
-      }
-      
-    }
     
     handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -200,10 +188,11 @@ class Navbar extends React.Component{
     };
 
     changeView = (event, viewType)=>{
+      event.preventDefault()
       this.setState({typeOfNote:viewType})
     }
 
-    handleLogOut() {
+    handleLogOut(event) {
       let token =localStorage.getItem('token');
       service.logOut(token)
       .then((response)=>{
@@ -212,8 +201,7 @@ class Navbar extends React.Component{
        })
        .catch(error=>{
         console.log(error)
-      }) 
-     
+      })     
     }
 
     handleMenuClose = () => {
@@ -324,7 +312,7 @@ class Navbar extends React.Component{
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </div>
-          <Divider />
+          <Divider/>
           <List>
           <ListItem button key='Notes' onClick={(event)=>{this.changeView(event, 'Keep')}}>
             <ListItemIcon><Notes/></ListItemIcon>
@@ -351,7 +339,7 @@ class Navbar extends React.Component{
        
         <main className={classes.content}>
           <div className={classes.toolar}/>
-          <Addnote view={this.state.view} typeOfNote={this.state.typeOfNote}/>
+          <Displaynote view={this.state.view} typeOfNote={this.state.typeOfNote}/>
         </main>       
         
       </div>

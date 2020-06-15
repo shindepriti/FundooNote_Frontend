@@ -1,12 +1,7 @@
 import React from 'react'
 import "../../scss/note.scss"
-//import jwt_decode from 'jwt-decode'
-import { Card,Typography,Grid} from '@material-ui/core'
-import Pinnote from './pinnote'
-import Colornote from './colornote'
-import Archive from './archive'
-import Remind from './remindnote'
-import Image from './addimage'
+import {Grid} from '@material-ui/core'
+import Note from './card'
 import Addnote from './addnote'
 import notes from '../../services/note'
 const service = new notes()
@@ -16,25 +11,21 @@ const cardStyl = {
     display: 'block',
     width: '30vw',
     transitionDuration: '0.3s',
-    height: 'auto',
+    height: '30px',
     marginTop:'25px',
-    paddingTop:'25px'
+    paddingTop:'25px',
+    
   }
 class CardNote extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-          list:[],
-          valueOf:'',
-          index:'',
-          open:false,
-          maxWidth:'xl',
-          pinnedNote:'',
-          otherNote:'',
-          viewVal:this.props.view,
-          typeOfNote:this.props.typeOfNote
-            }
-          
+            list:[],
+            valueOf:'',
+            index:'',
+            open:false,
+            typeOfNote:this.props.typeOfNote
+            }           
         }
 
         componentDidUpdate=(prevProps)=>{
@@ -44,33 +35,43 @@ class CardNote extends React.Component{
 
             }
         }
+        componentDidMount() {
 
-          handleGetNote() {
-            // const token = localStorage.usertoken
-            // const decoded = jwt_decode(token);
-            console.log(this.props)
-            console.log(this.state.list);
             let token =localStorage.getItem('token');
-            service.getNote(token).then(response =>{
-              if(response){
+            service.getNote(token).then(res =>{
+              console.log(res);
+              if(res){
                 this.setState({
-                  list:response
+                  list:res.data.data.data
                 })
               }
-              //this.noteTypeToPrint();
+              
             })
           }
-
-       
+         
+                
           render(){
               return(
                   <div>  
-                                        
+                                                           
                       {this.state.typeOfNote === 'Keep' ?
-                      <div style={{display: 'flex', justifyContent: 'center'}}>
-                      <Addnote noteTypeToPrint= {this.noteTypeToPrint} handleAddList = {this.handleAddList}/>
+                      <div>
+                        <Addnote noteTypeToPrint= {this.noteTypeToPrint} handleAddList = {this.handleAddList}/>
                       </div> :" "}
                       <div style={{cardStyl}}>
+                      
+                        <Grid  container direction="row" justify="center" alignItems="center"> 
+                        {this.state.list.map((value, index)=>(             
+                        <div key={value.id}>
+                            <div>
+                            <Grid>
+                              <Note style={{display:"flex"}} value={value} index={index}  viewVal={this.state.viewVal}/>
+                            </Grid>                            
+                        </div>
+                        </div>
+                        ))}</Grid>
+
+
                          
                     </div>
                         

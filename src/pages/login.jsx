@@ -7,7 +7,7 @@
 ***************************************************************/
 
 import React from 'react'
-import "../../scss/loginstyle.scss"
+import "../scss/loginstyle.scss"
 
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
@@ -16,7 +16,7 @@ import { Card, TextField, InputLabel, Input} from '@material-ui/core';
 import { Divider ,Snackbar,IconButton,InputAdornment} from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import users from '../../services/user'
+import users from '../services/user'
 const service = new users()
 
 class Login extends React.Component{
@@ -57,9 +57,10 @@ class Login extends React.Component{
         service.login(user)
             .then((response)=>{
                 console.log(response)
-                if(response.status === 200){
-                    localStorage.setItem("token",response.data.id);
-                        //this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})
+                localStorage.setItem("token",response.data.id);
+                if(response){
+                    
+                        this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})
                         this.props.history.push("/navbar")
 
                 }               
