@@ -15,30 +15,70 @@ class CardNote extends React.Component{
             index:'',
             open:false,
             typeOfNote:this.props.typeOfNote
-            }           
+            } 
+            this.handleAddList = this.handleAddList.bind(this);
+            this.noteTypeToPrint = this.noteTypeToPrint.bind(this);
+            this.handleClickOpen = this.handleClickOpen.bind(this);
+                    
         }
-
+        handleClickOpen = (value, index) => {
+          this.setState({ open: true });
+          this.setState({valueOf:value})
+          this.setState({index:index})
+        };
+      
         componentDidUpdate=(prevProps)=>{
             if(prevProps !== this.props){
-                this.setState({viewVal:this.props.view})
                 this.setState({typeOfNote:this.props.typeOfNote})
 
             }
         }
-        componentDidMount() {
-
-            let token =localStorage.getItem('token');
-            service.getNote(token).then(res =>{
-              console.log(res);
-              if(res){
-                this.setState({
-                  list:res.data.data.data
-                })
+        noteTypeToPrint (){
+          let pinCount = 0;
+          let noteCount = 0;
+          this.state.list.forEach(value => {
+            if(value.isPined === true && value.noteType === 'isNote'){
+                  pinCount++; 
+                  
+                }
+                if(value.isPined === false && value.noteType === 'isNote'){
+                  noteCount++
+                
               }
-              
-            })
+              if(pinCount > 0){
+                this.setState({pinedNote:'PINNED'})
+              }
+              else{
+                this.setState({pinedNote:''})
+              }
+              if(noteCount>0){
+                this.setState({otherNote:'OTHERS'})
+              }
+              else{
+                this.setState({otherNote:''})
+              }
+          });
+        }
+        
+        componentDidMount() {
+          let token =localStorage.getItem('token');
+          service.getNote(token).then(res =>{
+            console.log(res);
+            if(res){
+              this.setState({
+                list:res.data.data.data
+              })
+            }
+            
+          })
+        }
+
+          handleAddList = (newItem) =>{
+            let newList = this.state.list
+            newList.push(newItem);
+            this.setState({list:newList})
+            this.noteTypeToPrint()
           }
-         
                 
           render(){
               return(

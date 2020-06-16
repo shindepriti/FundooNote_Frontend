@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import "../../scss/note.scss"
 import Pinnote from './pinnote'
@@ -9,6 +8,8 @@ import Archive from './archive'
 import Remind from './remindnote'
 import Image from './addimage'
 import More from './more'
+import notes from '../../services/note'
+const service = new notes()
 class Note extends Component{
     constructor(props){
         super(props)
@@ -25,8 +26,21 @@ class Note extends Component{
             reminder:this.props.value.reminder,
             open:false
         }
-        
+               
     }
+    componentDidUpdate(prevProps){
+        if(prevProps!==this.props){
+            this.setState({
+                title:this.props.value.title,
+                description:this.props.value.description,
+                
+               })
+        }
+    }
+
+    
+    
+
 
     render(){
        
@@ -44,7 +58,7 @@ class Note extends Component{
                             </div>  
                         </div>
                         <div className="input-note">
-                            <Typography>{this.state.description}</Typography>
+                            <Typography >{this.state.description}</Typography>
                         </div>
                         <div className="container">
                             <div className="note-icon">

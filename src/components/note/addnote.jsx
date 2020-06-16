@@ -67,19 +67,27 @@ class Addnote extends React.Component{
             }
             service.addNote(note).then(res => {
                 if(res){
-                    console.log("Add Note")
+                    this.props.handleAddList(res);
                     
                 }
                })
                .catch(err => {
                    console.log(err);
+                   
                })
+              
                
         }else{
             this.handleToggle();
+            
         } 
      }
     
+     changeColor = (color) => {
+        this.setState({
+            color: color
+        })
+    }
 
     render(){
             return(
@@ -88,9 +96,9 @@ class Addnote extends React.Component{
                     <div>
                         <div className="container">
                             <div className="input-title">
-                                <InputBase name='title' value={this.state.title} className="input-text" placeholder="Title" onChange={this.handleInput} multiline={true}
+                                <InputBase name='title' value={this.state.title} className="input-text" placeholder="Title" onChange={this.onChange} multiline={true}
                                 disableUnderline={true} onClick ={this.openNoteForContent}
-                                onChange={this.onChange}></InputBase>
+                                ></InputBase>
                             </div>
                             <div className="pin">
                                 <Pinnote/>
@@ -112,7 +120,7 @@ class Addnote extends React.Component{
                                 <Archive/>
                             </div>
                             <div className="icon">
-                                <Colornote/>
+                                <Colornote changeColor={this.changeColor}/>
                             </div>
                             <div className="icon">
                                 <More/>

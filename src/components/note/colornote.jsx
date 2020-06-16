@@ -1,20 +1,46 @@
 import React from 'react'
 import "../../scss/note.scss"
-import { Tooltip} from '@material-ui/core';
+import { Tooltip, Menu, MuiThemeProvider} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import ColorIcon from '../../assets/colour.svg'
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import { CirclePicker } from 'react-color';
+import notes from '../../services/note'
+const service = new notes()
+
+  
 class Colornote extends React.Component{
-    constructor(){
-        super()
-        this.state={
-            open:false            
-        }
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+          anchorEl: null,
+          colourName : ['White', 'Red', 'Orange',
+          'Yellow', 'Green', 'Teal',
+          'Blue', 'Dark Blue', 'Purple',
+          'Pink', 'Brown', 'Grey'
+        ],
+        colourArr : ['#fff', '#ff8a80', '#ffd180',
+          '#ffff8d', '#ccff90', '#a7ffeb',
+          '#80d8ff', '#82b1ff', '#b388ff',
+          '#f8bbd0', '#d7ccc8', '#cfd8dc'
+        ],
+        };
+      }
+      
+      openPalette = (event) => {
+        this.setState({
+          anchorEl: event.currentTarget
+        });
+        
+      }
+
+      addColour(color){
+        let token =localStorage.getItem('token');
+          service.changeColor(token).then(res=>{
+              if(res){
+                    this.props.changeColor(color)
+              }
+          })
+
+      }
 
     handleChangeComplete = (color) => {
         this.setState({ color : color.hex})
@@ -24,37 +50,33 @@ class Colornote extends React.Component{
         this.setState(state => ({ open: !state.open }));
       };
     
-      render(){
-        const { open } = this.state;
-          return(
-                    <div>
-                    <Tooltip title="Change color" >
-                        <IconButton>
-                            <img aria-owns={open ? 'menu-list-grow' : undefined}
-                            aria-haspopup="true"
-                            onClick={this.handleToggle} alt="color" src={ColorIcon}></img>
-                        </IconButton>
-                    </Tooltip>
-                    <Popper className="color-icon" open={open} anchorEl={this.anchorEl} transition disablePortal>
-                        {({ TransitionProps, placement }) => (
-                        <Grow
-                            {...TransitionProps}
-                            id="menu-list-grow"
-                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
-                            <Paper>
-                                <ClickAwayListener onClickAway={this.handleClose}>
-                                <CirclePicker
-                                color={ this.state.background }
-                                onChangeComplete={ this.handleChangeComplete }
-                                />
-                                </ClickAwayListener>
-                            </Paper>
-                        </Grow>
-                        )}
-                    </Popper>
-                    
+      render() {
+        let showColor = this.state.colourArr.map((color, ind) => {
+            return <div title={this.state.colourName[ind]} key={ind} onClick={() => this.addColour(color)}  className="color-plate" style={{ backgroundColor: [color]}}></div>
+          })
+        return (
+          <div>
+            <Tooltip title="Change color">
+              <IconButton onClick={this.openPalette}>
+                <img src={ColorIcon} alt="colour" />
+              </IconButton>
+            </Tooltip>
+            <MuiThemeProvider>
+              <Menu
+                anchorEl={this.state.anchorEl}
+                open={Boolean(this.state.anchorEl)}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center bottom' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center bottom' }}
+                onClose={() => { this.setState({ anchorEl: null }) }}
+              >
+                <div className="color-note">
+                  {showColor}
                 </div>
-                )
-        }
+              </Menu>
+            </MuiThemeProvider>
+          </div>
+        );
+      }
 }
+
 export default Colornote

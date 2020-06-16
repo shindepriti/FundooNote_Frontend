@@ -45,6 +45,18 @@ export default class note{
            })
      })
      }
+
+     changeColor(token){
+         return new Promise((resolve,reject) =>{
+             axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/notes/changesColorNotes?access_token=${token}`,)
+             .then((response)=>{
+                 resolve(response)
+             })
+             .catch((error)=>{
+                 reject(error)
+             })
+         })
+     }
         
 
 }

@@ -211,7 +211,6 @@ class Navbar extends React.Component{
     handleMenuClose = () => {
         this.setState({ anchorEl: null });
     };
-
    
     handleRefresh=()=>{
         window.location.reload();
