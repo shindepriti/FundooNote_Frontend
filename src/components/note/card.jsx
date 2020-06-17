@@ -37,11 +37,9 @@ class Note extends Component{
                })
         }
     }
-
-    
-    
-
-
+    setReminderDate = (date) => {
+        this.setState({reminder: date})
+    }
     render(){
        
         return(
@@ -62,7 +60,7 @@ class Note extends Component{
                         </div>
                         <div className="container">
                             <div className="note-icon">
-                                <Remind/>
+                                <Remind className="remind-card" setDate={this.setReminderDate}/>
                             </div>
                             <div className="note-icon">
                                 <Image/>
@@ -71,7 +69,7 @@ class Note extends Component{
                                 <Archive/>
                             </div>
                             <div className="note-icon">
-                                <Colornote/>
+                                <Colornote value={this.props.value.id}/>
                             </div>
                             <div className="note-icon">
                                 <More/>

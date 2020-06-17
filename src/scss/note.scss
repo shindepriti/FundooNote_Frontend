@@ -60,9 +60,7 @@
 
 .note{
   margin-top: 30px;
- 
-
-    
+  border-radius: 100px;    
 }
 .get-note{
     
@@ -70,6 +68,7 @@
     height: 150px;
     justify-content: space-around;
     margin:6px 10px ;
+    border-radius: 20px !important;
 
 }
 .note-icon{
@@ -101,3 +100,21 @@
     margin: 2px ;
     border: 1px solid #dbdbdb;
 }
+
+.remind-card{
+    background-color: white;
+    display: flex;
+    margin:  15% 25%;
+   
+}
+.remind{
+    width: 250px;
+}
+.setdate{
+    margin:20% 30% ;
+}
+
+.note-remind{
+        margin: 25% 30%;
+}
+

@@ -30,6 +30,7 @@ import Grid from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
 import users from '../../services/user'
 import  Displaynote from '../note/displaynote'
+import { Card } from 'material-ui';
 const service = new users()
 
 const styles = theme => ({
@@ -230,6 +231,7 @@ class Navbar extends React.Component{
                 onClose={this.handleMenuClose}
             >
                 <MenuItem onClick={this.handleLogOut}>Logout</MenuItem>
+                <Card style={{width:"200px"}}/>
             </Menu>
         );
     return (

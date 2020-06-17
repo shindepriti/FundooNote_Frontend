@@ -88,20 +88,34 @@ class CardNote extends React.Component{
                       <div>
                         <Addnote noteTypeToPrint= {this.noteTypeToPrint} handleAddList = {this.handleAddList}/>
                       </div> :" "}
-                      <div className="note">
+                      <div className="note" >
                       
-                        <Grid  container direction="row" justify="center" alignItems="center"> 
+                        <Grid container direction="row" justify="center" alignItems="center" > 
                         {this.state.list.map((value, index)=>(             
                         <div key={value.id}>
-                            <div>
+                            <div >
                             <Grid>
-                              <Note value={value} index={index}/>
+                              <Note  value={value} index={index}/>
                             </Grid>                            
                         </div>
                         </div>
-                        ))}</Grid>    
-                    </div>
-                        
+                        ))}</Grid>
+                      </div>
+
+                        {this.state.typeOfNote === 'Archive' ?<div>
+                          <Grid container direction='row' justify="center" alignItems="center">
+                            {this.state.list.map((value,index)=>(
+                              <div key={value.id}>
+                                <div>
+                                  <Grid>
+                                    <Note value={value} index={index}/>
+                                  </Grid>
+                                </div>
+                                </div>
+
+                            ))}</Grid>
+
+                        </div> : ""}
                   </div>
               )
           }
@@ -110,4 +124,3 @@ class CardNote extends React.Component{
 
 }
 export default CardNote
-

@@ -24,12 +24,14 @@ class Addnote extends React.Component{
         this.state = {
             title:'',
             description:'',
+            id:'',
             color:'',
             isPined:false,
             noteType:'isNote',
             photo:'',
             reminder:'',
-            openNote:false
+            openNote:false,
+            isColorChanged: false
         }
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -51,6 +53,7 @@ class Addnote extends React.Component{
         this.setState(state => ({ openNote: !state.openNote }));
       };
 
+
     onSubmit(event){
         if(this.state.title !== '' && this.state.description !== ''){
             let token = localStorage.getItem('token')
@@ -59,6 +62,7 @@ class Addnote extends React.Component{
                 title:this.state.title,
                 description:this.state.description,
                 noteType: this.state.noteType,
+                noteIdList:[],
                 isPined:this.state.isPined,
                 userId:token.id,
                 color:this.state.color,
@@ -67,25 +71,28 @@ class Addnote extends React.Component{
             }
             service.addNote(note).then(res => {
                 if(res){
-                    this.props.handleAddList(res);
-                    
-                }
-               })
+                    this.props.handleAddList(res);  
+                }})
                .catch(err => {
-                   console.log(err);
-                   
+                   console.log(err);  
                })
-              
-               
         }else{
-            this.handleToggle();
-            
+            this.handleToggle();  
         } 
      }
     
-     changeColor = (color) => {
+    changeColor = (color) => {
         this.setState({
-            color: color
+            color: color,
+            //noteIdList:this.stata.id,
+            isColorChanged: true
+        })
+    }
+
+
+    setReminderDate = (date) => {
+        this.setState({
+            reminder: date
         })
     }
 
@@ -111,7 +118,7 @@ class Addnote extends React.Component{
                         </div>
                         <div className="container" >
                             <div className="icon">
-                                <Remind/>
+                                <Remind setDate={this.setReminderDate}/>
                             </div>
                             <div className="icon">
                                 <Image/>
@@ -120,7 +127,7 @@ class Addnote extends React.Component{
                                 <Archive/>
                             </div>
                             <div className="icon">
-                                <Colornote changeColor={this.changeColor}/>
+                                <Colornote  value={this.state.id} changeColor={this.changeColor}/>
                             </div>
                             <div className="icon">
                                 <More/>

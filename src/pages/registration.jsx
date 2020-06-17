@@ -25,6 +25,7 @@ class Registration extends React.Component{
                 lastName:'',
                 email:'',
                 password:'',
+                service:"advance",
                 snackbaropen:false,
                 snackbarmsg:"",
                 showPassword:false,
@@ -57,7 +58,8 @@ class Registration extends React.Component{
             firstName:this.state.firstName,
             lastName:this.state.lastName,
             email:this.state.email,
-            password:this.state.password
+            password:this.state.password,
+            service:"advance",
              
         }
         console.log("componet",user)

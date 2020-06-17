@@ -59,9 +59,8 @@ class Login extends React.Component{
                 console.log(response)
                 localStorage.setItem("token",response.data.id);
                 if(response){
-                    
-                        this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})
-                        this.props.history.push("/navbar")
+                    this.props.history.push("/navbar")
+                        this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})        
 
                 }               
             })

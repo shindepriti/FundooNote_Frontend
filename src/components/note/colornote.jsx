@@ -10,6 +10,7 @@ const service = new notes()
 class Colornote extends React.Component{
     constructor(props) {
         super(props);
+        console.log(this.props)
         this.state = {
           anchorEl: null,
           colourName : ['White', 'Red', 'Orange',
@@ -33,12 +34,23 @@ class Colornote extends React.Component{
       }
 
       addColour(color){
+        const data={
+          noteIdList:this.props.value,
+          color:color
+        }
+        console.log(data)
         let token =localStorage.getItem('token');
-          service.changeColor(token).then(res=>{
+          service.changeColor(token,data).then(res=>{
               if(res){
                     this.props.changeColor(color)
+                   this.setState({
+                     noteIdList:res.data
+                   })
               }
           })
+          .catch(err => {
+            console.log(err.response);
+          });
 
       }
 
