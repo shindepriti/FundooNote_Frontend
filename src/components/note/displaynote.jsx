@@ -11,83 +11,41 @@ class CardNote extends React.Component{
         super(props)
         this.state = {
             list:[],
-            valueOf:'',
-            index:'',
-            open:false,
             typeOfNote:this.props.typeOfNote
             } 
-            this.handleAddList = this.handleAddList.bind(this);
-            this.noteTypeToPrint = this.noteTypeToPrint.bind(this);
-            this.handleClickOpen = this.handleClickOpen.bind(this);
+           
                     
         }
-        handleClickOpen = (value, index) => {
-          this.setState({ open: true });
-          this.setState({valueOf:value})
-          this.setState({index:index})
-        };
-      
-        componentDidUpdate=(prevProps)=>{
-            if(prevProps !== this.props){
-                this.setState({typeOfNote:this.props.typeOfNote})
 
-            }
-        }
-        noteTypeToPrint (){
-          let pinCount = 0;
-          let noteCount = 0;
-          this.state.list.forEach(value => {
-            if(value.isPined === true && value.noteType === 'isNote'){
-                  pinCount++; 
-                  
-                }
-                if(value.isPined === false && value.noteType === 'isNote'){
-                  noteCount++
-                
-              }
-              if(pinCount > 0){
-                this.setState({pinedNote:'PINNED'})
-              }
-              else{
-                this.setState({pinedNote:''})
-              }
-              if(noteCount>0){
-                this.setState({otherNote:'OTHERS'})
-              }
-              else{
-                this.setState({otherNote:''})
-              }
-          });
-        }
-        
+
         componentDidMount() {
-          let token =localStorage.getItem('token');
-          service.getNote(token).then(res =>{
-            console.log(res);
-            if(res){
-              this.setState({
-                list:res.data.data.data
-              })
-            }
-            
-          })
+          this.getNote()
         }
+      
 
-          handleAddList = (newItem) =>{
-            let newList = this.state.list
-            newList.push(newItem);
-            this.setState({list:newList})
-            this.noteTypeToPrint()
-          }
-                
+      getNote = () => {
+        let token =localStorage.getItem('token');
+        service.getNote(token)
+            .then(data => {
+                console.log(data)
+                this.setState({
+                    list: data.data.data.data
+                })
+            }
+            )
+            .catch(err => {
+                console.log(err);
+            })
+       }
+         
           render(){
               return(
                   <div>  
                                                            
-                      {this.state.typeOfNote === 'Keep' ?
+                      
                       <div>
-                        <Addnote noteTypeToPrint= {this.noteTypeToPrint} handleAddList = {this.handleAddList}/>
-                      </div> :" "}
+                        <Addnote getNote={this.getNote}/>
+                      </div> 
                       <div className="note" >
                       
                         <Grid container direction="row" justify="center" alignItems="center" > 
@@ -95,7 +53,7 @@ class CardNote extends React.Component{
                         <div key={value.id}>
                             <div >
                             <Grid>
-                              <Note  value={value} index={index}/>
+                              <Note getNote={this.getNote}  value={value} index={index}/>
                             </Grid>                            
                         </div>
                         </div>
@@ -108,7 +66,7 @@ class CardNote extends React.Component{
                               <div key={value.id}>
                                 <div>
                                   <Grid>
-                                    <Note value={value} index={index}/>
+                                    <Note value={value} getNote={this.getNote} index={index}/>
                                   </Grid>
                                 </div>
                                 </div>

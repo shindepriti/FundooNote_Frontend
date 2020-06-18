@@ -34,19 +34,16 @@ class Colornote extends React.Component{
       }
 
       addColour(color){
-        const data={
-          noteIdList:this.props.value,
+        const colorData={
+          noteIdList:[this.props.value.id],
           color:color
         }
-        console.log(data)
+        console.log(colorData)
         let token =localStorage.getItem('token');
-          service.changeColor(token,data).then(res=>{
-              if(res){
-                    this.props.changeColor(color)
-                   this.setState({
-                     noteIdList:res.data
-                   })
-              }
+          service.changeColor(token,colorData).then(res=>{
+             
+            this.props.getNote()
+              
           })
           .catch(err => {
             console.log(err.response);
@@ -55,7 +52,7 @@ class Colornote extends React.Component{
       }
 
     handleChangeComplete = (color) => {
-        this.setState({ color : color.hex})
+        this.setState({ color : color})
       };
 
        handleToggle = () => {

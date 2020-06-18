@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import "../../scss/note.scss"
 import Pinnote from './pinnote'
 import Colornote from './colornote'
@@ -24,7 +24,8 @@ class Note extends Component{
             label:this.props.value.label,
             photo:this.props.value.photo,
             reminder:this.props.value.reminder,
-            open:false
+            open:false,
+            
         }
                
     }
@@ -33,30 +34,59 @@ class Note extends Component{
             this.setState({
                 title:this.props.value.title,
                 description:this.props.value.description,
-                
+                color:this.props.value.color
                })
         }
     }
     setReminderDate = (date) => {
         this.setState({reminder: date})
     }
+    changeColor = (color) => {
+        this.setState({
+            color: color,
+            isColorChanged: true
+        })
+    }
+
     render(){
        
         return(
             <div>
             <div>
                 <Card className="get-note" variant="outlined"> 
-                     <div>
+                     <div style={{backgroundColor : this.props.value.color}}>
                         <div className="container">
                             <div className="title">
-                                <h4>{this.state.title}</h4>
+                            <TextField
+                                    disabled
+                                    id='title'
+                                    multiline={true}
+                                    name='title'
+                                    placeholder='Title'
+                                    value={this.props.value.title}
+                                    onChange={(event) => this.input(event)}
+                                    InputProps={{
+                                        disableUnderline: true
+                                    }} />
+
                             </div>
                             <div className="pin">
                                 <Pinnote/>
                             </div>  
                         </div>
                         <div className="input-note">
-                            <Typography >{this.state.description}</Typography>
+                        <TextField
+                                disabled
+                                id='descriptionDisplay'
+                                placeholder='Take a note...'
+                                multiline={true}
+                                autoFocus
+                                name='description'
+                                value={this.props.value.description}
+                                onChange={(event) => this.input(event)}
+                                InputProps={{
+                                    disableUnderline: true
+                                }} />
                         </div>
                         <div className="container">
                             <div className="note-icon">
@@ -69,7 +99,7 @@ class Note extends Component{
                                 <Archive/>
                             </div>
                             <div className="note-icon">
-                                <Colornote value={this.props.value.id}/>
+                                <Colornote  value={this.props.value} getNote={this.props.getNote} changeColor={this.addColour}/>
                             </div>
                             <div className="note-icon">
                                 <More/>

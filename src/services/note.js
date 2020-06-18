@@ -50,7 +50,7 @@ export default class note{
          return new Promise((resolve,reject) =>{
              axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/notes/changesColorNotes?access_token=${token}`,
              {
-                noteIdList:[colorData.noteIdList],
+                noteIdList:colorData.noteIdList,
                 color:colorData.color  
              })
              .then((response)=>{
@@ -61,18 +61,7 @@ export default class note{
              })
          })
      }
-       archiveNote(noteData,token){
-            return new Promise((resolve,reject) =>{
-            axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/notes/getArchiveNotesList?access_token=${token}`,noteData)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
-    }
-
+      
        
 
 }

@@ -62,7 +62,6 @@ class Addnote extends React.Component{
                 title:this.state.title,
                 description:this.state.description,
                 noteType: this.state.noteType,
-                noteIdList:[],
                 isPined:this.state.isPined,
                 userId:token.id,
                 color:this.state.color,
@@ -70,9 +69,10 @@ class Addnote extends React.Component{
                 reminder:this.state.reminder
             }
             service.addNote(note).then(res => {
-                if(res){
-                    this.props.handleAddList(res);  
-                }})
+                console.log(res)
+                    // this.props.handleAddList(res);
+                    this.props.getNote()  
+                })
                .catch(err => {
                    console.log(err);  
                })
@@ -84,7 +84,6 @@ class Addnote extends React.Component{
     changeColor = (color) => {
         this.setState({
             color: color,
-            //noteIdList:this.stata.id,
             isColorChanged: true
         })
     }
@@ -94,6 +93,9 @@ class Addnote extends React.Component{
         this.setState({
             reminder: date
         })
+    }
+    onSubmitPinned=()=>{
+        this.setState({isPined:!this.state.isPined})
     }
 
     render(){
@@ -108,7 +110,7 @@ class Addnote extends React.Component{
                                 ></InputBase>
                             </div>
                             <div className="pin">
-                                <Pinnote/>
+                                <Pinnote onSubmitPinned={this.onSubmitPinned}/>
                             </div>  
                         </div>
                         { this.state.openNote ? true && <div>
