@@ -6,7 +6,7 @@
  * @since    : 10/6/2020
 ***************************************************************/
 import axios from 'axios';
-
+const baseUrl = 'http://fundoonotes.incubation.bridgelabz.com/api/notes'
 export default class note{
 
     addNote(note){
@@ -14,15 +14,7 @@ export default class note{
             
         return new Promise((resolve, reject) => {
             var authStr =localStorage.getItem('token');
-           axios.post('http://fundoonotes.incubation.bridgelabz.com/api/notes/addNotes',
-           {
-            title: note.title,
-            description: note.description,
-            id:note.id,
-            isPined:note.isPined,
-            color:note.color,
-            label:note.label
-        }, { headers: { Authorization: authStr } })
+           axios.post(baseUrl+'/addNotes',note, { headers: { Authorization: authStr } })
            .then((response) => {
                resolve(response)
            })
@@ -36,7 +28,7 @@ export default class note{
      getNote(token){
                    
         return new Promise((resolve, reject) => {
-           axios.get(`http://fundoonotes.incubation.bridgelabz.com/api/notes/getNotesList?access_token=${token}`,)
+           axios.get(baseUrl+`/getNotesList?access_token=${token}`,)
            .then((response) => {
                resolve(response)
            })
@@ -48,11 +40,7 @@ export default class note{
 
      changeColor(token,colorData){
          return new Promise((resolve,reject) =>{
-             axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/notes/changesColorNotes?access_token=${token}`,
-             {
-                noteIdList:colorData.noteIdList,
-                color:colorData.color  
-             })
+             axios.post(baseUrl+`/changesColorNotes?access_token=${token}`,colorData)
              .then((response)=>{
                  resolve(response)
              })
@@ -61,7 +49,43 @@ export default class note{
              })
          })
      }
-      
+       archiveNote(token,noteData){
+            return new Promise((resolve,reject) =>{
+            axios.post(baseUrl+`/archiveNotes?access_token=${token}`,noteData)
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+    }
+
+    getArchiveNotes(token){
+        return new Promise((resolve,reject)=>{
+            axios.get(baseUrl+`/getArchiveNotesList?access_token=${token}`)
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+    }
+
+    pinUnpinNote(pinData,token){
+        return new Promise((resolve,reject)=>{
+            axios.post(baseUrl+`/pinUnpinNotes?access_token=${token}`,pinData)
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+
+    }
+
        
 
 }
