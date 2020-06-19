@@ -14,9 +14,9 @@ class Archivenote extends React.Component {
         };
       }
 
-      componentDidMount(){
-        this.getArchiveList()
-    }
+    //   componentDidMount(){
+    //     this.getArchiveList()
+    // }
 
     getArchiveList=()=>{
       let token = localStorage.getItem('token');

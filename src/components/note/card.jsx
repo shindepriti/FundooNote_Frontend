@@ -45,7 +45,7 @@ class Note extends Component{
                             <div className="title">
                             <h4>{this.props.value.title}</h4></div>
                             <div className="pin">
-                                <Pinnote/>
+                                <Pinnote  value={this.props.value} isPined={this.props.value.isPined} getNote={this.props.getNote}/>
                             </div>  
                         </div>
                         <div className="input-note">

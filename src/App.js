@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Login from './pages/login';
-import Registration from './pages/registration';
-import Forgotpassword from './pages/forgotpassword';
-import Resetpassword from './pages/resetpassword';
+import Login from './components/pages/login';
+import Registration from './components/pages/registration';
+import Forgotpassword from './components/pages/forgotpassword';
+import Resetpassword from './components/pages/resetpassword';
 import Home from './components/dashboard/home';
 import note from './components/note/displaynote'
 function App() {

@@ -1,7 +1,7 @@
 /***************************************************************
  * @purpose  : Define scss
  * @file     : note.scss            
- * @overview : File To Handle Css For note  
+ * @overview : File To Handle scss For note  
  * @author   : priti shinde
  * @since    : 8/6/2020
 ***************************************************************/
@@ -29,6 +29,7 @@
 }
 .container{
     display: flex;
+  
 }
 .pin{
     float: right;
@@ -59,21 +60,35 @@
 }
 
 .note{
-  margin-top: 30px;
-  border-radius: 100px;    
+    margin-top: 50px;
+    width: 75%; 
+    margin-left: 12%;  
+}
+.display-note{
+    width: 75%;
+    margin-left: 15%;
+    margin-right: 10%;
+    margin-top: 30px;
+}
+.note-container{
+    padding-top:2% ;
+}
+.note-container-title{
+    float: left;
+    font-size: 12px;
 }
 .get-note{
     
-    width: 300px;
+    width: 250px;
     height: 150px;
     justify-content: space-around;
     margin:6px 10px ;
-    border-radius: 20px !important;
+    border-radius: 10px !important;
 
 }
 .note-icon{
     display: flex;
-    margin: 4% 2%;
+    margin: 4% 0%;
 
 }
 

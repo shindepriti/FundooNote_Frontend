@@ -10,7 +10,7 @@ class Pinnote extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          isPined: false
+          isPined: this.props.isPined
         };
       }
 
@@ -18,30 +18,38 @@ class Pinnote extends React.Component {
           this.setState({isPined:!this.state.isPined})
       }
 
-      pinNote=()=>{
-        const pinData={
-            noteListId:[this.props.value],
-            isPined:this.stats.isPined
+      pinUnpinNotes = () => {
+        
+        let pinData = {
+            noteIdList: [this.props.value.id],
+            isPined: !this.state.isPined
         }
-        let token = localStorage.getItem('token')
-        service.pinUnpinNote(token,pinData).then((res)=>{
-            console.log("notepined")
-        })
-        .catch(err => {
-            console.log(err.response);
-        });
+        console.log(pinData);
+        let token =localStorage.getItem('token');
+        service.pinUnpinNote(token,pinData)
+            .then(res => {
+                this.setState({isPined:!this.state.isPined});
+                this.props.getNote()
+            })
+            .catch(err => {
+                console.log(err);
 
-      }
+            })  
+        }
 
       render(){
           return(
               <div>
-                  <Tooltip title={this.state.isPined ? 'Unpin note': 'Pin note'}>
-                        <IconButton onClick={this.pinNote}>
-                            <img src={this.state.isPined ? unPin : pin} alt="pin"></img>
-                        </IconButton>
-                  </Tooltip>
+                 
+                  <div>
+                        <Tooltip title="Pin note">
+                            <IconButton onClick={this.pinUnpinNotes}>
+                                <img src={pin} alt="pin"></img>
+                            </IconButton>
+                        </Tooltip>
+                  </div> 
 
+                    
               </div>
           )
       }

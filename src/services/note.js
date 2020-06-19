@@ -71,7 +71,7 @@ export default class note{
         })
     }
 
-    pinUnpinNote(pinData,token){
+    pinUnpinNote(token,pinData){
         return new Promise((resolve,reject)=>{
             axios.post(baseUrl+`/pinUnpinNotes?access_token=${token}`,pinData)
             .then((response)=>{

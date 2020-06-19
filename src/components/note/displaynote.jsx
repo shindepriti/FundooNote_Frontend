@@ -48,18 +48,35 @@ class CardNote extends React.Component{
                       <div>
                         <Addnote getNote={this.getNote}/>
                       </div> 
-                      <div className="note" >
-                      
-                        <Grid container direction="row" justify="center" alignItems="center" > 
-                        {this.state.list.filter(note => note.isArchived == false ).map((value, index)=>(             
+                      <div className="display-note" >
+                      <div className="note-container">
+                        <div className="note-container-title" >Pinned</div>
+                        <Grid container direction="row" justify="left" alignItems="center" > 
+                        {this.state.list.filter(note => note.isArchived == false && note.isPined === true ).map((value, index)=>(             
                         <div key={value.id}>
                             <div >
                               <Grid>
                                 <Note getNote={this.getNote}  value={value} index={index}/>
                               </Grid>                            
                             </div> 
-                        </div>
-                        ))}</Grid>
+                        </div>))}
+                        </Grid>
+                      </div>
+                      <div className="note-container">
+                        <div className="note-container-title">Other</div>
+                        <Grid container direction="row" justify="left" alignItems="center" > 
+                          {this.state.list.filter(note => note.isArchived == false && note.isPined === false ).map((value, index)=>(             
+                          <div key={value.id}>
+                              <div >
+                                <Grid>
+                                  <Note getNote={this.getNote}  value={value} index={index}/>
+                                </Grid>                            
+                              </div>
+                          </div>
+                          ))}
+                        
+                        </Grid>
+                      </div>
                       </div>
                       </div>: ""}
                     </div>
@@ -67,7 +84,7 @@ class CardNote extends React.Component{
                     <div>
                       <div className="note" >
                         {this.state.typeOfNote === 'Archive' ?<div>
-                          <Grid container direction='row' justify="center" alignItems="center">
+                          <Grid container direction='row' justify="left" alignItems="center">
                             {this.state.list.map((value,index)=>(
                               <div key={value.id}>
                                 {value.isArchived === true ?
