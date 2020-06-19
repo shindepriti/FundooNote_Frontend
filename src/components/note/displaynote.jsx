@@ -12,68 +12,77 @@ class CardNote extends React.Component{
         this.state = {
             list:[],
             typeOfNote:this.props.typeOfNote
-            } 
-           
-                    
+            }           
         }
-
+        componentDidUpdate(prevProps){
+          if(prevProps !== this.props){
+            this.setState({typeOfNote:this.props.typeOfNote})
+          }
+        }
+      
 
         componentDidMount() {
-          this.getNote()
+          this.getNote();         
         }
       
 
       getNote = () => {
         let token =localStorage.getItem('token');
         service.getNote(token)
-            .then(data => {
-                console.log(data)
-                this.setState({
-                    list: data.data.data.data
+          .then(data => {
+              console.log(data)
+              this.setState({
+                  list: data.data.data.data
                 })
-            }
-            )
-            .catch(err => {
-                console.log(err);
+            })
+            .catch(error => {
+                console.log(error);
             })
        }
-         
-          render(){
-              return(
-                  <div>  
-                                                           
-                      
+
+      render(){
+          return(
+                <div>
+                  <div>                                       
+                      {this.state.typeOfNote === 'Keep' ?<div>
                       <div>
                         <Addnote getNote={this.getNote}/>
                       </div> 
                       <div className="note" >
                       
                         <Grid container direction="row" justify="center" alignItems="center" > 
-                        {this.state.list.map((value, index)=>(             
+                        {this.state.list.filter(note => note.isArchived == false ).map((value, index)=>(             
                         <div key={value.id}>
                             <div >
-                            <Grid>
-                              <Note getNote={this.getNote}  value={value} index={index}/>
-                            </Grid>                            
-                        </div>
+                              <Grid>
+                                <Note getNote={this.getNote}  value={value} index={index}/>
+                              </Grid>                            
+                            </div> 
                         </div>
                         ))}</Grid>
                       </div>
-
+                      </div>: ""}
+                    </div>
+                        
+                    <div>
+                      <div className="note" >
                         {this.state.typeOfNote === 'Archive' ?<div>
                           <Grid container direction='row' justify="center" alignItems="center">
                             {this.state.list.map((value,index)=>(
                               <div key={value.id}>
+                                {value.isArchived === true ?
                                 <div>
                                   <Grid>
-                                    <Note value={value} getNote={this.getNote} index={index}/>
+                                    <Note value={value} getNote={this.getNote}  index={index}/>
                                   </Grid>
-                                </div>
+                                </div> :""}
                                 </div>
 
                             ))}</Grid>
-
+                          
                         </div> : ""}
+                        </div>
+                  </div>
                   </div>
               )
           }

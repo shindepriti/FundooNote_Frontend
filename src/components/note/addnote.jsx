@@ -27,6 +27,7 @@ class Addnote extends React.Component{
             id:'',
             color:'',
             isPined:false,
+            isArchived:false,
             noteType:'isNote',
             photo:'',
             reminder:'',
@@ -63,6 +64,7 @@ class Addnote extends React.Component{
                 description:this.state.description,
                 noteType: this.state.noteType,
                 isPined:this.state.isPined,
+                isArchived:this.state.isArchived,
                 userId:token.id,
                 color:this.state.color,
                 photo:this.state.photo,
@@ -70,7 +72,6 @@ class Addnote extends React.Component{
             }
             service.addNote(note).then(res => {
                 console.log(res)
-                    // this.props.handleAddList(res);
                     this.props.getNote()  
                 })
                .catch(err => {

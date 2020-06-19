@@ -3,8 +3,6 @@ import { Tooltip, Card,Grow,Popper,ClickAwayListener,MenuList, MenuItem} from '@
 import IconButton from '@material-ui/core/IconButton';
 import More from '../../assets/more.svg'
 
-
-
 class MoreNote extends React.Component {
     constructor(props) {
         super(props);

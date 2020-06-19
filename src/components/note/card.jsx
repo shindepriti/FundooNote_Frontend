@@ -29,25 +29,11 @@ class Note extends Component{
         }
                
     }
-    componentDidUpdate(prevProps){
-        if(prevProps!==this.props){
-            this.setState({
-                title:this.props.value.title,
-                description:this.props.value.description,
-                color:this.props.value.color
-               })
-        }
-    }
+
     setReminderDate = (date) => {
         this.setState({reminder: date})
     }
-    changeColor = (color) => {
-        this.setState({
-            color: color,
-            isColorChanged: true
-        })
-    }
-
+   
     render(){
        
         return(
@@ -57,19 +43,7 @@ class Note extends Component{
                      <div style={{backgroundColor : this.props.value.color}}>
                         <div className="container">
                             <div className="title">
-                            <TextField
-                                    disabled
-                                    id='title'
-                                    multiline={true}
-                                    name='title'
-                                    placeholder='Title'
-                                    value={this.props.value.title}
-                                    onChange={(event) => this.input(event)}
-                                    InputProps={{
-                                        disableUnderline: true
-                                    }} />
-
-                            </div>
+                            <h4>{this.props.value.title}</h4></div>
                             <div className="pin">
                                 <Pinnote/>
                             </div>  
@@ -95,11 +69,12 @@ class Note extends Component{
                             <div className="note-icon">
                                 <Image/>
                             </div>
+
                             <div className="note-icon">
-                                <Archive/>
-                            </div>
+                                <Archive value={this.props.value} getNote={this.props.getNote}  />
+                            </div> 
                             <div className="note-icon">
-                                <Colornote  value={this.props.value} getNote={this.props.getNote} changeColor={this.addColour}/>
+                                <Colornote  value={this.props.value} getNote={this.props.getNote}/>
                             </div>
                             <div className="note-icon">
                                 <More/>

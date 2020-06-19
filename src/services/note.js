@@ -9,10 +9,8 @@ import axios from 'axios';
 const baseUrl = 'http://fundoonotes.incubation.bridgelabz.com/api/notes'
 export default class note{
 
-    addNote(note){
-       
-            
-        return new Promise((resolve, reject) => {
+    addNote=(note)=>{
+      return new Promise((resolve, reject) => {
             var authStr =localStorage.getItem('token');
            axios.post(baseUrl+'/addNotes',note, { headers: { Authorization: authStr } })
            .then((response) => {
