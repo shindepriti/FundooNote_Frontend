@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tooltip,IconButton } from '@material-ui/core';
+import { Tooltip,IconButton ,Button,Snackbar} from '@material-ui/core';
 import archive from '../../assets/archive.svg'
 import unarchive from '../../assets/unarchive.svg'
 import notes from '../../services/note'
@@ -10,7 +10,9 @@ class Archivenote extends React.Component {
         super(props);
         this.state = {
             isArchived: this.props.value.isArchived,
-            note:[]
+            note:[],
+            snackbaropen:false,
+            snackbarmsg:"",
         };
       }
 
@@ -42,12 +44,14 @@ class Archivenote extends React.Component {
             .then(res => {
                 this.setState({isArchived:!this.state.isArchived});
                 this.props.getNote()
+                this.setState({snackbaropen:true , snackbarmsg:"Archived"}) 
             })
             .catch(err => {
                
                 console.log(err);
 
             }) 
+            
         }
 
       render(){
@@ -59,6 +63,15 @@ class Archivenote extends React.Component {
                         <img  src={this.state.isArchived ? unarchive : archive} alt="archive"/>
                     </IconButton>
                 </Tooltip>
+
+                <Snackbar
+                    anchorOrigin={{vertical:'bottom',horizontal:'center'}}
+                    open={this.state.snackbaropen}
+                    autoHideDuration={5000}
+                    onClose={this.snackbarClose}
+
+                    message={<span id="message-id">{this.state.snackbarmsg}</span>}
+                    action={<Button color="inherit" size="small">Undo</Button>}/>
                 </div>
           )
       }

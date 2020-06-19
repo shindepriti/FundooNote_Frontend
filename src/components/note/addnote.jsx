@@ -7,7 +7,7 @@
 ***************************************************************/
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import {Input,Button,InputBase} from '@material-ui/core';
+import {Input,Button,InputBase,Snackbar,IconButton} from '@material-ui/core';
 import "../../scss/note.scss"
 import Pinnote from './pinnote'
 import Colornote from './colornote'
@@ -32,7 +32,9 @@ class Addnote extends React.Component{
             photo:'',
             reminder:'',
             openNote:false,
-            isColorChanged: false
+            isColorChanged: false,
+            snackbaropen:false,
+            snackbarmsg:"",
         }
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -72,7 +74,8 @@ class Addnote extends React.Component{
             }
             service.addNote(note).then(res => {
                 console.log(res)
-                    this.props.getNote()  
+                    this.props.getNote() 
+                    this.setState({snackbaropen:true,snackbarmsg:"Note Added Successfully"}) 
                 })
                .catch(err => {
                    console.log(err);  
@@ -111,7 +114,7 @@ class Addnote extends React.Component{
                                 ></InputBase>
                             </div>
                             <div className="pin">
-                                <Pinnote onSubmitPinned={this.onSubmitPinned}/>
+                                <Pinnote value={this.state.isPined} onSubmitPinned={this.onSubmitPinned}/>
                             </div>  
                         </div>
                         { this.state.openNote ? true && <div>
@@ -127,7 +130,7 @@ class Addnote extends React.Component{
                                 <Image/>
                             </div>
                             <div className="icon">
-                                <Archive/>
+                                <Archive value={this.state.isArchived}/>
                             </div>
                             <div className="icon">
                                 <Colornote  value={this.state.id} changeColor={this.changeColor}/>
@@ -143,6 +146,17 @@ class Addnote extends React.Component{
                         
                     </div>                    
                     </Card>
+
+                    <Snackbar
+                    anchorOrigin={{vertical:'bottom',horizontal:'center'}}
+                    open={this.state.snackbaropen}
+                    autoHideDuration={2000}
+                    onClose={this.snackbarClose}
+
+                    message={<span id="message-id">{this.state.snackbarmsg}</span>}
+                    action={[<IconButton key="close" arial-label="close" color="inherit" onClick={this.snackbarClose}>
+                        x
+                    </IconButton>]}/>
                 </div>
             )
 

@@ -12,11 +12,12 @@ import "../../scss/loginstyle.scss"
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import { Card, TextField, InputLabel, Input} from '@material-ui/core';
+import { Card, TextField, InputLabel, Input,} from '@material-ui/core';
 import { Divider ,Snackbar,IconButton,InputAdornment} from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import users from '../../services/user'
+
 const service = new users()
 
 class Login extends React.Component{
@@ -59,8 +60,9 @@ class Login extends React.Component{
                 localStorage.setItem("token",response.data.id);
                  
                 if(response){
+                    this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})  
                     this.props.history.push("/navbar")
-                     this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})        
+                           
                 }               
             })
             .catch(error=>{
@@ -89,7 +91,8 @@ class Login extends React.Component{
                     action={[<IconButton key="close" arial-label="close" color="inherit" onClick={this.snackbarClose}>
                         x
                     </IconButton>]}
-                />            
+                   
+                />
                 <Card className="loginCard">
                     <div className="login-header" >
                        Fundoo Login      

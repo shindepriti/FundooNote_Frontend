@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tooltip} from '@material-ui/core';
+import { Tooltip,Snackbar,Button} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import pin from '../../assets/pin-outline.svg'
 import unPin from '../../assets/pin.svg'
@@ -30,6 +30,7 @@ class Pinnote extends React.Component {
             .then(res => {
                 this.setState({isPined:!this.state.isPined});
                 this.props.getNote()
+                this.setState({snackbaropen:true , snackbarmsg:"Note Pinned"}) 
             })
             .catch(err => {
                 console.log(err);
@@ -48,7 +49,14 @@ class Pinnote extends React.Component {
                             </IconButton>
                         </Tooltip>
                   </div> 
+                  <Snackbar
+                    anchorOrigin={{vertical:'bottom',horizontal:'center'}}
+                    open={this.state.snackbaropen}
+                    autoHideDuration={5000}
+                    onClose={this.snackbarClose}
 
+                    message={<span id="message-id">{this.state.snackbarmsg}</span>}
+                    action={<Button color="inherit" size="small">Undo</Button>}/>
                     
               </div>
           )
