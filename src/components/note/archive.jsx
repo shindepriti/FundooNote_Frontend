@@ -9,14 +9,10 @@ class Archivenote extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isArchived: false,
+            isArchived: this.props.value.isArchived,
             note:[]
         };
       }
-
-    //   componentDidMount(){
-    //     this.getArchiveList()
-    // }
 
     getArchiveList=()=>{
       let token = localStorage.getItem('token');
@@ -35,64 +31,34 @@ class Archivenote extends React.Component {
     }
 
       
-      archiveNotes = () => {
+    archiveUnarchiveNotes = () => {
         let noteData = {
             noteIdList: [this.props.value.id],
-            isArchived: true
+            isArchived: !this.state.isArchived
         }
         console.log(noteData);
         let token =localStorage.getItem('token');
         service.archiveNote(token,noteData)
             .then(res => {
+                this.setState({isArchived:!this.state.isArchived});
                 this.props.getNote()
             })
             .catch(err => {
+               
                 console.log(err);
 
-            })
-            
+            }) 
         }
-
-        unarchiveNotes = () => {
-            let noteData = {
-                noteIdList: [this.props.value.id],
-                isArchived: false
-            }
-            console.log(noteData);
-            let token =localStorage.getItem('token');
-            service.archiveNote(token,noteData)
-                .then(res => {
-                    this.props.getNote()
-                })
-                .catch(err => {
-                    console.log(err);
-    
-                })
-                
-            }
-    
 
       render(){
 
           return(
-
-              <div>
-                    {this.props.value.isArchived == false ? 
-                    <div>
-                        <Tooltip title='Archive'>
-                            <IconButton  onClick={this.archiveNotes}>
-                                <img  src={archive} alt="archive"/>
-                            </IconButton>
-                        </Tooltip>
-                    </div>:""} 
-                    {this.props.value.isArchived == true ? <div>
-                        <Tooltip title='Unarchive'>
-                            <IconButton  onClick={this.unarchiveNotes}>
-                                <img  src={unarchive} alt="archive"/>
-                            </IconButton>
-                        </Tooltip>
-
-                    </div>: ""}
+                <div>
+                <Tooltip title={this.state.isArchived ? 'Unarchive' : 'Archive'}>
+                    <IconButton onClick={this.archiveUnarchiveNotes}>
+                        <img  src={this.state.isArchived ? unarchive : archive} alt="archive"/>
+                    </IconButton>
+                </Tooltip>
                 </div>
           )
       }
