@@ -77,8 +77,8 @@ class Addnote extends React.Component{
                     this.props.getNote() 
                     this.setState({snackbaropen:true,snackbarmsg:"Note Added Successfully"}) 
                 })
-               .catch(err => {
-                   console.log(err);  
+               .catch(error => {
+                    this.setState({snackbaropen:true,snackbarmsg:error.message})
                })
         }else{
             this.handleToggle();  

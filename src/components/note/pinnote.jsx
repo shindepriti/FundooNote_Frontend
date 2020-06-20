@@ -2,7 +2,6 @@ import React from 'react'
 import { Tooltip,Snackbar,Button} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import pin from '../../assets/pin-outline.svg'
-import unPin from '../../assets/pin.svg'
 import notes from '../../services/note'
 const service = new notes()
 
@@ -30,10 +29,10 @@ class Pinnote extends React.Component {
             .then(res => {
                 this.setState({isPined:!this.state.isPined});
                 this.props.getNote()
-                this.setState({snackbaropen:true , snackbarmsg:"Note Pinned"}) 
+                this.setState({snackbaropen:true ,  snackbarmsg: this.state.isPined=== true ? "Pinned":"Un Pinned"}) 
             })
-            .catch(err => {
-                console.log(err);
+            .catch(error => {
+                this.setState({snackbaropen:true,snackbarmsg:error.message})
 
             })  
         }
@@ -52,9 +51,8 @@ class Pinnote extends React.Component {
                   <Snackbar
                     anchorOrigin={{vertical:'bottom',horizontal:'center'}}
                     open={this.state.snackbaropen}
-                    autoHideDuration={5000}
+                    autoHideDuration={100000}
                     onClose={this.snackbarClose}
-
                     message={<span id="message-id">{this.state.snackbarmsg}</span>}
                     action={<Button color="inherit" size="small">Undo</Button>}/>
                     

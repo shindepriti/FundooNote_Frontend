@@ -41,15 +41,13 @@ class Archivenote extends React.Component {
         console.log(noteData);
         let token =localStorage.getItem('token');
         service.archiveNote(token,noteData)
-            .then(res => {
+            .then(response => {
                 this.setState({isArchived:!this.state.isArchived});
                 this.props.getNote()
-                this.setState({snackbaropen:true , snackbarmsg:"Archived"}) 
+                this.setState({snackbaropen:true ,  snackbarmsg: this.state.isArchived=== true?"Archived":"Un Archived"}) 
             })
-            .catch(err => {
-               
-                console.log(err);
-
+            .catch(error => {
+                this.setState({snackbaropen:true,snackbarmsg:error.message})
             }) 
             
         }
@@ -67,9 +65,8 @@ class Archivenote extends React.Component {
                 <Snackbar
                     anchorOrigin={{vertical:'bottom',horizontal:'center'}}
                     open={this.state.snackbaropen}
-                    autoHideDuration={5000}
+                    autoHideDuration={100000}
                     onClose={this.snackbarClose}
-
                     message={<span id="message-id">{this.state.snackbarmsg}</span>}
                     action={<Button color="inherit" size="small">Undo</Button>}/>
                 </div>
