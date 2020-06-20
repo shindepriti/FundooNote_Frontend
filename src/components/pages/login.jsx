@@ -58,7 +58,11 @@ class Login extends React.Component{
             .then((response)=>{
                 console.log(response)
                 localStorage.setItem("token",response.data.id);
-                 
+                localStorage.setItem("firstName",response.data.firstName)
+                localStorage.setItem("lastName",response.data.lastName)
+                localStorage.setItem("email",response.data.email) 
+                localStorage.setItem("image",response.data.imageUrl) 
+
                 if(response){
                     this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})  
                     this.props.history.push("/navbar")
@@ -84,7 +88,7 @@ class Login extends React.Component{
                 <Snackbar
                     anchorOrigin={{vertical:'center',horizontal:'center'}}
                     open={this.state.snackbaropen}
-                    autoHideDuration={4000}
+                    autoHideDuration={20000}
                     onClose={this.snackbarClose}
 
                     message={<span id="message-id">{this.state.snackbarmsg}</span>}

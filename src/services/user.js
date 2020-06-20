@@ -62,18 +62,16 @@ export default class user{
     }
 
     logOut(token){
-         
-        return new Promise((resolve,reject) =>{
-            let token =localStorage.getItem('token');
+        return new Promise((resolve,reject)=>{
             axios.post(baseUrl+`/logout?access_token=${token}`)
             .then((response)=>{
                 resolve(response)
-            
             })
             .catch((error)=>{
                 reject(error)
             })
         })
+
     }
 
 }

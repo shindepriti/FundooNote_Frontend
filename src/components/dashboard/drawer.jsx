@@ -7,7 +7,8 @@
 ***************************************************************/
 import React from 'react'
 import PropTypes from 'prop-types';
-import classNames from 'classnames'
+import classNames from 'classnames';
+import { Redirect } from 'react-router-dom';
 import keep from '../../assets/keep_logo.png'
 import { fade} from '@material-ui/core/styles';
 import { withStyles, AppBar,Drawer, ListItemIcon,List,ListItem,ListItemText, CssBaseline, Tooltip,Avatar,Button} from '@material-ui/core'
@@ -30,7 +31,7 @@ import Grid from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
 import users from '../../services/user'
 import  Displaynote from '../note/displaynote'
-import { Card } from 'material-ui';
+
 const service = new users()
 
 const styles = theme => ({
@@ -155,6 +156,15 @@ const styles = theme => ({
 
       multilineColor:{
         color:'#000000'
+    },
+    profile:{
+      display:'flex',
+      flexDirection:'row'      
+    },
+    logout:{
+      float:"right",
+      marginBottom:"2%",
+      marginTop:"1%"
     }
     
 });
@@ -166,7 +176,8 @@ class Navbar extends React.Component{
             anchorEl: null,
             open:false,
             view: false,
-            typeOfNote:'Keep'
+            typeOfNote:'Keep',
+            logOut:false
         };
         
     }
@@ -196,18 +207,11 @@ class Navbar extends React.Component{
       this.setState({typeOfNote:viewType})
     }
 
-    handleLogOut(event) {
-      let token =localStorage.getItem('token');
-      service.logOut(token)
-      .then((response)=>{
-        console.log(response)
-          this.props.history.push("/login");
-       })
-       .catch(error=>{
-        console.log(error)
-      })  
-     
+    logout = () => {
+      this.setState({logout: true});
+      localStorage.clear();
     }
+  
 
     handleMenuClose = () => {
         this.setState({ anchorEl: null });
@@ -216,23 +220,43 @@ class Navbar extends React.Component{
     handleRefresh=()=>{
         window.location.reload();
     }
+    
 
     render() {
-        const { classes, theme } = this.props;
-        const { anchorEl } = this.state;
-        const isMenuOpen = Boolean(anchorEl);
+      if (this.state.logout === true)
+      return <Redirect to="/login" push={true}></Redirect>
+      let firstName =localStorage.getItem('firstName');
+      let lastName =localStorage.getItem('lastName');
+      let email = localStorage.getItem('email');
+      let image = localStorage.getItem('image');
+      const { classes, theme } = this.props;
+      const { anchorEl } = this.state;
+      const isMenuOpen = Boolean(anchorEl);
 
         const renderMenu = (
-            <Menu
-                anchorEl={anchorEl}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                open={isMenuOpen}
-                onClose={this.handleMenuClose}
-            >
-                <MenuItem onClick={this.handleLogOut}>Logout</MenuItem>
-                <Card style={{width:"200px"}}/>
-            </Menu>
+          <Menu
+              anchorEl={anchorEl}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+              open={Boolean(anchorEl)}
+              onClose={this.handleMenuClose}
+              style={{top:"51px"}}
+              
+          >
+            <MenuItem>
+              <div className={classes.profile}>
+                <div>
+                  <Avatar alt="Remy Sharp" src={image} />
+                </div>
+                <div>
+                  <Typography variant="body1">{  firstName+" " +lastName}</Typography>
+                  <Typography variant="body2">{email}</Typography>
+                </div>
+              </div>
+            </MenuItem>
+            <Divider/>
+            <Button variant="outlined" size="small" className={classes.logout}  onClick={this.logout} >Logout</Button>
+          </Menu>
         );
     return (
       <div className={classes.root}>
@@ -274,18 +298,12 @@ class Navbar extends React.Component{
                                     </IconButton>
                                 </Tooltip>
                             </div>
-                            <Tooltip title="Notification">
-                            <IconButton className={classes.multilineColor} >
-                                <NotificationsIcon/>
-                            </IconButton>
-                            </Tooltip>
-
                            <IconButton
                                 className={classes.multilineColor}
                                 aria-label="account user"
                                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                                 onClick={this.handleProfileMenuOpen}>
-                                <Avatar alt="Remy Sharp" src={require('../../assets/jobs.jpeg')} className={classes.large} />
+                                <Avatar alt="Remy Sharp" src={image} className={classes.large} />
                             </IconButton>
                         </div>
             </Toolbar>
