@@ -30,13 +30,13 @@ describe(`Test Cases To Registration Component `,()=>{
 
 describe(`Registartion Input Value Integrations`,()=>{
 
-    it(`givenEmail_whenResponde_shouldChangeEventAndState`,()=>{
+    it(`givenFirstname_whenResponde_shouldChangeEventAndState`,()=>{
         const wrapper = shallow(<Registration/>);
         wrapper.find('#firstName').simulate('change',{target:{name:'firstName',value:'priti'}});
         expect(wrapper.state('firstName')).toEqual('priti')
     })
 
-    it(`givenFirstName_whenResponde_shouldChangeEventAndState`,()=>{
+    it(`givenLastName_whenResponde_shouldChangeEventAndState`,()=>{
         const wrapper = shallow(<Registration/>);
         wrapper.find('#lastName').simulate('change',{target:{name:"lastName",value:"shinde"}});
         expect(wrapper.state('lastName')).toEqual('shinde');
