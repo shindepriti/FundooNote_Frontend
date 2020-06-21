@@ -74,8 +74,8 @@ class Resetpassword extends React.Component{
                             Reset Password
                         </div>
                         <div className="input-container">
-                            <TextField name="newPassword" type="password"  label="new Password" variant="outlined" value={this.state.newPassword}  onChange={this.handleChange} required />
-                            <TextField name="confirmPassword" type="password" label="Confirm Password" variant="outlined" value={this.state.confirmPassword} onChange={this.handleChange} required/>
+                            <TextField name="newPassword"id="password" type="password"  label="new Password" variant="outlined" value={this.state.newPassword}  onChange={this.handleChange} required />
+                            <TextField name="confirmPassword" id="confirm" type="password" label="Confirm Password" variant="outlined" value={this.state.confirmPassword} onChange={this.handleChange} required/>
                         </div >
                         <div className="flex-container-row full-width">
                             <div className="div-display">
