@@ -72,7 +72,7 @@ class Forgotpassword extends  React.Component{
                         Forgot Password      
                         </div>
                         <div className="input-container">
-                            <TextField name="email" type="text" variant="outlined" label="Email" value={this.state.email} onChange={this.handleChange} required/>
+                            <TextField name="email" id="email" type="text" variant="outlined" label="Email" value={this.state.email} onChange={this.handleChange} required/>
                         </div>
                         <div className="flex-container-row full-width">
                             <div className="div-display">
