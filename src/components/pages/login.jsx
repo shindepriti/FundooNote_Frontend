@@ -99,7 +99,7 @@ class Login extends React.Component{
                 />
                 <Card className="loginCard">
                     <div className="login-header" >
-                       Fundoo Login      
+                       Fundoonote Login      
                     </div>
                    
                     <div className="input-container">

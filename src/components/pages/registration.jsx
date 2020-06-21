@@ -105,12 +105,12 @@ class Registration extends React.Component{
                       Registration      
                     </div>
                     <div className="input-container">
-                        <TextField name="firstName" type="text" label="First Name" value={this.state.firstName}  onChange={this.handleChange} required />
-                        <TextField name="lastName" type="text"  label="Last Name" value={this.state.lastName}  onChange={this.handleChange} required />
-                        <TextField name="email" type="text"  label="Email" value={this.state.email}  onChange={this.handleChange} required />                        
+                        <TextField name="firstName" id="firstName" type="text" label="First Name" value={this.state.firstName}  onChange={this.handleChange} required />
+                        <TextField name="lastName" id="lastName" type="text" label="Last Name" value={this.state.lastName}  onChange={this.handleChange} required />
+                        <TextField name="email" id="email" type="text" label="Email" value={this.state.email}  onChange={this.handleChange} required />                        
                         <FormControl>
                             <InputLabel>Password</InputLabel>
-                            <Input name="password" type={this.state.showPassword ? 'text' : 'password'} value={this.state.password}  helperText="Minimum 8 character" onChange={this.handleChange} required
+                            <Input name="password"id="password" type={this.state.showPassword ? 'text' : 'password'} value={this.state.password}  helperText="Minimum 8 character" onChange={this.handleChange} required
                                 endAdornment={ <InputAdornment position="end">
                                     <IconButton aria-label="password visibility"  onClick={this.handleClickShowPassword} onMouseDown={this.handleMouseDownPassword}>
                                         {this.state.showPassword ? <Visibility /> : <VisibilityOff />}</IconButton>

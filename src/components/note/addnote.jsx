@@ -16,6 +16,7 @@ import Remind from './remindnote'
 import notes from '../../services/note'
 import Image from './addimage'
 import More from './more'
+import Collaborator from './collaborator'
 const service = new notes()
 
 class Addnote extends React.Component{ 
@@ -125,6 +126,9 @@ class Addnote extends React.Component{
                         <div className="container" >
                             <div className="icon">
                                 <Remind setDate={this.setReminderDate}/>
+                            </div>
+                            <div className="icon">
+                                <Collaborator/>
                             </div>
                             <div className="icon">
                                 <Image/>

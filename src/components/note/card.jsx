@@ -8,6 +8,7 @@ import Archive from './archive'
 import Remind from './remindnote'
 import Image from './addimage'
 import More from './more'
+import Collaborator from './collaborator'
 import notes from '../../services/note'
 const service = new notes()
 class Note extends Component{
@@ -65,6 +66,9 @@ class Note extends Component{
                         <div className="container">
                             <div className="note-icon">
                                 <Remind className="remind-card" setDate={this.setReminderDate}/>
+                            </div>
+                            <div className="note-icon">
+                                <Collaborator/>
                             </div>
                             <div className="note-icon">
                                 <Image/>

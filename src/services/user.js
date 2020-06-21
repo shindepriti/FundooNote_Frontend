@@ -12,12 +12,13 @@ const baseUrl = 'http://fundoonotes.incubation.bridgelabz.com/api/user'
 export default class user{
 
      login(loginData){
+        
         return new Promise((resolve, reject) => {
            axios.post(baseUrl+'/login',loginData)
-           .then((response) => {
+            .then((response) => {
                resolve(response)
            })
-           .catch((error) => {
+            .catch((error) => {
                reject(error)
            })
      })
