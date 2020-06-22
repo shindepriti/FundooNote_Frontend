@@ -44,7 +44,14 @@ class Note extends Component{
                      <div style={{backgroundColor : this.props.value.color}}>
                         <div className="container">
                             <div className="title">
-                            <h4>{this.props.value.title}</h4></div>
+                            <TextField
+                            disabled
+                            autoFocus
+                            name='title'
+                            multiline={true}
+                            value = {this.props.value.title}
+                            InputProps={{disableUnderline: true}} />
+                            </div>
                             <div className="pin">
                                 <Pinnote  value={this.props.value} isPined={this.props.value.isPined} getNote={this.props.getNote}/>
                             </div>  

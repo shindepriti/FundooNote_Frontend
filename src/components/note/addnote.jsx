@@ -56,12 +56,16 @@ class Addnote extends React.Component{
     handleToggle = () => {
         this.setState(state => ({ openNote: !state.openNote }));
       };
+      snackbarClose = ()=>{
+        this.setState({snackbaropen:false})
+    }
 
 
     onSubmit(event){
         if(this.state.title !== '' && this.state.description !== ''){
             let token = localStorage.getItem('token')
             event.preventDefault()
+            
             const note = {
                 title:this.state.title,
                 description:this.state.description,
@@ -75,7 +79,8 @@ class Addnote extends React.Component{
             }
             service.addNote(note).then(res => {
                 console.log(res)
-                    this.props.getNote() 
+                    this.props.getNote()
+                   this.setState({title:"",description:""})
                     this.setState({snackbaropen:true,snackbarmsg:"Note Added Successfully"}) 
                 })
                .catch(error => {
@@ -85,14 +90,6 @@ class Addnote extends React.Component{
             this.handleToggle();  
         } 
      }
-    
-    // changeColor = (color) => {
-    //     this.setState({
-    //         color: color,
-    //         isColorChanged: true
-    //     })
-    // }
-
 
     setReminderDate = (date) => {
         this.setState({
@@ -110,7 +107,7 @@ class Addnote extends React.Component{
                     <div>
                         <div className="container">
                             <div className="input-title">
-                                <InputBase name='title' value={this.state.title} className="input-text" placeholder="Title" onChange={this.onChange} multiline={true}
+                                <InputBase name='title' id="title" value={this.state.title} className="input-text" placeholder="Title" onChange={this.onChange} multiline={true}
                                 disableUnderline={true} onClick ={this.openNoteForContent}
                                 ></InputBase>
                             </div>
@@ -120,7 +117,7 @@ class Addnote extends React.Component{
                         </div>
                         { this.state.openNote ? true && <div>
                         <div className="input-note">
-                            <Input value={this.state.description} name='description' className="input-text" placeholder="Take a note..." onChange={this.onChange}
+                            <Input id="takeNote" value={this.state.description} name='description' className="input-text" placeholder="Take a note..." onChange={this.onChange}
                             multiline={true} disableUnderline={true} />
                         </div>
                         <div className="container" >
@@ -154,7 +151,7 @@ class Addnote extends React.Component{
                     <Snackbar
                     anchorOrigin={{vertical:'bottom',horizontal:'center'}}
                     open={this.state.snackbaropen}
-                    autoHideDuration={2000}
+                    autoHideDuration={1000}
                     onClose={this.snackbarClose}
 
                     message={<span id="message-id">{this.state.snackbarmsg}</span>}

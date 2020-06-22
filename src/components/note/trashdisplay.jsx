@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import "../../scss/note.scss"
 import Pinnote from './pinnote'
-import { MenuItem,Tooltip,IconButton,Menu,MenuList} from '@material-ui/core'
+import { MenuItem,Tooltip,IconButton,Menu,MenuList,Snackbar} from '@material-ui/core'
 import DeleteNote from './deletenote'
 import notes from '../../services/note'
 import More from '../../assets/more.svg'
@@ -13,7 +13,10 @@ class TrashNote extends Component{
     constructor(props){
         super(props)
         this.state = {
+            isDeleted: false,
             anchorEl: null,
+            snackbaropen:false,
+            snackbarmsg:"",
         }
     }
     handleMenuClose = () => {
@@ -23,12 +26,39 @@ class TrashNote extends Component{
         this.setState({active:true,anchorEl: event.currentTarget});
         
     }
+    snackbarClose = ()=>{
+        this.setState({snackbaropen:false})
+    }
+    
 
+    deleteForverNotes = () => {
+        let noteData = {
+            noteIdList: [this.props.value.id],
+            isDeleted: this.state.isDeleted
+        }
+        console.log(noteData);
+        let token =localStorage.getItem('token');
+        service.deleteNote(token,noteData)
+            .then(response => {
+                this.props.getNote()
+                this.setState({snackbaropen:true ,  snackbarmsg: "Note Deleted Successfully"}) 
+            })
+            .catch(error => {
+                this.setState({snackbaropen:true,snackbarmsg:error.message})
+            }) 
+            
+        }
 
     render(){
         const { anchorEl } = this.state;
         return(
             <div>
+                <Snackbar
+                    anchorOrigin={{vertical:'bottom',horizontal:'center'}}
+                    open={this.state.snackbaropen}
+                    autoHideDuration={20000}
+                    onClose={this.snackbarClose}
+                    message={<span id="message-id">{this.state.snackbarmsg}</span>}/>
             <div>
                 <Card className="get-note" variant="outlined"> 
                      <div style={{backgroundColor : this.props.value.color}}>
@@ -54,7 +84,7 @@ class TrashNote extends Component{
                                 }} />
                         </div>
                         <div className="container">
-                        <div  className=" more-trash">
+                        <div className=" more-trash">
                         <div>
                         <div>
                             <Tooltip title="More">
@@ -73,7 +103,7 @@ class TrashNote extends Component{
                         > 
                         <MenuList className="deletecontainer">
                             <DeleteNote value={this.props.value} getNote={this.props.getNote}/>
-                            <MenuItem >Delete Forever</MenuItem>
+                            <MenuItem onClick={this.deleteForverNotes} >Delete Forever</MenuItem>
                         </MenuList> 
                         </Menu>
                         </div>

@@ -97,6 +97,19 @@ export default class note{
 
     }
 
+    deleteForever(token,deleteData){
+        return new Promise((resolve,reject)=>{
+            axios.post(baseUrl+`/deleteForeverNotes?access_token=${token}`,deleteData)
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+
+    }
+
        
 
 }
