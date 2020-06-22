@@ -81,7 +81,7 @@ class Note extends Component{
                                 <Colornote  value={this.props.value} getNote={this.props.getNote}/>
                             </div>
                             <div className="note-icon">
-                                <More/>
+                                <More value={this.props.value} getNote={this.props.getNote}/>
                             </div>
                         </div>
 

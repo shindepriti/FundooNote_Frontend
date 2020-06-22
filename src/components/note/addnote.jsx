@@ -86,12 +86,12 @@ class Addnote extends React.Component{
         } 
      }
     
-    changeColor = (color) => {
-        this.setState({
-            color: color,
-            isColorChanged: true
-        })
-    }
+    // changeColor = (color) => {
+    //     this.setState({
+    //         color: color,
+    //         isColorChanged: true
+    //     })
+    // }
 
 
     setReminderDate = (date) => {

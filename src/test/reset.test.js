@@ -17,7 +17,7 @@ describe(`Test Case To Reset Component`,()=>{
 
 })
 
-describe(`Forgot Input Value Integrations`,()=>{
+describe(`Reset Input Value Integrations`,()=>{
 
     it(`givenNewPassword_whenResponde_shouldChangeEventAndState`,()=>{
         const wrapper = shallow(<Reset/>);

@@ -29,7 +29,6 @@ class Archivenote extends React.Component {
          .catch(error =>{
            console.log(error)
          })
-
     }
 
       

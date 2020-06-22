@@ -84,6 +84,19 @@ export default class note{
 
     }
 
+    deleteNote(token,deleteData){
+        return new Promise((resolve,reject)=>{
+            axios.post(baseUrl+`/trashNotes?access_token=${token}`,deleteData)
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+
+    }
+
        
 
 }

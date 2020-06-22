@@ -31,7 +31,7 @@ import Grid from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
 import users from '../../services/user'
 import  Displaynote from '../note/displaynote'
-
+import Label from '@material-ui/icons/Label'
 const service = new users()
 
 const styles = theme => ({
@@ -336,7 +336,13 @@ class Navbar extends React.Component{
           </List>
           <Divider/>
           <List>
-            
+          <ListItem button key='Label' onClick={(event)=>{this.changeView(event, 'Label')}}>
+            <ListItemIcon><Label/></ListItemIcon>
+            <ListItemText>Label</ListItemText>  
+            </ListItem>
+          </List>
+          <List>  
+         <Divider/>
         <ListItem button key='Archive' onClick={(event)=>{this.changeView(event, 'Archive')}}>
             <ListItemIcon><InboxIcon/></ListItemIcon>
             <ListItemText>Archive</ListItemText>  

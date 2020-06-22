@@ -41,9 +41,7 @@ class Colornote extends React.Component{
         console.log(colorData)
         let token =localStorage.getItem('token');
           service.changeColor(token,colorData).then(res=>{
-             
-            this.props.getNote()
-              
+            this.props.getNote()  
           })
           .catch(err => {
             console.log(err.response);
