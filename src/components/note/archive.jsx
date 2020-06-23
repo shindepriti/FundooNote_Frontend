@@ -1,3 +1,10 @@
+/***************************************************************
+ * @purpose  : Define Note Archive And Unarchive 
+ * @file     : archive.jsx             
+ * @overview : Componet To Handel Archive and Unarchive
+ * @author   : priti shinde
+ * @since    : 19/6/2020
+***************************************************************/
 import React from 'react'
 import { Tooltip,IconButton ,Button,Snackbar} from '@material-ui/core';
 import archive from '../../assets/archive.svg'

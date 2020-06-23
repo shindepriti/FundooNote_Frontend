@@ -1,3 +1,10 @@
+/***************************************************************
+ * @purpose  : Define Note pinnote 
+ * @file     : pinnote.jsx             
+ * @overview : Componet To Handel Pin And Unpin Note
+ * @author   : priti shinde
+ * @since    : 16/6/2020
+***************************************************************/
 import React from 'react'
 import { Tooltip,Snackbar,Button} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';

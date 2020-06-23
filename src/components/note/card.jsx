@@ -1,7 +1,15 @@
+/***************************************************************
+ * @purpose  : Define Notes
+ * @file     : Card.jsx             
+ * @overview : Componet To Handel All Notes
+ * @author   : priti shinde
+ * @since    : 11/6/2020
+***************************************************************/
 import React, { Component } from 'react';
-import Card from '@material-ui/core/Card';
+import {Card,Dialog} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import "../../scss/note.scss"
+import '../../scss/updatestyle.scss'
 import Pinnote from './pinnote'
 import Colornote from './colornote'
 import Archive from './archive'
@@ -10,6 +18,7 @@ import Image from './addimage'
 import More from './more'
 import Collaborator from './collaborator'
 import notes from '../../services/note'
+import UpdateNote from './updatenote';
 const service = new notes()
 class Note extends Component{
     constructor(props){
@@ -28,12 +37,20 @@ class Note extends Component{
             open:false,
             
         }
-               
+            
+    }
+    handleClickopen=()=>{
+        this.setState({open:true})
     }
 
     setReminderDate = (date) => {
         this.setState({reminder: date})
     }
+    handleClose = () => {
+        var temp= true;
+        temp && this.setState({ open: false });;
+        
+      };
    
     render(){
        
@@ -43,20 +60,19 @@ class Note extends Component{
                 <Card className="get-note" variant="outlined"> 
                      <div style={{backgroundColor : this.props.value.color}}>
                         <div className="container">
-                            <div className="title">
+                            <div  onClick={this.handleClickopen} className="title">
                             <TextField
                             disabled
                             autoFocus
                             name='title'
                             multiline={true}
                             value = {this.props.value.title}
-                            InputProps={{disableUnderline: true}} />
-                            </div>
+                            InputProps={{disableUnderline: true}} /></div>
                             <div className="pin">
                                 <Pinnote  value={this.props.value} isPined={this.props.value.isPined} getNote={this.props.getNote}/>
                             </div>  
                         </div>
-                        <div className="input-note">
+                        <div onClick={this.handleClickopen} className="input-note">
                         <TextField
                                 disabled
                                 id='descriptionDisplay'
@@ -66,9 +82,7 @@ class Note extends Component{
                                 name='description'
                                 value={this.props.value.description}
                                 onChange={(event) => this.input(event)}
-                                InputProps={{
-                                    disableUnderline: true
-                                }} />
+                                InputProps={{ disableUnderline: true}} />
                         </div>
                         <div className="container">
                             <div className="note-icon">
@@ -80,7 +94,6 @@ class Note extends Component{
                             <div className="note-icon">
                                 <Image/>
                             </div>
-
                             <div className="note-icon">
                                 <Archive value={this.props.value} getNote={this.props.getNote}  />
                             </div> 
@@ -95,9 +108,16 @@ class Note extends Component{
                      </div>
                   </Card>
               </div>
-              </div>
-        )
-    }
+            <div>
+            <Dialog 
+                open={this.state.open}
+                onClose={this.handleClose}
+                aria-labelledby="max-width-dialog-title">
+                <UpdateNote value={this.props.value} handleClose={this.handleClose} getNote={this.props.getNote}  />
+            </Dialog>
+    </div>
+</div>
+)}
 }
 
 export default Note

@@ -1,3 +1,10 @@
+/***************************************************************
+ * @purpose  : Define Note color 
+ * @file     : colornote.jsx             
+ * @overview : Componet To Handel color for note
+ * @author   : priti shinde
+ * @since    : 16/6/2020
+***************************************************************/
 import React from 'react'
 import "../../scss/note.scss"
 import { Tooltip, Menu, MuiThemeProvider} from '@material-ui/core';
@@ -27,9 +34,7 @@ class Colornote extends React.Component{
       }
       
       openPalette = (event) => {
-        this.setState({
-          anchorEl: event.currentTarget
-        });
+        this.setState({anchorEl: event.currentTarget});
         
       }
 

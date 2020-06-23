@@ -68,7 +68,7 @@ import remind from '../../assets/notifications.svg'
 
     render() {
         return (
-            <div >
+            <div>
                 <ClickAwayListener onClickAway={this.handleClickAway} >
                 <div>
                 <div>

@@ -110,6 +110,20 @@ export default class note{
 
     }
 
+    updateNote(token,data){
+        return new Promise((resolve,reject)=>{
+            axios.post(baseUrl+`/updateNotes?access_token=${token}`,data)
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+
+    }
+
+
        
 
 }

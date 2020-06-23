@@ -1,3 +1,10 @@
+/**********************************************************************
+ * @purpose  : Define Note delete label 
+ * @file     : more.jsx             
+ * @overview : Componet To Handel Delete label and Other options for User
+ * @author   : priti shinde
+ * @since    : 20/6/2020
+************************************************************************/
 import React from 'react'
 import { Tooltip, Card,Grow,Popper,ClickAwayListener,MenuList, MenuItem,Menu} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';

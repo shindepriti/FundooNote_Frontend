@@ -5,6 +5,7 @@ import Note from './card'
 import Addnote from './addnote'
 import TrashNote from './trashdisplay'
 import notes from '../../services/note'
+
 const service = new notes()
 
 class CardNote extends React.Component{
@@ -12,6 +13,7 @@ class CardNote extends React.Component{
         super(props)
         this.state = {
             list:[],
+            open:false,
             typeOfNote:this.props.typeOfNote
             }           
         }
@@ -20,8 +22,7 @@ class CardNote extends React.Component{
             this.setState({typeOfNote:this.props.typeOfNote})
           }
         }
-      
-
+        
         componentDidMount() {
           this.getNote();         
         }
@@ -122,6 +123,7 @@ class CardNote extends React.Component{
                         </div>
                   </div>
 
+                  
                   
                   </div>
               )
