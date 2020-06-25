@@ -6,7 +6,7 @@
  * @since    : 11/6/2020
 ***************************************************************/
 import React, { Component } from 'react';
-import {Card,Dialog} from '@material-ui/core';
+import {Card,Dialog,Chip} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import "../../scss/note.scss"
 import '../../scss/updatestyle.scss'
@@ -18,6 +18,7 @@ import Image from './addimage'
 import More from './more'
 import Collaborator from './collaborator'
 import notes from '../../services/note'
+import AccessTime from '@material-ui/icons/AccessTime'
 import UpdateNote from './updatenote';
 const service = new notes()
 class Note extends Component{
@@ -43,13 +44,25 @@ class Note extends Component{
         this.setState({open:true})
     }
 
-    setReminderDate = (date) => {
-        this.setState({reminder: date})
-    }
     handleClose = () => {
         var temp= true;
-        temp && this.setState({ open: false });;
+        temp && this.setState({ open: false });
         
+      };
+      handleDeleteReminder = () => {
+        let noteData = {
+            noteIdList: [this.props.value.id]
+        }
+        let token =localStorage.getItem('token');
+        service.removeReminder(token,noteData)
+            .then(res=>{
+                this.handleClose()
+                this.props.getNote() 
+                               
+             })
+            .catch(err => {
+             console.log(err.response);
+            });
       };
    
     render(){
@@ -84,9 +97,18 @@ class Note extends Component{
                                 onChange={(event) => this.input(event)}
                                 InputProps={{ disableUnderline: true}} />
                         </div>
+                        {this.state.reminder.length > 0   ?
+                         <div>
+                            <Chip open={this.state.open}
+                                handleClose={this.handleClose}
+                                avatar={<AccessTime alt="time"/>}
+                                label="Deletable"
+                                onDelete={this.handleDeleteReminder}
+                            />
+                        </div> : ""}
                         <div className="container">
                             <div className="note-icon">
-                                <Remind className="remind-card" setDate={this.setReminderDate}/>
+                                <Remind className="remind-card" noteIdList={this.props.value.id} handleClose={this.handleClose}  value={this.props.value} getNote={this.props.getNote} />
                             </div>
                             <div className="note-icon">
                                 <Collaborator/>

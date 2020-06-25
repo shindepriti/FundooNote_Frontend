@@ -7,7 +7,7 @@
 ***************************************************************/
 
 import axios from 'axios';
-
+require('dotenv').config();
 const baseUrl = 'http://fundoonotes.incubation.bridgelabz.com/api/user'
 export default class user{
 

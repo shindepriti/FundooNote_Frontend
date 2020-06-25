@@ -12,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ColorIcon from '../../assets/colour.svg'
 import notes from '../../services/note'
 const service = new notes()
-
   
 class Colornote extends React.Component{
     constructor(props) {

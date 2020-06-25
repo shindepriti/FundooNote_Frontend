@@ -37,8 +37,8 @@ class Deletenote extends React.Component {
 
           return(
                 <div>
-                    <div>
-                        <MenuItem onClick={this.trashUntrashNotes}>{this.state.isDeleted ? 'Restore' : 'Delete Note'}</MenuItem>
+                    <div
+                         onClick={this.trashUntrashNotes}>{this.state.isDeleted ? 'Restore' : 'Delete Note'}
                     </div>
 
                 <Snackbar

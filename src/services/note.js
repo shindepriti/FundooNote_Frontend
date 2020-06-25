@@ -6,7 +6,8 @@
  * @since    : 10/6/2020
 ***************************************************************/
 import axios from 'axios';
-const baseUrl = 'http://fundoonotes.incubation.bridgelabz.com/api/notes'
+require('dotenv').config();
+const baseUrl = process.env.REACT_APP_NOTEURL
 export default class note{
 
     addNote=(note)=>{
@@ -113,6 +114,32 @@ export default class note{
     updateNote(token,data){
         return new Promise((resolve,reject)=>{
             axios.post(baseUrl+`/updateNotes?access_token=${token}`,data)
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+
+    }
+
+    reminderNote(token,data){
+        return new Promise((resolve,reject)=>{
+            axios.post(baseUrl+`/addUpdateReminderNotes?access_token=${token}`,data)
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+
+    }
+
+    removeReminder(token,data){
+        return new Promise((resolve,reject)=>{
+            axios.post(baseUrl+`/removeReminderNotes?access_token=${token}`,data)
             .then((response)=>{
                 resolve(response)
             })

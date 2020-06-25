@@ -82,6 +82,27 @@ class CardNote extends React.Component{
                       </div>
                       </div>: ""}
                     </div>
+
+                    <div>
+                      <div className="note" >
+                        {this.state.typeOfNote === 'Reminder' ?<div>
+                          <Grid container direction='row' justify="left" alignItems="center">
+                            {this.state.list.reverse().map((value,index)=>(
+                              <div key={value.id}>
+                                {value.reminder.length > 0 ?
+                                <div>
+                                  <Grid>
+                                    <Note value={value} getNote={this.getNote}  index={index}/>
+                                  </Grid>
+                                </div> :""}
+                                </div>
+
+                            ))}</Grid>
+                          
+                        </div> : ""}
+                        </div>
+                  </div>
+
                         
                     <div>
                       <div className="note" >

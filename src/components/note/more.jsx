@@ -53,10 +53,12 @@ class MoreNote extends React.Component {
                         open={Boolean(anchorEl)}
                         onClose={this.handleMenuClose}
                     > 
-                        <MenuList className="deletecontainer">
+                        
+                            <MenuItem>
                             <DeleteNote value={this.props.value} getNote={this.props.getNote}/>
+                            </MenuItem>
                             <MenuItem >Add Lable</MenuItem>
-                        </MenuList> 
+                         
                         
                     </Menu>
                 </div>

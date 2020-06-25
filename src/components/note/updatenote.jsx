@@ -73,7 +73,7 @@ class UpdateNote extends Component{
                     <div style={{backgroundColor : this.props.value.color}}>
                         <div className="container">
                         <div className="update-title">
-                        <InputBase
+                        <InputBase className="input-text"
                             name='title'
                             multiline={true}
                             onChange={this.handleChange}
