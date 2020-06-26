@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import "../../scss/note.scss"
 import '../../scss/updatestyle.scss'
 import Pinnote from './pinnote'
+import moment from 'moment';
 import Colornote from './colornote'
 import Archive from './archive'
 import Remind from './remindnote'
@@ -20,6 +21,7 @@ import Collaborator from './collaborator'
 import notes from '../../services/note'
 import AccessTime from '@material-ui/icons/AccessTime'
 import UpdateNote from './updatenote';
+
 const service = new notes()
 class Note extends Component{
     constructor(props){
@@ -34,8 +36,9 @@ class Note extends Component{
             color:this.props.value.color,
             label:this.props.value.label,
             photo:this.props.value.photo,
-            reminder:this.props.value.reminder,
             open:false,
+            noteIdList:this.props.noteIdList,
+            reminder: this.props.value.reminder
             
         }
             
@@ -49,7 +52,10 @@ class Note extends Component{
         temp && this.setState({ open: false });
         
       };
+     
+      
       handleDeleteReminder = () => {
+        
         let noteData = {
             noteIdList: [this.props.value.id]
         }
@@ -64,6 +70,24 @@ class Note extends Component{
              console.log(err.response);
             });
       };
+
+    //   addReminderNotes=()=>{
+    //     if(this.state.reminder !== null && this.state.id !== ""){
+    //     let noteData = {
+    //         noteIdList: [this.state.noteIdList],
+    //         reminder: moment().format('MM/DD/YYYY, LT')
+    //     }
+    //     let token =localStorage.getItem('token');
+    //     service.reminderNote(token,noteData)
+    //         .then(res=>{ 
+    //              this.props.getNote()
+    //             this.handleMenuClose()
+    //          })
+    //         .catch(err => {
+    //          console.log(err.response); 
+    //         });
+    // }
+    // }
    
     render(){
        
@@ -71,7 +95,7 @@ class Note extends Component{
             <div>
             <div>
                 <Card className="get-note" variant="outlined"> 
-                     <div style={{backgroundColor : this.props.value.color}}>
+                     <div className="cardcontain" style={{backgroundColor : this.props.value.color}}>
                         <div className="container">
                             <div  onClick={this.handleClickopen} className="title">
                             <TextField
@@ -100,18 +124,20 @@ class Note extends Component{
                         {this.state.reminder.length > 0   ?
                          <div>
                             <Chip open={this.state.open}
+                                noteIdList={this.props.value.id} 
                                 handleClose={this.handleClose}
+                                getNote={this.props.getNote}
                                 avatar={<AccessTime alt="time"/>}
-                                label="Deletable"
+                                label={ moment().format('MM/DD/YYYY,LT')}
                                 onDelete={this.handleDeleteReminder}
                             />
-                        </div> : ""}
+                        </div>:""} 
                         <div className="container">
                             <div className="note-icon">
-                                <Remind className="remind-card" noteIdList={this.props.value.id} handleClose={this.handleClose}  value={this.props.value} getNote={this.props.getNote} />
+                                <Remind  noteIdList={this.props.value.id} handleClose={this.handleClose}  value={this.props.value} getNote={this.props.getNote} />
                             </div>
                             <div className="note-icon">
-                                <Collaborator/>
+                                <Collaborator open={this.state.open} value={this.props.value} handleClose={this.handleClose} getNote={this.props.getNote}/>
                             </div>
                             <div className="note-icon">
                                 <Image/>

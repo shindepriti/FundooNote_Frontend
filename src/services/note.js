@@ -150,6 +150,34 @@ export default class note{
 
     }
 
+    addCollaborator(id,data){
+       
+        return new Promise((resolve,reject)=>{
+            var authStr =localStorage.getItem('token');
+            axios.post(baseUrl+`/${id}/AddcollaboratorsNotes`,data,{ headers: { Authorization: authStr } })
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+
+    }
+
+    searchUserList(token,data){
+        return new Promise((resolve,reject)=>{
+            axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/user/searchUserList?access_token=${token}`,data)
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+
+    }
+
 
        
 

@@ -108,10 +108,11 @@ class TrashNote extends Component{
                             open={Boolean(anchorEl)}
                             onClose={this.handleMenuClose}                                                       
                         > 
-                        <MenuList className="deletecontainer">
+                        <MenuItem>
                             <DeleteNote value={this.props.value} getNote={this.props.getNote}/>
-                            <MenuItem onClick={this.deleteForverNotes} >Delete Forever</MenuItem>
-                        </MenuList> 
+                        </MenuItem>
+                        <MenuItem onClick={this.deleteForverNotes} >Delete Forever</MenuItem>
+                          
                         </Menu>
                         </div>
                         </div>

@@ -25,7 +25,7 @@ class MoreNote extends React.Component {
         this.setState({active:true,anchorEl: event.currentTarget});
         
     }
-      handleMenuClose = () => {
+    handleMenuClose = () => {
         this.setState({ anchorEl: null });
     };
     

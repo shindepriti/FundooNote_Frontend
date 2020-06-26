@@ -28,9 +28,10 @@ class Reminder extends React.Component {
             active: false,
             custom: false,
             anchorEl: null,
-            selectedDate:new Date('2014-08-18T21:11:54'),
-            timePick:false
-        }      
+            timePick:false,
+            list:[],
+            open:false
+        }     
     }
     
 
@@ -45,22 +46,28 @@ class Reminder extends React.Component {
     handleClickAway = () => {
         this.setState({ active: false});  
     }
-
-
+    
+//   UNSAFE_componentDidUpdate(){
+//     if(this.state. > 0)
+//         this.addReminderNotes()
+//   }
+   
     addReminderNotes=()=>{
+        if(this.state.reminder !== null && this.state.id !== ""){
         let noteData = {
             noteIdList: [this.state.noteIdList],
-            reminder: moment().format('MM/DD/YYYY, h:mm A')
+            reminder: moment().format('MM/DD/YYYY, LT')
         }
         let token =localStorage.getItem('token');
         service.reminderNote(token,noteData)
             .then(res=>{ 
-                this.handleClickAway()
-                
+                 this.props.getNote()
+                this.handleMenuClose()
              })
             .catch(err => {
              console.log(err.response); 
             });
+    }
     }
 
     handleCustom = (event) => {
@@ -73,7 +80,7 @@ class Reminder extends React.Component {
 
     datePicker = (event) => {
         let date = event.target.value
-        let newDate = moment(date).format('MM/DD/YYYY, h:mm A');
+        let newDate = moment(date).format('MMMM Do YYYY, h:mm:ss a');
         this.props.setDate(newDate);
     }
 
@@ -101,6 +108,7 @@ class Reminder extends React.Component {
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'left bottom ' }}
                     transformOrigin={{ vertical: 'top', horizontal: 'left bottom' }}
                     open={Boolean(anchorEl)}
+                    className="remind-display"
                     onClose={this.handleMenuClose}
                 > 
                 {this.state.timePick ? 
@@ -111,16 +119,18 @@ class Reminder extends React.Component {
                         id="datetime-local"
                         label="Select date"
                         type="datetime-local"
-                        InputLabelProps={{
-                        shrink: true,
-                        }}/>
+                       
+                        InputLabelProps={{shrink: true, }}/>
                         </MenuItem> 
-                </div>:
-                <div>
+                    <div >
+                    <Button color="primary">Save </Button>
+                    </div>
+                    </div>:
+                    <div>
                     <Typography>Reminder:</Typography>
-                    <MenuItem  onClick={this.addReminderNotes} >Later Today</MenuItem>
-                    <MenuItem onClick={this.addReminderNotes} >Tommorow</MenuItem>
-                    <MenuItem onClick={this.addReminderNotes} >Next Week</MenuItem>
+                    <MenuItem onClick={this.addReminderNotes}>Latertoday</MenuItem> 
+                    <MenuItem onClick={this.addReminderNotes} >Tommorow </MenuItem>
+                    <MenuItem onclick={this.addReminderNotes} >Nextweek</MenuItem> 
                     <MenuItem onClick={this.handelTimeClick} >Pick date & Time</MenuItem>
                 </div>
                  }
