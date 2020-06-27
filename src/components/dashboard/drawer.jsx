@@ -11,12 +11,14 @@ import classNames from 'classnames';
 import { Redirect } from 'react-router-dom';
 import keep from '../../assets/keep_logo.png'
 import { fade} from '@material-ui/core/styles';
+import {Dialog, DialogTitle,DialogActions,DialogContent,TextField} from '@material-ui/core';
 import { withStyles, AppBar,Drawer, ListItemIcon,List,ListItem,ListItemText, CssBaseline, Tooltip,Avatar,Button} from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import Close from '@material-ui/icons/Close'
+import DoneIcon from "@material-ui/icons/Done";
 import Refresh from '@material-ui/icons/Refresh'
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
@@ -30,9 +32,13 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Grid from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
 import users from '../../services/user'
-import  Displaynote from '../note/displaynote'
+import  Displaynote from '../note/displaynote';
 import Label from '@material-ui/icons/Label'
-const service = new users()
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import notes from '../../services/note';
+const userService = new users()
+const noteService = new notes()
 
 const styles = theme => ({
   root: {
@@ -173,14 +179,36 @@ class Navbar extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            active:false,
             anchorEl: null,
             open:false,
             view: false,
             typeOfNote:'Keep',
-            logOut:false
+            logOut:false,
+            labelList:[],
+            activeLabel:null,
+            newLabel:"",
         };
         
     }
+
+    componentDidMount() {
+      this.getNoteLabel() 
+            
+    }
+    getNoteLabel=()=>{
+      let token =localStorage.getItem('token');
+      noteService.getNoteLabelList(token)
+        .then(data => {
+            console.log(data)
+            this.setState({
+              labelList: data.data.data.details
+              })
+          })
+          .catch(error => {
+              console.log(error);
+          })
+     }
 
     onSubmitView=()=>{
       this.setState({view:!this.state.view})
@@ -189,6 +217,14 @@ class Navbar extends React.Component{
     handleDrawerOpen = () => {
     this.setState({ open: true });
     };
+    
+    handleDialogOpen = () => {
+      this.setState({ active: true });
+      };
+
+    handleDialogClose = () => {
+      this.setState({ active: false });
+      };
 
     handleToggle = () => {
       this.setState(state => ({ open: !state.open }));
@@ -202,9 +238,18 @@ class Navbar extends React.Component{
     this.setState({ anchorEl: event.currentTarget });
     };
 
+    handleChange=(event)=>{
+      this.setState({[event.target.name]: event.target.value});
+  }
+
     changeView = (event, viewType)=>{
-      event.preventDefault()
-      this.setState({typeOfNote:viewType})
+      event.preventDefault();
+      this.setState({typeOfNote:viewType,activeLabel:null});
+    }
+
+    changeLabelView = (event, label)=>{
+      event.preventDefault();
+      this.setState({typeOfNote:'label',activeLabel:label.label});
     }
 
     logout = () => {
@@ -220,7 +265,53 @@ class Navbar extends React.Component{
     handleRefresh=()=>{
         window.location.reload();
     }
-    
+
+    addNoteLabel=()=>{
+      let userId = localStorage.getItem('userId');
+      let labelData = {
+          userId: userId,
+          isDeleted:false,
+          label:this.state.newLabel
+      }
+      noteService.addNoteLabel(labelData)
+          .then(res=>{
+             this.getNoteLabel()
+             this.setState({newLabel:""});
+                             
+           })
+          .catch(err => {
+             console.log(err.response);
+          });
+      }
+
+      updateNoteLabel = (label)=>{
+        debugger;
+        console.log(this.state[label.id]);
+        console.log(label);
+
+        noteService.updateNoteLabel(label.id,this.state[label.id])
+        .then(data => {
+          console.log(data)
+          this.getNoteLabel();
+        })
+        .catch(error => {
+            console.log(error);
+        })
+      }
+
+      deleteNoteLabel = (label)=>{
+        debugger;
+        console.log(this.state[label.id]);
+        console.log(label);
+        noteService.deleteNoteLabel(label.id)
+        .then(data => {
+          console.log(data)
+          this.getNoteLabel();
+        })
+        .catch(error => {
+            console.log(error);
+        })
+      }
 
     render() {
       if (this.state.logout === true)
@@ -325,21 +416,82 @@ class Navbar extends React.Component{
           <div className={classes.toolbar}/>
           <Divider />
           <List>
-          <ListItem button key='Notes' onClick={(event)=>{this.changeView(event, 'Keep')}}>
-            <ListItemIcon><Notes/></ListItemIcon>
-            <ListItemText>Notes</ListItemText>
+            <ListItem button key='Notes' onClick={(event)=>{this.changeView(event, 'Keep')}}>
+              <ListItemIcon><Notes/></ListItemIcon>
+              <ListItemText>Notes</ListItemText>
             </ListItem>
             <ListItem button key='Reminder' onClick={(event)=>{this.changeView(event, 'Reminder')}}>
-            <ListItemIcon><Alarm/></ListItemIcon>
-            <ListItemText>Reminder</ListItemText>
+              <ListItemIcon><Alarm/></ListItemIcon>
+              <ListItemText>Reminder</ListItemText>
             </ListItem>
           </List>
           <Divider/>
           <List>
-          <ListItem button key='Label' onClick={(event)=>{this.changeView(event, 'Label')}}>
-            <ListItemIcon><Label/></ListItemIcon>
-            <ListItemText>Label</ListItemText>  
+            <ListItem style={{display:"flex",justifyContent:"space-between"}}>
+                <span>Label</span>
+                <div>
+                <div>
+                  <Button onClick={this.handleDialogOpen} >Edit</Button>
+                </div>
+                <div>
+                    <Dialog  open={this.state.active} onClose={this.handleDialogClose}>
+                        <DialogTitle>Edit Labels</DialogTitle>
+                        <DialogContent>
+                            <div style={{display:"flex"}}>
+                                <div>
+                                    <IconButton><Close/></IconButton>
+                                </div>
+                                <div style={{display:"flex" ,float:"right"}} >
+                                        <TextField disabledid="standard-disabled" placeholder="Create new label"
+                                        name="newLabel"  onChange={this.handleChange} value={this.state.newLabel} fullWidth  />
+                                </div>
+                                   <div>
+                                       <IconButton onClick={this.addNoteLabel}><DoneIcon/></IconButton>
+                                   </div>
+                            </div>
+                            {this.state.labelList.map((value,index)=>(
+                              <div key={value.id} style={{display:"flex"}}>
+                                <div>
+                                    <Label/>
+                                </div>
+                                <div style={{display:"flex" ,float:"right"}} >
+                                        <TextField name={value.id} onChange={this.handleChange} defaultValue={value.label} fullWidth  />
+                                </div>
+                                  <div>
+                                      <IconButton onClick={this.updateNoteLabel.bind(this,value)}><DoneIcon/></IconButton>
+                                  </div>
+                                  {/* <div>
+                                      <IconButton onClick={this.noteLabel}><CreateIcon/></IconButton>
+                                  </div> */}
+                                  <div>
+                                      <IconButton onClick={this.deleteNoteLabel.bind(this,value)}><DeleteForeverIcon color="secondary" /></IconButton>
+                                  </div>
+                            </div>
+                            ))}
+
+                          </DialogContent>
+                        <div>
+                          <DialogActions>
+                              <Button onClick={this.handleDialogClose} >Done </Button>
+                          </DialogActions>
+                        </div>
+                    </Dialog>
+                </div>
+              </div>
             </ListItem>
+            {this.state.labelList.map((value,index)=>(
+              <ListItem button key={value.id} onClick={(event)=>{this.changeLabelView(event, value)}}>
+                <ListItemIcon><Label/></ListItemIcon>
+                <ListItemText>{value.label}</ListItemText>
+              </ListItem>
+            ))}
+
+            {/* <LabelNote/>
+            <ListItem button label="label" key='Label' onClick={(event)=>{this.changeView(event, 'Label')}}>
+             
+              <ListItemIcon><Label/></ListItemIcon>
+              <ListItemText>Label</ListItemText>   
+            </ListItem> */}
           </List>
           <List>  
          <Divider/>
@@ -357,7 +509,7 @@ class Navbar extends React.Component{
        
         <main className={classes.content}>
           <div className={classes.toolar}/>
-          <Displaynote  typeOfNote={this.state.typeOfNote}/>
+          <Displaynote  typeOfNote={this.state.typeOfNote} label={this.state.activeLabel}/>
         </main>       
         
       </div>

@@ -54,7 +54,7 @@ class Note extends Component{
       };
      
       
-      handleDeleteReminder = () => {
+      handleDeleteReminder = (noteId) => {
         
         let noteData = {
             noteIdList: [this.props.value.id]
@@ -70,24 +70,6 @@ class Note extends Component{
              console.log(err.response);
             });
       };
-
-    //   addReminderNotes=()=>{
-    //     if(this.state.reminder !== null && this.state.id !== ""){
-    //     let noteData = {
-    //         noteIdList: [this.state.noteIdList],
-    //         reminder: moment().format('MM/DD/YYYY, LT')
-    //     }
-    //     let token =localStorage.getItem('token');
-    //     service.reminderNote(token,noteData)
-    //         .then(res=>{ 
-    //              this.props.getNote()
-    //             this.handleMenuClose()
-    //          })
-    //         .catch(err => {
-    //          console.log(err.response); 
-    //         });
-    // }
-    // }
    
     render(){
        
@@ -121,15 +103,15 @@ class Note extends Component{
                                 onChange={(event) => this.input(event)}
                                 InputProps={{ disableUnderline: true}} />
                         </div>
-                        {this.state.reminder.length > 0   ?
+                        {this.state.reminder && this.state.reminder.length > 0  ? 
                          <div>
-                            <Chip open={this.state.open}
+                            <Chip
                                 noteIdList={this.props.value.id} 
                                 handleClose={this.handleClose}
                                 getNote={this.props.getNote}
                                 avatar={<AccessTime alt="time"/>}
                                 label={ moment().format('MM/DD/YYYY,LT')}
-                                onDelete={this.handleDeleteReminder}
+                                onDelete={()=> this.handleDeleteReminder(this.props.value.noteId)}
                             />
                         </div>:""} 
                         <div className="container">

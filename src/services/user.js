@@ -8,7 +8,7 @@
 
 import axios from 'axios';
 require('dotenv').config();
-const baseUrl = 'http://fundoonotes.incubation.bridgelabz.com/api/user'
+const baseUrl = process.env.REACT_APP_USERURL
 export default class user{
 
      login(loginData){
@@ -48,19 +48,7 @@ export default class user{
            })
      })
      }
-     
-    resetPassword(user,token){
-        return new Promise((resolve, reject) => {
-           axios.post(baseUrl+`/reset-password?access_token=${token}`,user)
-           .then((response) => {
-               resolve(response)
-           })
-           .catch((error) => {
-               reject(error)
-           })
-        })
-
-    }
+    
 
     logOut(token){
         return new Promise((resolve,reject)=>{

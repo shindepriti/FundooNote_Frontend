@@ -6,10 +6,12 @@
  * @since    : 20/6/2020
 ************************************************************************/
 import React from 'react'
-import { Tooltip, Card,Grow,Popper,ClickAwayListener,MenuList, MenuItem,Menu} from '@material-ui/core';
+import { Tooltip,TextField, Card,Grow,Popper,ClickAwayListener,MenuList, MenuItem,Menu} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import More from '../../assets/more.svg'
+import Label from './label'
 import DeleteNote from './deletenote'
+import { ArrowLeft } from '@material-ui/icons';
 class MoreNote extends React.Component {
     constructor(props) {
         super(props);
@@ -17,10 +19,16 @@ class MoreNote extends React.Component {
         this.state = {
           anchorEl: null,
           active:false ,
-          typeOfNote:this.props.typeOfNote        
+          typeOfNote:this.props.typeOfNote,
+          label:"",
+          labelPick:false      
         }
         
     }
+    handleChange=(event)=>{
+        this.setState({[event.target.name]: event.target.value});
+    }
+
     handleMenuClick = (event) => {
         this.setState({active:true,anchorEl: event.currentTarget});
         
@@ -28,7 +36,13 @@ class MoreNote extends React.Component {
     handleMenuClose = () => {
         this.setState({ anchorEl: null });
     };
-    
+    handelLabelClick = (event) => {
+        this.setState({labelPick:true});
+
+    }
+    handelLabelClose = (event) => {
+        this.setState({labelPick:false});
+    }
     handleClickAway = () => {
       this.setState({ active: false});  
   }
@@ -51,14 +65,23 @@ class MoreNote extends React.Component {
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'left bottom ' }}
                         transformOrigin={{ vertical: 'top', horizontal: 'left bottom' }}
                         open={Boolean(anchorEl)}
-                        onClose={this.handleMenuClose}
-                    > 
+                        onClose={this.handleMenuClose}> 
                         
-                            <MenuItem>
-                            <DeleteNote value={this.props.value} getNote={this.props.getNote}/>
-                            </MenuItem>
-                            <MenuItem >Add Lable</MenuItem>
-                         
+                        {this.state.labelPick ? 
+                            <div>
+                                <MenuItem>
+                                    <ArrowLeft onClick={this.handelLabelClose}/>
+                                    <TextField name="label" value={this.state.label} onChange={this.handleChange} type="text" placeholder="Enter Label name" />
+                                    
+                                </MenuItem>
+                            </div>:
+                            
+                            <div>
+                                <MenuItem>
+                                <DeleteNote value={this.props.value} getNote={this.props.getNote}/>
+                                </MenuItem>
+                                <MenuItem onClick={this.handelLabelClick} >Add Lable</MenuItem> 
+                            </div>}
                         
                     </Menu>
                 </div>

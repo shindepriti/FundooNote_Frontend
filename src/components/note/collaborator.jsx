@@ -88,6 +88,9 @@ class Collaborator extends React.Component{
                 console.log(err.response); 
             });
     }
+    saveCollaborator=()=>{
+      this.props.getNote()
+    }
     render(){
         let firstName =localStorage.getItem('firstName');
         let lastName =localStorage.getItem('lastName');

@@ -5,7 +5,7 @@ import Note from './card'
 import Addnote from './addnote'
 import TrashNote from './trashdisplay'
 import notes from '../../services/note'
-
+import Label from './label'
 const service = new notes()
 
 class CardNote extends React.Component{
@@ -13,18 +13,29 @@ class CardNote extends React.Component{
         super(props)
         this.state = {
             list:[],
+            label:[],
             open:false,
-            typeOfNote:this.props.typeOfNote
+            typeOfNote:this.props.typeOfNote,
+            label:this.props.label,
+            labelNoteList:[]
             }           
         }
         componentDidUpdate(prevProps){
           if(prevProps !== this.props){
-            this.setState({typeOfNote:this.props.typeOfNote})
+            //this.setState({typeOfNote:this.props.typeOfNote,label:this.props.label})
+            if(this.props.typeOfNote=='label'){
+              this.setState({typeOfNote:this.props.typeOfNote,label:this.props.label},this.getNotesListByLabel)
+            }else{
+              this.setState({typeOfNote:this.props.typeOfNote,label:this.props.label});
+            }
           }
         }
         
         componentDidMount() {
-          this.getNote();         
+          if(this.props.typeOfNote == 'label')
+            this.getNotesListByLabel();
+          else
+            this.getNote(); 
         }
       
 
@@ -41,6 +52,33 @@ class CardNote extends React.Component{
                 console.log(error);
             })
        }
+       getNotesListByLabel = () => {
+        service.getNotesListByLabel(this.state.label)
+          .then(data => {
+              console.log(data)
+              this.setState({
+                labelNoteList: data.data.data.data
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+       }
+
+
+      //  getNoteLabel=()=>{
+      //   let token =localStorage.getItem('token');
+      //   service.getNoteLabelList(token)
+      //     .then(data => {
+      //         console.log(data)
+      //         this.setState({
+      //             label: data.data.data.details
+      //           })
+      //       })
+      //       .catch(error => {
+      //           console.log(error);
+      //       })
+      //  }
 
       render(){
           return(
@@ -102,6 +140,46 @@ class CardNote extends React.Component{
                         </div> : ""}
                         </div>
                   </div>
+                  {/* <div>
+                      <div className="note" >
+                        {this.state.typeOfNote === 'Label' ? 
+                        <div>
+                        <div>
+                        <Addnote getNote={this.getNote}/>
+                      </div> 
+                        <div>
+                          <Grid container direction='row' justify="left" alignItems="center">
+                            {this.state.label.map((value,index)=>(
+                              <div key={value.id}>
+                                <div>
+                                  <Label value={value} getNoteLabel={this.getNoteLabel} />
+                                </div> 
+                              </div>
+
+                            ))}</Grid>
+                          
+                        </div>
+                        </div> : ""}
+                        </div>
+                  </div> */}
+                  <div>
+                      <div className="note" >
+                        {this.state.typeOfNote === 'label' ?<div>
+                          <Grid container direction='row' justify="left" alignItems="center">
+                            {this.state.labelNoteList.map((value,index)=>(
+                              <div key={value.id}>
+                                  <Grid>
+                                    <Note value={value} getNote={this.getNotesListByLabel}  index={index}/>
+                                  </Grid>
+                                </div>
+
+                            ))}
+                          </Grid>
+                          
+                        </div> : ""}
+                        </div>
+                  </div>
+
 
                         
                     <div>

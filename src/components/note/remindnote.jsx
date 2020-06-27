@@ -12,11 +12,12 @@ import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
 import "../../scss/note.scss"
 import { KeyboardTimePicker, KeyboardDatePicker,MuiPickersUtilsProvider} from '@material-ui/pickers'; 
-import {IconButton,Tooltip, Card,Button,Menu,Chip,Paper,Typography} from '@material-ui/core';
+import {IconButton,Tooltip,Divider, Card,Button,Menu,Chip,Paper,Typography} from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import remind from '../../assets/notifications.svg'
 import notes from '../../services/note'
 import DateFnsUtils from '@date-io/date-fns';
+import { ArrowLeft, ArrowBack } from '@material-ui/icons';
 const service = new notes()
 
 class Reminder extends React.Component {
@@ -30,7 +31,7 @@ class Reminder extends React.Component {
             anchorEl: null,
             timePick:false,
             list:[],
-            open:false
+            open:false,
         }     
     }
     
@@ -42,7 +43,9 @@ class Reminder extends React.Component {
     handelTimeClick = (event) => {
         this.setState({timePick:true});
     }
-
+    handelTimeClose = (event) => {
+        this.setState({timePick:false});
+    }
     handleClickAway = () => {
         this.setState({ active: false});  
     }
@@ -62,15 +65,16 @@ class Reminder extends React.Component {
         service.reminderNote(token,noteData)
             .then(res=>{ 
                  this.props.getNote()
+                 
                 this.handleMenuClose()
              })
             .catch(err => {
              console.log(err.response); 
             });
     }
+    // this.props.open()
     }
-
-    handleCustom = (event) => {
+        handleCustom = (event) => {
         const { currentTarget } = event;
         this.setState({
             custom: !this.state.custom,
@@ -103,6 +107,7 @@ class Reminder extends React.Component {
                     </Tooltip>
                 </div>
                 <div>
+                
                 <Menu
                     anchorEl={anchorEl}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'left bottom ' }}
@@ -113,17 +118,17 @@ class Reminder extends React.Component {
                 > 
                 {this.state.timePick ? 
                 <div>
+                    <ArrowBack onClick={this.handelTimeClose}/>
                     <MenuItem>
                     <TextField
                         onChange={this.datePicker}
                         id="datetime-local"
                         label="Select date"
                         type="datetime-local"
-                       
-                        InputLabelProps={{shrink: true, }}/>
-                        </MenuItem> 
+                        InputLabelProps={{shrink: true}}/>
+                    </MenuItem> 
                     <div >
-                    <Button color="primary">Save </Button>
+                    <Button  onClick={this.addReminderNotes} color="primary">Save </Button>
                     </div>
                     </div>:
                     <div>
@@ -134,10 +139,9 @@ class Reminder extends React.Component {
                     <MenuItem onClick={this.handelTimeClick} >Pick date & Time</MenuItem>
                 </div>
                  }
-                </Menu>
-      
-                            
+                </Menu>                          
                 </div>
+                
                 </div>
                 </ClickAwayListener>
             </div>

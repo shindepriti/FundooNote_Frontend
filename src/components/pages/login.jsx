@@ -58,10 +58,11 @@ class Login extends React.Component{
             .then((response)=>{
                 console.log(response)
                 localStorage.setItem("token",response.data.id);
-                localStorage.setItem("firstName",response.data.firstName)
-                localStorage.setItem("lastName",response.data.lastName)
-                localStorage.setItem("email",response.data.email) 
-                localStorage.setItem("image",response.data.imageUrl) 
+                localStorage.setItem("firstName",response.data.firstName);
+                localStorage.setItem("lastName",response.data.lastName);
+                localStorage.setItem("email",response.data.email); 
+                localStorage.setItem("image",response.data.imageUrl); 
+                localStorage.setItem("userId",response.data.userId); 
 
                 if(response){
                     this.setState({snackbaropen:true,snackbarmsg:"Login Successfull"})  
