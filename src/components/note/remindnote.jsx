@@ -7,16 +7,13 @@
 ***************************************************************/
 import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
-import "../../scss/note.scss"
-import { KeyboardTimePicker, KeyboardDatePicker,MuiPickersUtilsProvider} from '@material-ui/pickers'; 
-import {IconButton,Tooltip,Divider, Card,Button,Menu,Chip,Paper,Typography} from '@material-ui/core';
+import "../../scss/note.scss" 
+import {IconButton,Tooltip,Button,Menu,Typography} from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import remind from '../../assets/notifications.svg'
 import notes from '../../services/note'
-import DateFnsUtils from '@date-io/date-fns';
 import { ArrowLeft, ArrowBack } from '@material-ui/icons';
 const service = new notes()
 

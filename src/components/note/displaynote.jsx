@@ -23,7 +23,7 @@ class CardNote extends React.Component{
         componentDidUpdate(prevProps){
           if(prevProps !== this.props){
             //this.setState({typeOfNote:this.props.typeOfNote,label:this.props.label})
-            if(this.props.typeOfNote=='label'){
+            if(this.props.typeOfNote==='label'){
               this.setState({typeOfNote:this.props.typeOfNote,label:this.props.label},this.getNotesListByLabel)
             }else{
               this.setState({typeOfNote:this.props.typeOfNote,label:this.props.label});
@@ -32,7 +32,7 @@ class CardNote extends React.Component{
         }
         
         componentDidMount() {
-          if(this.props.typeOfNote == 'label')
+          if(this.props.typeOfNote === 'label')
             this.getNotesListByLabel();
           else
             this.getNote(); 
@@ -52,6 +52,7 @@ class CardNote extends React.Component{
                 console.log(error);
             })
        }
+
        getNotesListByLabel = () => {
         service.getNotesListByLabel(this.state.label)
           .then(data => {
@@ -65,21 +66,6 @@ class CardNote extends React.Component{
             })
        }
 
-
-      //  getNoteLabel=()=>{
-      //   let token =localStorage.getItem('token');
-      //   service.getNoteLabelList(token)
-      //     .then(data => {
-      //         console.log(data)
-      //         this.setState({
-      //             label: data.data.data.details
-      //           })
-      //       })
-      //       .catch(error => {
-      //           console.log(error);
-      //       })
-      //  }
-
       render(){
           return(
                 <div>
@@ -92,7 +78,7 @@ class CardNote extends React.Component{
                       <div className="note-container">
                         <div className="note-container-title" >Pinned</div>
                         <Grid container direction="row" justify="left" alignItems="center" > 
-                        {this.state.list.filter(note => note.isArchived == false && note.isPined === true && note.isDeleted==false).reverse().map((value, index)=>(             
+                        {this.state.list.filter(note => note.isArchived === false && note.isPined === true && note.isDeleted===false).reverse().map((value, index)=>(             
                         <div key={value.id}>
                             <div >
                               <Grid>
@@ -105,7 +91,7 @@ class CardNote extends React.Component{
                       <div className="note-container">
                         <div className="note-container-title">Other</div>
                         <Grid container direction="row" justify="left" alignItems="center" > 
-                          {this.state.list.filter(note => note.isArchived == false && note.isPined === false && note.isDeleted==false ).reverse().map((value, index)=>(             
+                          {this.state.list.filter(note => note.isArchived === false && note.isPined === false && note.isDeleted===false ).reverse().map((value, index)=>(             
                           <div key={value.id}>
                               <div >
                                 <Grid>
@@ -140,28 +126,6 @@ class CardNote extends React.Component{
                         </div> : ""}
                         </div>
                   </div>
-                  {/* <div>
-                      <div className="note" >
-                        {this.state.typeOfNote === 'Label' ? 
-                        <div>
-                        <div>
-                        <Addnote getNote={this.getNote}/>
-                      </div> 
-                        <div>
-                          <Grid container direction='row' justify="left" alignItems="center">
-                            {this.state.label.map((value,index)=>(
-                              <div key={value.id}>
-                                <div>
-                                  <Label value={value} getNoteLabel={this.getNoteLabel} />
-                                </div> 
-                              </div>
-
-                            ))}</Grid>
-                          
-                        </div>
-                        </div> : ""}
-                        </div>
-                  </div> */}
                   <div>
                       <div className="note" >
                         {this.state.typeOfNote === 'label' ?<div>
@@ -179,8 +143,6 @@ class CardNote extends React.Component{
                         </div> : ""}
                         </div>
                   </div>
-
-
                         
                     <div>
                       <div className="note" >

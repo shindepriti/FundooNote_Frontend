@@ -50,7 +50,6 @@ class Collaborator extends React.Component{
       if(this.props.value){
         for(let i=0;i<this.state.list;i++){
           if(userData.email == this.state.list[i].email){
-           
             return;
           } 
         }
@@ -60,6 +59,7 @@ class Collaborator extends React.Component{
           .then(res=>{ 
             this.state.list.push(userData)
             this.handleSearchListClose()
+            
         })
         .catch(err => {
             console.log(err.response); 
@@ -67,6 +67,21 @@ class Collaborator extends React.Component{
       }else{
         this.state.list.push(userData)
       }
+    }
+    
+    removeCollaborator=()=>{
+      let userId = localStorage.getItem('userId');
+      let id = this.props.value.id
+      service.removeCollaborator(userId,id)
+          .then(res=>{ 
+            this.props.getNote()
+            
+        })
+        .catch(err => {
+            console.log(err.response); 
+        });
+      
+
     }
       
     handleChange=(event)=>{
@@ -88,6 +103,7 @@ class Collaborator extends React.Component{
                 console.log(err.response); 
             });
     }
+
     saveCollaborator=()=>{
       this.props.getNote()
     }
@@ -112,7 +128,7 @@ class Collaborator extends React.Component{
                 <Divider/>
                 <List>
                     <ListItem>
-                        <ListItemIcon><Avatar alt="Remy Sharp" src={image} /></ListItemIcon>
+                        <ListItemIcon><Avatar src={image} /></ListItemIcon>
                        <div>
                         <ListItemText>
                                 <b>{firstName+" " +lastName}</b> (owner)
@@ -138,9 +154,7 @@ class Collaborator extends React.Component{
                         )}
                       </ListItemAvatar> 
                       <ListItemText> {item.email} </ListItemText>
-                      <IconButton >
-                        <ClearIcon />
-                      </IconButton>
+                      <IconButton > <ClearIcon onClick={this.removeCollaborator} /> </IconButton>
                     </ListItem>
                   ))}
                 </div>            
@@ -150,7 +164,7 @@ class Collaborator extends React.Component{
                 </ListItemAvatar>
                 <TextField id="Standard-basic" placeholder="Person or email to share with" name="searchValue"
                   value={this.state.searchValue} onChange={this.handleChange} fullWidth />
-                <IconButton > <DoneIcon /> </IconButton>
+                {/* <IconButton > <ClearIcon onClick={this.removeCollaborator} /> </IconButton> */}
               </ListItem>  
                 </List>
                 <Menu anchorEl={anchorEl}

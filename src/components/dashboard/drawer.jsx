@@ -36,9 +36,9 @@ import  Displaynote from '../note/displaynote';
 import Label from '@material-ui/icons/Label'
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import notes from '../../services/note';
+import labels from '../../services/label';
 const userService = new users()
-const noteService = new notes()
+const labelService = new labels()
 
 const styles = theme => ({
   root: {
@@ -196,9 +196,10 @@ class Navbar extends React.Component{
       this.getNoteLabel() 
             
     }
+    
     getNoteLabel=()=>{
       let token =localStorage.getItem('token');
-      noteService.getNoteLabelList(token)
+      labelService.getNoteLabelList(token)
         .then(data => {
             console.log(data)
             this.setState({
@@ -273,7 +274,7 @@ class Navbar extends React.Component{
           isDeleted:false,
           label:this.state.newLabel
       }
-      noteService.addNoteLabel(labelData)
+      labelService.addNoteLabel(labelData)
           .then(res=>{
              this.getNoteLabel()
              this.setState({newLabel:""});
@@ -285,11 +286,10 @@ class Navbar extends React.Component{
       }
 
       updateNoteLabel = (label)=>{
-        debugger;
         console.log(this.state[label.id]);
         console.log(label);
 
-        noteService.updateNoteLabel(label.id,this.state[label.id])
+        labelService.updateNoteLabel(label.id,this.state[label.id])
         .then(data => {
           console.log(data)
           this.getNoteLabel();
@@ -300,10 +300,9 @@ class Navbar extends React.Component{
       }
 
       deleteNoteLabel = (label)=>{
-        debugger;
+        
         console.log(this.state[label.id]);
-        console.log(label);
-        noteService.deleteNoteLabel(label.id)
+        labelService.deleteNoteLabel(label.id)
         .then(data => {
           console.log(data)
           this.getNoteLabel();
@@ -460,9 +459,6 @@ class Navbar extends React.Component{
                                   <div>
                                       <IconButton onClick={this.updateNoteLabel.bind(this,value)}><DoneIcon/></IconButton>
                                   </div>
-                                  {/* <div>
-                                      <IconButton onClick={this.noteLabel}><CreateIcon/></IconButton>
-                                  </div> */}
                                   <div>
                                       <IconButton onClick={this.deleteNoteLabel.bind(this,value)}><DeleteForeverIcon color="secondary" /></IconButton>
                                   </div>
@@ -485,13 +481,6 @@ class Navbar extends React.Component{
                 <ListItemText>{value.label}</ListItemText>
               </ListItem>
             ))}
-
-            {/* <LabelNote/>
-            <ListItem button label="label" key='Label' onClick={(event)=>{this.changeView(event, 'Label')}}>
-             
-              <ListItemIcon><Label/></ListItemIcon>
-              <ListItemText>Label</ListItemText>   
-            </ListItem> */}
           </List>
           <List>  
          <Divider/>
