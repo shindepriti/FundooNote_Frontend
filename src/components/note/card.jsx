@@ -21,6 +21,7 @@ import Collaborator from './collaborator'
 import notes from '../../services/note'
 import AccessTime from '@material-ui/icons/AccessTime'
 import UpdateNote from './updatenote';
+import { FullscreenExit } from '@material-ui/icons';
 
 const service = new notes()
 class Note extends Component{
@@ -40,6 +41,7 @@ class Note extends Component{
             open:false,
             noteIdList:this.props.noteIdList,
             reminder: this.props.value.reminder,
+            noteLabels : this.props.value.noteLabels,
             collabList:[]
             
         }
@@ -117,6 +119,18 @@ class Note extends Component{
                                 onDelete={()=> this.handleDeleteReminder(this.props.value.noteId)}
                             />
                         </div>:""}
+                        {this.state.noteLabels && this.state.noteLabels.length > 0?
+                        <div style={{display:"flex",justifyContent:"flex-start"}}>
+                            {this.state.noteLabels.map((value,index)=>(
+                                <Chip key={value.id} variant="outlined" size="small" label={value.label} style={{margin:"5px"}}/>
+                            ))}
+                            
+                        </div>
+
+                        
+                        :
+                        ""
+                        }
                         
                         {/* {this.state.collaborator.length > 0 ? "":
                         <div>

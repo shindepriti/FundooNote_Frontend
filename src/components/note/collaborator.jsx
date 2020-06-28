@@ -197,9 +197,7 @@ class Collaborator extends React.Component{
       onClose={this.snackbarClose}
       message={<span id="message-id">{this.state.snackbarmsg}</span>}/>
 </div> 
-            
-            
-           
+                      
             
         )
     }

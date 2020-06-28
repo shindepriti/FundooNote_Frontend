@@ -190,7 +190,5 @@ class CardNote extends React.Component{
               )
           }
 
-
-
 }
 export default CardNote
