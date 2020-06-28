@@ -207,5 +207,29 @@ export default class note{
         })
      }
 
-     
+     addLabelToNote(id,userId){
+        return new Promise((resolve,reject)=>{
+            var authStr =localStorage.getItem('token');
+            axios.post(baseUrl+`/${id}/addLabelToNotes/${userId}/add`,{},{ headers: { Authorization: authStr } })
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+     }
+
+     removeLabelToNote(id,userId){
+        return new Promise((resolve,reject)=>{
+            var authStr =localStorage.getItem('token');
+            axios.post(baseUrl+`/${id}/addLabelToNotes/${userId}/remove`,{},{ headers: { Authorization: authStr } })
+            .then((response)=>{
+                resolve(response)
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
+     }
 }

@@ -183,7 +183,7 @@ class Navbar extends React.Component{
             anchorEl: null,
             open:false,
             view: false,
-            typeOfNote:'Keep',
+            typeOfNote:'FundooNote',
             logOut:false,
             labelList:[],
             activeLabel:null,
@@ -263,9 +263,9 @@ class Navbar extends React.Component{
         this.setState({ anchorEl: null });
     };
    
-    handleRefresh=()=>{
-        window.location.reload();
-    }
+    // handleRefresh=()=>{
+    //     window.location.reload();
+    // }
 
     addNoteLabel=()=>{
       let userId = localStorage.getItem('userId');
@@ -300,7 +300,6 @@ class Navbar extends React.Component{
       }
 
       deleteNoteLabel = (label)=>{
-        
         console.log(this.state[label.id]);
         labelService.deleteNoteLabel(label.id)
         .then(data => {
@@ -360,7 +359,7 @@ class Navbar extends React.Component{
               aria-label="Open drawer">
             <MenuIcon />
             </IconButton>
-            <img className={classes.logo} src={keep} alt="Logo" /> 
+            <img className={classes.logo} id='logo' src={keep} alt="Logo" /> 
             <Typography variant="h6" className={classes.multilineColor}>
                 {this.state.typeOfNote}
             </Typography>
@@ -498,7 +497,7 @@ class Navbar extends React.Component{
        
         <main className={classes.content}>
           <div className={classes.toolar}/>
-          <Displaynote  typeOfNote={this.state.typeOfNote} label={this.state.activeLabel}/>
+          <Displaynote  typeOfNote={this.state.typeOfNote}  getNoteLabel={this.getNoteLabel} label={this.state.activeLabel}/>
         </main>       
         
       </div>

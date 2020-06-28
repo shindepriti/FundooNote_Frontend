@@ -4,14 +4,13 @@ import notes from '../../services/note'
 import Close from '@material-ui/icons/Close'
 import DoneIcon from "@material-ui/icons/Done";
 
-const service = new notes()
+const labelService = new notes()
 
 class Label extends React.Component {
     constructor(props) {
         super(props);
         console.log(props)
         this.state = {
-         
             open:false,
             label:"",
             
@@ -32,7 +31,7 @@ class Label extends React.Component {
             isDelete:false,
             label:this.state.label
         }
-        service.noteLabel(labelData)
+        labelService.noteLabel(labelData)
             .then(res=>{
 
                 this.props.getNoteLabel() 
@@ -43,6 +42,49 @@ class Label extends React.Component {
             });
     }
 
+    addNoteLabel=()=>{
+        let userId = localStorage.getItem('userId');
+        let labelData = {
+            userId: userId,
+            isDeleted:false,
+            label:this.state.newLabel
+        }
+        labelService.addNoteLabel(labelData)
+            .then(res=>{
+               this.getNoteLabel()
+               this.setState({newLabel:""});
+                               
+             })
+            .catch(err => {
+               console.log(err.response);
+            });
+        }
+  
+        updateNoteLabel = (label)=>{
+          console.log(this.state[label.id]);
+          console.log(label);
+  
+          labelService.updateNoteLabel(label.id,this.state[label.id])
+          .then(data => {
+            console.log(data)
+            this.getNoteLabel();
+          })
+          .catch(error => {
+              console.log(error);
+          })
+        }
+  
+        deleteNoteLabel = (label)=>{
+          console.log(this.state[label.id]);
+          labelService.deleteNoteLabel(label.id)
+          .then(data => {
+            console.log(data)
+            this.getNoteLabel();
+          })
+          .catch(error => {
+              console.log(error);
+          })
+        }
 
 
       render(){

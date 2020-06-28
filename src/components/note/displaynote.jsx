@@ -16,8 +16,8 @@ class CardNote extends React.Component{
             label:[],
             open:false,
             typeOfNote:this.props.typeOfNote,
-            label:this.props.label,
-            labelNoteList:[]
+            labelNoteList:[],
+            getNoteLable:this.props.getNoteLabel
             }           
         }
         componentDidUpdate(prevProps){
@@ -70,7 +70,7 @@ class CardNote extends React.Component{
           return(
                 <div>
                   <div>                                       
-                      {this.state.typeOfNote === 'Keep' ?<div>
+                      {this.state.typeOfNote === 'Keep' || this.state.typeOfNote === "FundooNote" ?<div>
                       <div>
                         <Addnote getNote={this.getNote}/>
                       </div> 
@@ -82,7 +82,7 @@ class CardNote extends React.Component{
                         <div key={value.id}>
                             <div >
                               <Grid>
-                                <Note getNote={this.getNote}  value={value} index={index}/>
+                                <Note getNote={this.getNote} getNoteLabel={this.state.getNoteLable} value={value} index={index}/>
                               </Grid>                            
                             </div> 
                         </div>))}
@@ -95,7 +95,7 @@ class CardNote extends React.Component{
                           <div key={value.id}>
                               <div >
                                 <Grid>
-                                  <Note getNote={this.getNote}  value={value} index={index}/>
+                                  <Note getNote={this.getNote} getNoteLabel={this.state.getNoteLable}  value={value} index={index}/>
                                 </Grid>                            
                               </div>
                           </div>

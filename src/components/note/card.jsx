@@ -6,7 +6,7 @@
  * @since    : 11/6/2020
 ***************************************************************/
 import React, { Component } from 'react';
-import {Card,Dialog,Chip} from '@material-ui/core';
+import {Card,Dialog,Chip,Avatar} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import "../../scss/note.scss"
 import '../../scss/updatestyle.scss'
@@ -32,13 +32,15 @@ class Note extends Component{
             title:this.props.value.title,
             description:this.props.value.description,
             id:this.props.value.id,
+            collaborator:this.props.value.collaborator,
             isPined:this.props.value.isPined,           
             color:this.props.value.color,
             label:this.props.value.label,
             photo:this.props.value.photo,
             open:false,
             noteIdList:this.props.noteIdList,
-            reminder: this.props.value.reminder
+            reminder: this.props.value.reminder,
+            collabList:[]
             
         }
             
@@ -54,7 +56,7 @@ class Note extends Component{
       };
      
       
-      handleDeleteReminder = (noteId) => {
+      handleDeleteReminder = () => {
         
         let noteData = {
             noteIdList: [this.props.value.id]
@@ -106,6 +108,7 @@ class Note extends Component{
                         {this.state.reminder && this.state.reminder.length > 0  ? 
                          <div>
                             <Chip
+                                size="small"
                                 noteIdList={this.props.value.id} 
                                 handleClose={this.handleClose}
                                 getNote={this.props.getNote}
@@ -113,7 +116,12 @@ class Note extends Component{
                                 label={ moment().format('MM/DD/YYYY,LT')}
                                 onDelete={()=> this.handleDeleteReminder(this.props.value.noteId)}
                             />
-                        </div>:""} 
+                        </div>:""}
+                        
+                        {/* {this.state.collaborator.length > 0 ? "":
+                        <div>
+                            <Avatar size="small" getNote={this.props.getNote}></Avatar>
+                        </div>} */}
                         <div className="container">
                             <div className="note-icon">
                                 <Remind  noteIdList={this.props.value.id} handleClose={this.handleClose}  value={this.props.value} getNote={this.props.getNote} />
@@ -130,8 +138,8 @@ class Note extends Component{
                             <div className="note-icon">
                                 <Colornote  value={this.props.value} getNote={this.props.getNote}/>
                             </div>
-                            <div className="note-icon">
-                                <More value={this.props.value} getNote={this.props.getNote}/>
+                            <div className="note-icon"  >
+                                <More value={this.props.value} getNoteLabel={this.props.getNoteLabel} getNote={this.props.getNote}/>
                             </div>
                         </div>
 

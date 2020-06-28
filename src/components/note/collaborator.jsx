@@ -113,6 +113,7 @@ class Collaborator extends React.Component{
         let email = localStorage.getItem('email');
         let image = localStorage.getItem('image');
         const { anchorEl } = this.state;
+        
         return(
             <div>
              <div>
