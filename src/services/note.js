@@ -6,230 +6,95 @@
  * @since    : 10/6/2020
 ***************************************************************/
 import axios from 'axios';
+import service from './httpservise'
 require('dotenv').config();
 const baseUrl = process.env.REACT_APP_NOTEURL
 export default class note{
 
     addNote=(note)=>{
-      return new Promise((resolve, reject) => {
-            var authStr =localStorage.getItem('token');
-           axios.post(baseUrl+'/addNotes',note, { headers: { Authorization: authStr } })
-           .then((response) => {
-               resolve(response)
-           })
-           .catch((error) => {
-               reject(error)
-           })
-     })
+      var authStr =localStorage.getItem('token');
+      return axios.post(baseUrl+'/addNotes',note, { headers: { Authorization: authStr } })
+          
      }
 
-     
-     getNote(token){
-                   
-        return new Promise((resolve, reject) => {
-           axios.get(baseUrl+`/getNotesList?access_token=${token}`,)
-           .then((response) => {
-               resolve(response)
-           })
-           .catch((error) => {
-               reject(error)
-           })
-     })
+     getNote(token){       
+        return axios.get(baseUrl+`/getNotesList?access_token=${token}`)  
      }
 
      changeColor(token,colorData){
-         return new Promise((resolve,reject) =>{
-             axios.post(baseUrl+`/changesColorNotes?access_token=${token}`,colorData)
-             .then((response)=>{
-                 resolve(response)
-             })
-             .catch((error)=>{
-                 reject(error)
-             })
-         })
+        return service.post(baseUrl,`/changesColorNotes?access_token=${token}`,colorData)
+             
      }
        archiveNote(token,noteData){
-            return new Promise((resolve,reject) =>{
-            axios.post(baseUrl+`/archiveNotes?access_token=${token}`,noteData)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
+        return service.post(baseUrl,`/archiveNotes?access_token=${token}`,noteData)
+            
     }
 
     getArchiveNotes(token){
-        return new Promise((resolve,reject)=>{
-            axios.get(baseUrl+`/getArchiveNotesList?access_token=${token}`)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
+        return service.get(baseUrl,`/getArchiveNotesList?access_token=${token}`)
+            
     }
 
     pinUnpinNote(token,pinData){
-        return new Promise((resolve,reject)=>{
-            axios.post(baseUrl+`/pinUnpinNotes?access_token=${token}`,pinData)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
+        return service.post(baseUrl,`/pinUnpinNotes?access_token=${token}`,pinData)
 
     }
 
     deleteNote(token,deleteData){
-        return new Promise((resolve,reject)=>{
-            axios.post(baseUrl+`/trashNotes?access_token=${token}`,deleteData)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
+        return service.post(baseUrl,`/trashNotes?access_token=${token}`,deleteData)
 
     }
 
     deleteForever(token,deleteData){
-        return new Promise((resolve,reject)=>{
-            axios.post(baseUrl+`/deleteForeverNotes?access_token=${token}`,deleteData)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
+        return service.post(baseUrl,`/deleteForeverNotes?access_token=${token}`,deleteData)
 
     }
 
     updateNote(token,data){
-        return new Promise((resolve,reject)=>{
-            axios.post(baseUrl+`/updateNotes?access_token=${token}`,data)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
-
+        return service.post(baseUrl,`/updateNotes?access_token=${token}`,data)
     }
 
     reminderNote(token,data){
-        return new Promise((resolve,reject)=>{
-            axios.post(baseUrl+`/addUpdateReminderNotes?access_token=${token}`,data)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
-
+       return service.post(baseUrl,`/addUpdateReminderNotes?access_token=${token}`,data)
     }
 
     removeReminder(token,data){
-        return new Promise((resolve,reject)=>{
-            axios.post(baseUrl+`/removeReminderNotes?access_token=${token}`,data)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
-
+      return  service.post(baseUrl,`/removeReminderNotes?access_token=${token}`,data)
     }
 
     addCollaborator(id,data){
-       
-        return new Promise((resolve,reject)=>{
-            var authStr =localStorage.getItem('token');
-            axios.post(baseUrl+`/${id}/AddcollaboratorsNotes`,data,{ headers: { Authorization: authStr } })
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
-
+        var authStr =localStorage.getItem('token');  
+        return  service.postAuth(baseUrl,`/${id}/AddcollaboratorsNotes`,data,{ headers: { Authorization: authStr } })
+  
     }
 
     removeCollaborator(id,userId){
-       
-        return new Promise((resolve,reject)=>{
-            var authStr =localStorage.getItem('token');
-            axios.delete(baseUrl+`/${userId}/removeCollaboratorsNotes/${id}`,{ headers: { Authorization: authStr } })
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
-
+        var authStr =localStorage.getItem('token');
+        return service.delete(baseUrl,`/${userId}/removeCollaboratorsNotes/${id}`,{ headers: { Authorization: authStr } })
+        
     }
 
-
     searchUserList(token,data){
-        return new Promise((resolve,reject)=>{
-            axios.post(process.env.REACT_APP_USERURL+`/searchUserList?access_token=${token}`,data)
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
-
+        return service.post(process.env.REACT_APP_USERURL,`/searchUserList?access_token=${token}`,data)
+  
     }     
      
      getNotesListByLabel(labelName){
-        return new Promise((resolve,reject)=>{
-            var authStr =localStorage.getItem('token');
-            axios.post(baseUrl+`/getNotesListByLabel/${labelName}`,{},{ headers: { Authorization: authStr } })
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
+        var authStr =localStorage.getItem('token');
+        return service.postAuth(baseUrl,`/getNotesListByLabel/${labelName}`,{},{ headers: { Authorization: authStr } })
+           
      }
 
      addLabelToNote(id,userId){
-        return new Promise((resolve,reject)=>{
-            var authStr =localStorage.getItem('token');
-            axios.post(baseUrl+`/${id}/addLabelToNotes/${userId}/add`,{},{ headers: { Authorization: authStr } })
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
+        var authStr =localStorage.getItem('token');
+        return service.postAuth(baseUrl,`/${id}/addLabelToNotes/${userId}/add`,{},{ headers: { Authorization: authStr } })
+           
+           
      }
 
      removeLabelToNote(id,userId){
-        return new Promise((resolve,reject)=>{
-            var authStr =localStorage.getItem('token');
-            axios.post(baseUrl+`/${id}/addLabelToNotes/${userId}/remove`,{},{ headers: { Authorization: authStr } })
-            .then((response)=>{
-                resolve(response)
-            })
-            .catch((error)=>{
-                reject(error)
-            })
-        })
-     }
+        var authStr =localStorage.getItem('token');
+        return service.postAuth(baseUrl,`/${id}/addLabelToNotes/${userId}/remove`,{},{ headers: { Authorization: authStr } })
+            
+     }         
 }

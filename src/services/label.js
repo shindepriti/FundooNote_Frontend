@@ -1,4 +1,5 @@
 import axios from 'axios';
+import service from './httpservise'
 export default class label{
 
 getNoteLabelList(token){           
@@ -15,16 +16,9 @@ getNoteLabelList(token){
 
 
  addNoteLabel(labelData){
-    return new Promise((resolve,reject)=>{
-        var authStr =localStorage.getItem('token');
-        axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/noteLabels`,labelData,{ headers: { Authorization: authStr } })
-        .then((response)=>{
-            resolve(response)
-        })
-        .catch((error)=>{
-            reject(error)
-        })
-    })
+     var authStr =localStorage.getItem('token');
+      return axios.post(`http://fundoonotes.incubation.bridgelabz.com/api/noteLabels`,labelData,{ headers: { Authorization: authStr } })
+        
  }
 
  updateNoteLabel(id,labelName){

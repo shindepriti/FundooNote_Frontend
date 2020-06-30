@@ -3,7 +3,7 @@ import {Dialog,Button, DialogTitle,Divider,DialogActions,IconButton,DialogConten
 import notes from '../../services/note'
 import Close from '@material-ui/icons/Close'
 import DoneIcon from "@material-ui/icons/Done";
-
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 const labelService = new notes()
 
 class Label extends React.Component {
@@ -13,6 +13,7 @@ class Label extends React.Component {
         this.state = {
             open:false,
             label:"",
+            labelList:[]
             
             
         };
@@ -90,34 +91,48 @@ class Label extends React.Component {
       render(){
           return(
               <div>
-                <div style={{display:"flex",justifyContent:"flex-end"}}>
+                <div>
                     <Button onClick={this.handelMenuOpen}>Edit</Button>
                 </div>
 
                 <div>
-                    <Dialog  open={this.state.open} onClose={this.handleClose}>
+                <Dialog  open={this.state.active} onClose={this.handleDialogClose}>
                         <DialogTitle>Edit Labels</DialogTitle>
                         <DialogContent>
                             <div style={{display:"flex"}}>
                                 <div>
                                     <IconButton><Close/></IconButton>
                                 </div>
-                                <div style={{display:"flex" ,float:"right"}} >
+                                <div>
                                         <TextField disabledid="standard-disabled" placeholder="Create new label"
-                                        name="label"onChange={this.handleChange} value={this.state.label}fullWidth  />
+                                        name="newLabel"  onChange={this.handleChange} value={this.state.newLabel} fullWidth  />
                                 </div>
                                    <div>
-                                       <IconButton onClick={this.noteLabel}><DoneIcon/></IconButton>
+                                       <IconButton onClick={this.addNoteLabel}><DoneIcon/></IconButton>
                                    </div>
-                               
                             </div>
+                            {this.state.labelList.map((value,index)=>(
+                              <div key={value.id}>
+                                <div>
+                                    <Label/>
+                                </div>
+                                <div>
+                                    <TextField name={value.id} onChange={this.handleChange} defaultValue={value.label} fullWidth  />
+                                </div>
+                                  <div>
+                                      <IconButton onClick={this.updateNoteLabel.bind(this,value)}><DoneIcon/></IconButton>
+                                  </div>
+                                  <div>
+                                      <IconButton onClick={this.deleteNoteLabel.bind(this,value)}><DeleteForeverIcon color="secondary" /></IconButton>
+                                  </div>
+                            </div>
+                            ))}
 
-
-                        </DialogContent>
+                          </DialogContent>
                         <div>
-                            <DialogActions>
-                                <Button  >Done </Button>
-                            </DialogActions>
+                          <DialogActions>
+                              <Button onClick={this.handleDialogClose} >Done </Button>
+                          </DialogActions>
                         </div>
                     </Dialog>
                 </div>

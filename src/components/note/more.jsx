@@ -30,7 +30,7 @@ class MoreNote extends React.Component {
           labelPick:false,
           labelList:[],
           getNoteLabel:this.props.getNoteLabel ,
-          noteLabels:this.props.value.noteLabels,
+        //   noteLabels:this.props.value.noteLabels,
           checkBoxClick:true    
         }
         
@@ -55,11 +55,11 @@ class MoreNote extends React.Component {
             })
        }
 
-       initializeNoteLabels = ()=>{
-            this.state.noteLabels.forEach((noteLbl,j,noteLbls)=>{
-                this.setState({[noteLbl.id]:true});
-            })
-       }
+    //    initializeNoteLabels = ()=>{
+    //         this.state.noteLabels.forEach((noteLbl,j,noteLbls)=>{
+    //             this.setState({[noteLbl.id]:true});
+    //         })
+    //    }
 
        addRemoveLabelToNote=(event)=>{
            let noteLabelId = event.target.name;
@@ -72,7 +72,32 @@ class MoreNote extends React.Component {
             }
         })
 
-      
+        // let userId = localStorage.getItem('userId');
+        // let id = this.props.value.id
+        // let checkBoxClick = this.state.checkBoxClick
+        // if(checkBoxClick === true){
+        //     noteService.addLabelToNote(id,userId)
+        //     .then(data => {
+        //         console.log(data)
+        //         this.setState({checkBoxClick:!this.state.checkBoxClick});
+        //         this.props.getNote()
+        //         })
+        //         .catch(error => {
+        //             console.log(error);
+        //         })
+        //     }
+        // else{
+        // noteService.removeLabelToNote(id,userId)
+        //   .then(data => {
+        //       console.log(data)
+        //       this.setState({checkBoxClick:!this.state.checkBoxClick});
+        //       this.props.getNote()
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     })
+
+        // }
     }
     handleChange=(event)=>{
         this.setState({[event.target.name]: event.target.value});

@@ -33,7 +33,7 @@ class Note extends Component{
             title:this.props.value.title,
             description:this.props.value.description,
             id:this.props.value.id,
-            collaborator:this.props.value.collaborator,
+            collaborators:this.props.value.collaborators,
             isPined:this.props.value.isPined,           
             color:this.props.value.color,
             label:this.props.value.label,
@@ -110,8 +110,7 @@ class Note extends Component{
                         {this.state.reminder && this.state.reminder.length > 0  ? 
                          <div>
                             <Chip
-                                size="small"
-                                noteIdList={this.props.value.id} 
+                                size="small" 
                                 handleClose={this.handleClose}
                                 getNote={this.props.getNote}
                                 avatar={<AccessTime alt="time"/>}
@@ -120,24 +119,21 @@ class Note extends Component{
                             />
                         </div>:""}
                         {this.state.noteLabels && this.state.noteLabels.length > 0?
-                        <div style={{display:"flex",justifyContent:"flex-start"}}>
+                        <div className="displaylabel">
                             {this.state.noteLabels.map((value,index)=>(
-                                <Chip key={value.id} variant="outlined" size="small" label={value.label} style={{margin:"5px"}}/>
+                                <Chip key={value.id} variant="outlined" size="small" label={value.label} className="display-chip-label"/>
                             ))}
                             
-                        </div>
-
+                        </div>:""}
                         
-                        :
-                        ""
-                        }
-                        
-                        {/* {this.state.collaborator.length > 0 ? "":
+                        {this.state.collaborators && this.state.collaborators.length > 0 ?
                         <div>
-                            <Avatar size="small" getNote={this.props.getNote}></Avatar>
-                        </div>} */}
+                            {this.state.collaborators.map((value,index)=>(
+                                <Avatar key={value.id} size="small" getNote={this.props.getNote}>{value.firstName}</Avatar>
+                            ))}
+                        </div>:""}
                         <div className="container">
-                            <div className="note-icon">
+                            <div className="note-icon" style={{marginRight:"-7px"}}>
                                 <Remind  noteIdList={this.props.value.id} handleClose={this.handleClose}  value={this.props.value} getNote={this.props.getNote} />
                             </div>
                             <div className="note-icon">
@@ -152,7 +148,7 @@ class Note extends Component{
                             <div className="note-icon">
                                 <Colornote  value={this.props.value} getNote={this.props.getNote}/>
                             </div>
-                            <div className="note-icon"  >
+                            <div className="note-icon" style={{marginLeft:"-10px"}} >
                                 <More value={this.props.value} getNoteLabel={this.props.getNoteLabel} getNote={this.props.getNote}/>
                             </div>
                         </div>

@@ -51,6 +51,7 @@ class UpdateNote extends Component{
         let token =localStorage.getItem('token');
         service.updateNote(token,data)
         .then(response => {
+            //check response by code
             console.log(response)
              this.props.handleClose()
             this.props.getNote();
