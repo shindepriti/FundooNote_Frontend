@@ -318,7 +318,7 @@ class Navbar extends React.Component{
       let lastName =localStorage.getItem('lastName');
       let email = localStorage.getItem('email');
       let image = localStorage.getItem('image');
-      const { classes, theme } = this.props;
+      const { classes} = this.props;
       const { anchorEl } = this.state;
       const isMenuOpen = Boolean(anchorEl);
 
